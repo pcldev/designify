@@ -16,11 +16,17 @@ export function Text() {
     const DEFAULT_CLASS = defaultClass();
 
     const position = { x: 200, y: 200 };
-    const html = `<span data-ds-id='${_id}' data-ds-type='${type}' class='${DEFAULT_CLASS} text ${rootSelector}' contenteditable="true" style="top: ${position.x}px; left: ${position.y}px">This your heading text</span>`;
+    const element = document.createElement("span");
+
+    element.dataset.dsId = _id;
+    element.dataset.dsType = type;
+    element.classList = `${DEFAULT_CLASS} text ${rootSelector}`;
+    element.contentEditable = true;
+    element.style = `top: ${position.x}px; left: ${position.y}px`;
 
     return {
       _id,
-      html,
+      element,
     };
   }
 

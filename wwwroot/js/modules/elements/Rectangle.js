@@ -4,6 +4,8 @@ import { uuid } from "../../utils/uuid.js";
 
 const type = "Rectangle";
 
+// #TODO: Each elements are duplicated initial config
+
 export function Rectangle() {
   function _create() {
     const _id = uuid();
@@ -16,11 +18,16 @@ export function Rectangle() {
     const DEFAULT_CLASS = defaultClass();
 
     const position = { x: 100, y: 100 };
-    const html = `<div data-ds-id='${_id}' data-ds-type='${type}' class='${DEFAULT_CLASS} rectangle ${rootSelector}' style="top: ${position.x}px; left: ${position.y}px"></div>`;
+    const element = document.createElement("div");
+
+    element.dataset.dsId = _id;
+    element.dataset.dsType = type;
+    element.classList = `${DEFAULT_CLASS} rectangle ${rootSelector}`;
+    element.style = `top: ${position.x}px; left: ${position.y}px`;
 
     return {
       _id,
-      html,
+      element,
     };
   }
 

@@ -4,10 +4,10 @@ let elements = [];
 export function Elements() {
   const dsEditor = document.getElementById("ds-editor");
 
-  function addElement(element) {
-    const { html } = element;
+  function addElement(ele) {
+    const { element } = ele;
     elements.push(element);
-    dsEditor.insertAdjacentHTML("beforeend", html);
+    dsEditor.appendChild(element);
   }
 
   function deleteElement(element) {

@@ -43,6 +43,7 @@ function srcDoc() {
       </head>
       <body>
         <div id="ds-editor"></div>
+        <div id="ds-selection" class="absolute"></div>
         <script type="module" src="../js/modules/editor.js"></script>
       </body>
     </html>

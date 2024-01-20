@@ -1,16 +1,23 @@
 import { Elements } from "./index.js";
 import { Inspector } from "./inspector/index.js";
+import { Selection } from "./selection/index.js";
 
 import "./controllers/index.js";
 
 let isDragging = false;
-
+const { _update: updateSelection } = Selection();
 window.addEventListener("mousedown", (e) => {
   const target = e.target;
 
   const { dsType, dsId } = target.dataset;
 
-  if (!dsType || !dsId) return;
+  if (!dsType || !dsId) {
+    window.elementSelected = null;
+
+    updateSelection();
+
+    return;
+  }
 
   window.elementSelected = target;
   isDragging = true;
@@ -18,6 +25,8 @@ window.addEventListener("mousedown", (e) => {
   const { _update } = Inspector();
 
   _update();
+
+  updateSelection();
 });
 
 window.addEventListener("mousemove", (e) => {
@@ -30,6 +39,8 @@ window.addEventListener("mousemove", (e) => {
 
   elementSelected.style.top = `${mouseY}px`;
   elementSelected.style.left = `${mouseX}px`;
+
+  updateSelection();
 });
 
 window.addEventListener("mouseup", () => {

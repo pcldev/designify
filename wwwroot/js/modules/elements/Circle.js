@@ -16,11 +16,15 @@ export function Circle() {
     const DEFAULT_CLASS = defaultClass();
 
     const position = { x: 250, y: 250 };
-    const html = `<div data-ds-id='${_id}' data-ds-type='${type}' class='${DEFAULT_CLASS} circle ${rootSelector}' style="top: ${position.x}px; left: ${position.y}px"></div>`;
+    const element = document.createElement("div");
+    element.dataset.dsId = _id;
+    element.dataset.dsType = type;
+    element.classList = `${DEFAULT_CLASS} circle ${rootSelector}`;
+    element.style = `top: ${position.x}px; left: ${position.y}px`;
 
     return {
       _id,
-      html,
+      element,
     };
   }
 

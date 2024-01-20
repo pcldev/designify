@@ -31,8 +31,6 @@ p {
 }
 
 .circle {
-  width: 100px;
-  height: 100px;
   border-radius: 50%;
 }
 
@@ -65,5 +63,9 @@ p {
 }
 
 .el-hover:hover {
-  border: 3px dashed rgb(229, 18, 187);
+  /* border: 3px dashed rgb(229, 18, 187); */
+}
+
+#ds-selection {
+  z-index: -1;
 }
