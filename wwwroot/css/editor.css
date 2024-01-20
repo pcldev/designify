@@ -63,3 +63,7 @@ p {
   top: 0;
   left: 50px;
 }
+
+.el-hover:hover {
+  border: 3px dashed rgb(229, 18, 187);
+}

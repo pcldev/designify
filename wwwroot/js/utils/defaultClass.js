@@ -1,3 +1,3 @@
 export function defaultClass() {
-  return "absolute";
+  return "absolute el-hover";
 }
