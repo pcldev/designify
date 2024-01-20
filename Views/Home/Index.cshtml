@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <div class="flex">
+        <div class="col-5 outline">
+            <div class="elements">
+                <button class="collapsible">Shape</button>
+                <div class="content">
+                    <button class="button" id="rectangle-btn">Rectangle</button>
+                    <button class="button" id="triangle-btn">Triangle</button>
+                    <button class="button" id="circle-btn">Circle</button>
+                    <button class="button" id="heart-btn">Heart</button>
+                </div>
+            </div>
+
+            <div class="elements">
+                <button class="collapsible">Context</button>
+                <div class="content">
+                    <button class="button" id="text-btn">Normal text</button>
+                </div>
+            </div>
+        </div>
+        <div class="col editor">
+            <iframe srcdoc="" frameborder="0"></iframe>
+        </div>
+        <div class="col-5 inspector">
+            <button class="collapsible active">Dimension</button>
+            <div class="content active">
+                <div class="flex flex-center g-4">
+                    <label for="width">Width</label>
+                    <input class="input-field" type="number" min="0" id="width-input" />
+                    &nbsp;px
+                </div>
+                <hr />
+                <div class="flex flex-center g-4">
+                    <label for="height">Height</label>
+                    <input class="input-field" type="number" min="0" id="height-input" />
+                    &nbsp;px
+                </div>
+            </div>
+
+            <div>
+                <button class="collapsible">Background</button>
+                <div class="content">
+                    <label for="background">Background color</label>
+                    <input type="color" id="bg-color-input" />
+                </div>
+            </div>
+
+            <div>
+                <button class="collapsible">Content</button>
+                <div class="content">
+                    <div>
+                        <label for="background">Color</label>
+                        <input type="color" id="color-input" />
+                    </div>
+                    <hr />
+                    <div class="flex flex-center">
+                        <label for="fontSize">Font size</label>
+                        <input class="input-field" type="number" id="fs-input" min="0" />
+                        &nbsp;px
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <script src="~/js/collapsible.js"></script>
+    <script type="module" src="~/js/site.js"></script>
+</div>

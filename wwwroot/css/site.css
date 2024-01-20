@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.g-4 {
+  gap: 4px;
+}
+
+.g-8 {
+  gap: 8px;
+}
+
+.col {
+  border: 1px solid #ccc;
+  height: 100vh;
+}
+
+.outline {
+  width: 150px;
+}
+
+.inspector {
+  width: 300px;
+}
+
+.editor {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+.elements button {
+  /* height: 10vh; */
+  width: 100%;
+}
+
+.absolute {
+  position: absolute;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
+/* Basic button styles */
+.button {
+  display: inline-block;
+  /* padding: 10px 20px; */
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #fff;
+  color: #fff;
+  background-color: #555;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+  font-family: "Montserrat", sans-serif; /* Add Montserrat font */
+}
+
+/* Hover effect */
+.button:hover {
+  background-color: #fff;
+  color: #555;
+  border-color: #555;
+}
+
+/* Active effect */
+.button:active {
+  transform: translateY(1px);
+}
+
+/* Disabled state */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Different button colors */
+.primary-button {
+  color: #ffffff;
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.danger-button {
+  color: #ffffff;
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* Basic input styles */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Focus state */
+.input-field:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Disabled state */
+.input-field:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: all 0.2s ease-out;
+}
+
+.active,
+.collapsible:hover {
+  background-color: #555;
+}
+
+.active {
+  max-height: fit-content !important;
+  padding: 10px 18px !important;
+}
+
+.collapsible:after {
+  content: "\002B";
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active-icon::after {
+  content: "\2212";
+}
+
+/* .active:after {
+  content: "\2212";
+} */
+
+.content {
+  padding: 0px 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
+  background-color: #f1f1f1;
+}

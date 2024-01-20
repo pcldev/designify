@@ -1,0 +1,349 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/phanconglong/Documents/designify/obj/Debug/net7.0/scopedcss/projectbundle/designify.bundle.scp.css",
+      "PackagePath": "staticwebassets/designify.bundle.scp.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/css/editor.css",
+      "PackagePath": "staticwebassets/css/editor.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/css/site.css",
+      "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/favicon.ico",
+      "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/collapsible.js",
+      "PackagePath": "staticwebassets/js/collapsible.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/controllers/circle.js",
+      "PackagePath": "staticwebassets/js/modules/controllers/circle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/controllers/heart.js",
+      "PackagePath": "staticwebassets/js/modules/controllers/heart.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/controllers/index.js",
+      "PackagePath": "staticwebassets/js/modules/controllers/index.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/controllers/retangle.js",
+      "PackagePath": "staticwebassets/js/modules/controllers/retangle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/controllers/text.js",
+      "PackagePath": "staticwebassets/js/modules/controllers/text.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/controllers/triangle.js",
+      "PackagePath": "staticwebassets/js/modules/controllers/triangle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/editor.js",
+      "PackagePath": "staticwebassets/js/modules/editor.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/elements/Circle.js",
+      "PackagePath": "staticwebassets/js/modules/elements/Circle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/elements/Heart.js",
+      "PackagePath": "staticwebassets/js/modules/elements/Heart.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/elements/Rectangle.js",
+      "PackagePath": "staticwebassets/js/modules/elements/Rectangle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/elements/Text.js",
+      "PackagePath": "staticwebassets/js/modules/elements/Text.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/elements/Triangle.js",
+      "PackagePath": "staticwebassets/js/modules/elements/Triangle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/index.js",
+      "PackagePath": "staticwebassets/js/modules/index.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/modules/inspector/index.js",
+      "PackagePath": "staticwebassets/js/modules/inspector/index.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/site.js",
+      "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/utils/defaultClass.js",
+      "PackagePath": "staticwebassets/js/utils/defaultClass.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/utils/getStyleByClassName.js",
+      "PackagePath": "staticwebassets/js/utils/getStyleByClassName.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/utils/hexToBase64.js",
+      "PackagePath": "staticwebassets/js/utils/hexToBase64.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/utils/rgbToHex.js",
+      "PackagePath": "staticwebassets/js/utils/rgbToHex.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/js/utils/uuid.js",
+      "PackagePath": "staticwebassets/js/utils/uuid.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/LICENSE",
+      "PackagePath": "staticwebassets/lib/bootstrap"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js.map"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation/LICENSE.md",
+      "PackagePath": "staticwebassets/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery/dist/jquery.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery/dist/jquery.min.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.js"
+    },
+    {
+      "Id": "/Users/phanconglong/Documents/designify/wwwroot/lib/jquery/dist/jquery.min.map",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.build.designify.props",
+      "PackagePath": "build\\designify.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.designify.props",
+      "PackagePath": "buildMultiTargeting\\designify.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.designify.props",
+      "PackagePath": "buildTransitive\\designify.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.designify.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
