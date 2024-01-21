@@ -14,6 +14,9 @@ const inputBackgroundColor = document.querySelector("#bg-color-input");
 const inputColor = document.querySelector("#color-input");
 const inputfsColor = document.querySelector("#fs-input");
 
+// OUTLINE
+const outline = document.querySelector("#outline");
+
 window.inspector = inspector;
 window.inputWidth = inputWidth;
 window.inputHeight = inputHeight;
@@ -27,6 +30,8 @@ window.triangleBtn = triangleBtn;
 window.circleBtn = circleBtn;
 window.textBtn = textBtn;
 window.heartBtn = heartBtn;
+
+window.outline = outline;
 
 function renderIframe() {
   iframe.srcdoc = srcDoc();

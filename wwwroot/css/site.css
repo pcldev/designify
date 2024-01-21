@@ -6,10 +6,17 @@ body {
   padding: 0;
   margin: 0;
 }
+.p-10 {
+  padding: 10px;
+}
 
 .flex {
   display: flex;
   flex-wrap: nowrap;
+}
+
+.flex-ai-center {
+  align-items: center;
 }
 
 .flex-center {
@@ -173,4 +180,21 @@ iframe {
   overflow: hidden;
   transition: all 0.2s ease-out;
   background-color: #f1f1f1;
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card:hover {
+  opacity: 0.7;
+}
+
+.b-dash {
+  border: 3px dashed #ccc;
+}
+
+#outline {
+  max-height: 65vh;
+  overflow: auto;
 }

@@ -8,9 +8,11 @@ import {
   getRootSelector,
   getStyleByClassName,
 } from "../utils/getStyleByClassName.js";
+import { Outline } from "./outline/index.js";
 
 let isDragging = false;
 const { _update: updateSelection } = Selection();
+const { _update: updateOutline } = Outline();
 window.addEventListener("mousedown", (e) => {
   const target = e.target;
 
@@ -20,6 +22,7 @@ window.addEventListener("mousedown", (e) => {
     window.elementSelected = null;
 
     updateSelection();
+    updateOutline();
 
     return;
   }
@@ -32,6 +35,7 @@ window.addEventListener("mousedown", (e) => {
   _update();
 
   updateSelection();
+  updateOutline();
 });
 
 window.addEventListener("mousemove", (e) => {
