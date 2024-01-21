@@ -21,11 +21,8 @@ p {
 }
 
 .triangle {
-  width: 0px;
-  height: 0px;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 87px solid red; /* Adjust the color and size as needed */
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background-color: blue; /* Adjust the color and size as needed */
 
   /* border: 1px solid black; */
 }

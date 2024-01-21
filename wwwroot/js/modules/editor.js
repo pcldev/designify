@@ -3,6 +3,11 @@ import { Inspector } from "./inspector/index.js";
 import { Selection } from "./selection/index.js";
 
 import "./controllers/index.js";
+import { getCoordinateSpacing } from "../utils/getCoordinateSpacing.js";
+import {
+  getRootSelector,
+  getStyleByClassName,
+} from "../utils/getStyleByClassName.js";
 
 let isDragging = false;
 const { _update: updateSelection } = Selection();
@@ -37,14 +42,28 @@ window.addEventListener("mousemove", (e) => {
 
   const elementSelected = window.elementSelected;
 
-  elementSelected.style.top = `${mouseY}px`;
-  elementSelected.style.left = `${mouseX}px`;
+  const rootSelector = getRootSelector(elementSelected);
+  const style = getStyleByClassName(rootSelector);
 
+  if (!elementSelected.spaceX || !elementSelected.spaceY) {
+    const { spaceX, spaceY } = getCoordinateSpacing(e, elementSelected);
+    elementSelected.spaceX = spaceX;
+    elementSelected.spaceY = spaceY;
+  }
+
+  style.top = `${mouseY - elementSelected.spaceY}px`;
+  style.left = `${mouseX - elementSelected.spaceX}px`;
   updateSelection();
 });
 
 window.addEventListener("mouseup", () => {
   isDragging = false;
+
+  const elementSelected = window.elementSelected;
+
+  if (!elementSelected) return;
+  elementSelected.spaceX = null;
+  elementSelected.spaceY = null;
 });
 
 window.addEventListener("keydown", (e) => {
