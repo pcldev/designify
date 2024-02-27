@@ -22,9 +22,6 @@ p {
 
 .triangle {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  background-color: blue; /* Adjust the color and size as needed */
-
-  /* border: 1px solid black; */
 }
 
 .circle {

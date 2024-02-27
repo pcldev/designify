@@ -13,7 +13,7 @@ export function Triangle() {
     const DEFAULT_CLASS = defaultClass();
 
     const styleSheet = document.styleSheets[0];
-    const cssRule = `.${rootSelector} { width: 300px; height: 200px; top: ${position.x}px; left: ${position.y}px }`;
+    const cssRule = `.${rootSelector} { width: 300px; height: 200px; top: ${position.x}px; left: ${position.y}px; background: rgb(255, 179, 252)}`;
 
     styleSheet.insertRule(cssRule, 0);
     const element = document.createElement("div");
