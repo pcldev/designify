@@ -13,9 +13,14 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Canva()
     {
-        return View();
+        return View("Views/Home/Canva.cshtml");
+    }
+
+    public IActionResult Canvas()
+    {
+        return View("Views/Home/Canvas.cshtml");
     }
 
     public IActionResult Privacy()

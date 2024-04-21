@@ -16,7 +16,7 @@ public class SignInController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        return View("Views/SignIn/Index.cshtml");
     }
 
     [HttpPost]
@@ -34,13 +34,12 @@ public class SignInController : Controller
             {
                 // Authentication successful, redirect to a secure area or dashboard
                 // For now, let's redirect to a simple success page
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Canvas", "Home");
             }
 
             // Authentication failed, add a model error
             // ModelState.AddModelError(string.Empty, "Invalid email or password.");
             ViewData["ErrorMessage"] = "Invalid email or password.";
-
         }
         else
         {

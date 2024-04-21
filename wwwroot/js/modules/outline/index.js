@@ -13,11 +13,11 @@ export function Outline() {
           ? "b-dash"
           : ""
       }">
-                            <div class="flex flex-ai-center p-10 g-4">
-                                <img src="/grip-vertical-solid.svg" alt="" width="8px">
-                                <span>${element.dataset.dsType}</span>
-                            </div>
-                        </div>`;
+          <div class="flex flex-ai-center p-10 g-4">
+              <img src="/grip-vertical-solid.svg" alt="" width="8px">
+              <span>${element.dataset.dsType}</span>
+          </div>
+      </div>`;
 
       html += htmlElement;
     });
