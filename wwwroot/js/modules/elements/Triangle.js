@@ -6,15 +6,16 @@ const type = "Triangle";
 const position = { x: 300, y: 300 };
 
 export function Triangle() {
-  function _create(_rootSelector = null) {
-    const _id = uuid();
-    const rootSelector =
-      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
+  function _create(id = null, _cssRule = null) {
+    const _id = id || uuid();
+    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
 
     const DEFAULT_CLASS = defaultClass();
 
     const styleSheet = document.styleSheets[0];
-    const cssRule = `.${rootSelector} { width: 300px; height: 200px; top: ${position.x}px; left: ${position.y}px; background: rgb(255, 179, 252)}`;
+    const cssRule =
+      _cssRule ||
+      `.${rootSelector} { width: 300px; height: 200px; top: ${position.x}px; left: ${position.y}px; background: rgb(255, 179, 252)}`;
 
     styleSheet.insertRule(cssRule, 0);
     const element = document.createElement("div");

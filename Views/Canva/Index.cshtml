@@ -89,23 +89,28 @@
     <script type="module" src="~/js/site.js"></script>
 
     <script>
+
+
         const buttonSave = document.getElementById('btn-save')
 
         buttonSave.addEventListener('click', async function () {
-            const canvaFrame = document.querySelector('iframe')
 
+            const DEFAULT_PATHNAME = "/canva/"
+
+            const idCanva = window.location.pathname.split(DEFAULT_PATHNAME)[1];
+
+            const canvaFrame = document.querySelector('iframe')
 
             // Access the window object of the child frame
             const childWindow = canvaFrame.contentWindow;
 
             // Access a variable in the child window
-            const { elements, getElements } = childWindow.Elements();
+            const { elements, getElements, addElement } = childWindow.Elements();
+
             const elementsSelector = getElements()
 
             const titleCanva = document.getElementById('canva_title-input').value
 
-            const DEFAULT_PATHNAME = "/canva/"
-            const idCanva = window.location.pathname.split(DEFAULT_PATHNAME)[1]
             const id_user = localStorage.getItem('id_user')
 
 
@@ -113,7 +118,7 @@
                 id_canvas: idCanva,
                 title: titleCanva,
                 id_user: id_user,
-                tblShapes: elementsSelector
+                elements: JSON.stringify(elementsSelector)
             }
 
             console.log("huuhuhuh")

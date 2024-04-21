@@ -17,6 +17,7 @@ CREATE TABLE tbl_Canvas
 	title nvarchar(50) not null, 
 	updated_at date, 
 	create_at date,
+	elements NVARCHAR(MAX),
 	id_user nvarchar(50) not null,
 	primary key (id_canvas),
 	foreign key (id_user) references tbl_User(id_user)

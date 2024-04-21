@@ -4,6 +4,7 @@ function componentToHex(c) {
 }
 
 export function rgbToHex(rgbColor) {
+  console.log("rgbColor: ", rgbColor);
   const [r, g, b] = rgbColor.replace("rgb(", "").replace(")", "").split(",");
   return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }

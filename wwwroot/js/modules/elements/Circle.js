@@ -6,13 +6,14 @@ const type = "Circle";
 const position = { x: 250, y: 250 };
 
 export function Circle() {
-  function _create(_rootSelector = null) {
-    const _id = uuid();
-    const rootSelector =
-      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
+  function _create(id = null, _cssRule = null) {
+    const _id = id || uuid();
+    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
 
     const styleSheet = document.styleSheets[0];
-    const cssRule = `.${rootSelector} { width: 100px; height: 100px; background-color: #ccc; top: ${position.x}px; left: ${position.y}px }`;
+    const cssRule =
+      _cssRule ||
+      `.${rootSelector} { width: 100px; height: 100px; background-color: #ccc; top: ${position.x}px; left: ${position.y}px }`;
 
     styleSheet.insertRule(cssRule, 0);
     const DEFAULT_CLASS = defaultClass();

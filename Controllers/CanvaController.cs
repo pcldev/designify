@@ -34,16 +34,33 @@ public class CanvaController : Controller
     // }
 
     [HttpPost]
+    public async Task<IActionResult> GetCanva([FromBody] JsonObject payload)
+    {
+        string _id = (string)payload["id"];
+
+        TblCanva existingCanva = await _context.TblCanvas.FindAsync(_id);
+
+        var JsonObject = Json(new { success = true, canva = existingCanva });
+
+        return JsonObject;
+    }
+
+    [HttpPost]
     public async Task<IActionResult> Save([FromBody] JsonObject canvaData)
     {
         string canvaId = (string)canvaData["id_canvas"];
         string title = (string)canvaData["title"];
+        string elements = (string)canvaData["elements"];
+        string id_user = (string)canvaData["id_user"];
+
         TblCanva existingCanva = await _context.TblCanvas.FindAsync(canvaId);
 
         if (existingCanva != null)
         {
             // Update the existing canva
             existingCanva.Title = title;
+            existingCanva.Elements = elements;
+
             // existingCanva.UpdatedAt = DateTime.UtcNow.Date; // Update the updated date
             // Update other properties as needed
 
@@ -58,8 +75,15 @@ public class CanvaController : Controller
             // Create a new canva
             // canvaData.CreateAt = DateTime.UtcNow; // Set the create date
             // Set other properties as needed
+            TblCanva canva = new TblCanva()
+            {
+                IdCanvas = canvaId,
+                Title = title,
+                Elements = elements,
+                IdUser = id_user
+            };
 
-            // _context.TblCanvas.Add(canvaData);
+            _context.TblCanvas.Add(canva);
         }
 
         await _context.SaveChangesAsync();

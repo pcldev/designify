@@ -6,13 +6,14 @@ const type = "Text";
 const position = { x: 200, y: 200 };
 
 export function Text() {
-  function _create(_rootSelector = null) {
-    const _id = uuid();
-    const rootSelector =
-      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
+  function _create(id = null, _cssRule = null) {
+    const _id = id || uuid();
+    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
 
     const styleSheet = document.styleSheets[0];
-    const cssRule = `.${rootSelector} { color: #000, background-color: transparent; font-size: 18px; top: ${position.x}px; left: ${position.y}px }`;
+    const cssRule =
+      _cssRule ||
+      `.${rootSelector} { color: #000, background-color: transparent; font-size: 18px; top: ${position.x}px; left: ${position.y}px }`;
 
     styleSheet.insertRule(cssRule, 0);
     const DEFAULT_CLASS = defaultClass();

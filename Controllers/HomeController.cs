@@ -8,6 +8,8 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
+    private readonly DesignifyContext _context = new DesignifyContext();
+
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
@@ -21,6 +23,16 @@ public class HomeController : Controller
     public IActionResult Canvas()
     {
         return View("Views/Home/Canvas.cshtml");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllCanvas()
+    {
+        // Query the database to retrieve all TblCanva entities
+        List<TblCanva> canvases = _context.TblCanvas.ToList();
+
+        // Return the retrieved entities as JSON data
+        return Json(canvases);
     }
 
     public IActionResult Privacy()

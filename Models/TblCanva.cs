@@ -9,6 +9,8 @@ public partial class TblCanva
 
     public string Title { get; set; } = null!;
 
+    public string Elements { get; set; } = "";
+
     public DateOnly? UpdatedAt { get; set; }
 
     public DateOnly? CreateAt { get; set; }

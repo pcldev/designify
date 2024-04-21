@@ -6,13 +6,14 @@ const type = "Heart";
 const position = { x: 400, y: 400 };
 
 export function Heart() {
-  function _create(_rootSelector = null) {
-    const _id = uuid();
-    const rootSelector =
-      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
+  function _create(id = null, _cssRule = null) {
+    const _id = id || uuid();
+    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
 
     const styleSheet = document.styleSheets[0];
-    const cssRule = `.${rootSelector} {  top: ${position.x}px; left: ${position.y}px }`;
+    const cssRule =
+      _cssRule ||
+      `.${rootSelector} {  top: ${position.x}px; left: ${position.y}px }`;
     styleSheet.insertRule(cssRule, 0);
 
     const DEFAULT_CLASS = defaultClass();

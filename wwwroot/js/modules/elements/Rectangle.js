@@ -9,13 +9,14 @@ const type = "Rectangle";
 const position = { x: 100, y: 100 };
 
 export function Rectangle() {
-  function _create(_rootSelector = null) {
-    const _id = uuid();
-    const rootSelector =
-      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
+  function _create(id = null, _cssRule = null) {
+    const _id = id || uuid();
+    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
 
     const styleSheet = document.styleSheets[0];
-    const cssRule = `.${rootSelector} { width: 300px; height: 100px; top: ${position.x}px; left: ${position.y}px; background-color: #ccc; }`;
+    const cssRule =
+      _cssRule ||
+      `.${rootSelector} { width: 300px; height: 100px; top: ${position.x}px; left: ${position.y}px; background-color: #ccc; }`;
 
     styleSheet.insertRule(cssRule, 0);
     const DEFAULT_CLASS = defaultClass();

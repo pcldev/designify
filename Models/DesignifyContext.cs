@@ -45,6 +45,8 @@ public partial class DesignifyContext : DbContext
             entity.Property(e => e.Title)
                 .HasMaxLength(50)
                 .HasColumnName("title");
+            entity.Property(e => e.Elements)
+                .HasColumnName("elements");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.TblCanvas)

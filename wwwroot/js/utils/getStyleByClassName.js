@@ -13,6 +13,7 @@ export function getStyleByClassName(className) {
 
 export function getRootSelector(element) {
   const _id = element.dataset.dsId;
+  console.log("_id: ", _id);
   const rootSelector = hexToBase64(_id.split("-")[0]);
 
   return `.ds_${rootSelector}`;

@@ -86,6 +86,7 @@ export function Inspector() {
     inputHeight.value = elementSelected.offsetHeight;
     const rootSelector = getRootSelector(elementSelected);
 
+    console.log("rootSelector: ", rootSelector);
     const style = getStyleByClassName(rootSelector);
     inputBackgroundColor.value = rgbToHex(style["background-color"]);
 
