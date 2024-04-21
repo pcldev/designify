@@ -6,10 +6,11 @@ const type = "Text";
 const position = { x: 200, y: 200 };
 
 export function Text() {
-  function _create() {
+  function _create(_rootSelector = null) {
     const _id = uuid();
+    const rootSelector =
+      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
 
-    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
     const styleSheet = document.styleSheets[0];
     const cssRule = `.${rootSelector} { color: #000, background-color: transparent; font-size: 18px; top: ${position.x}px; left: ${position.y}px }`;
 

@@ -1,6 +1,7 @@
 // elements: [{id:"abc-123", type: "rectangle", css}]
 
 import { Outline } from "./outline/index.js";
+import { hexToBase64 } from "../utils/hexToBase64.js";
 
 let elements = [];
 export function Elements() {
@@ -31,10 +32,36 @@ export function Elements() {
     updateOutline();
   }
 
+  function getElementStyleBySelector(selector) {
+    const cssText = Object.values(document.styleSheets[0].rules).find(
+      (rule) => rule.selectorText === `.${selector}`
+    ).cssText;
+
+    return cssText;
+  }
+
+  function getElements() {
+    return elements.map((element) => {
+      const _id = element.getAttribute("data-ds-id");
+      const type = element.getAttribute("data-ds-type");
+      const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
+
+      const stylesheet = document.styleSheets[0];
+      stylesheet.cssRules;
+
+      return {
+        id_shape: rootSelector,
+        type: type,
+        styles: getElementStyleBySelector(rootSelector),
+      };
+    });
+  }
+
   return {
     addElement,
     deleteElement,
     deleteElementById,
+    getElements,
     elements,
   };
 }

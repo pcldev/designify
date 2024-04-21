@@ -9,10 +9,12 @@ import {
   getStyleByClassName,
 } from "../utils/getStyleByClassName.js";
 import { Outline } from "./outline/index.js";
-
 let isDragging = false;
 const { _update: updateSelection } = Selection();
 const { _update: updateOutline } = Outline();
+
+window.Elements = Elements;
+
 window.addEventListener("mousedown", (e) => {
   const target = e.target;
 

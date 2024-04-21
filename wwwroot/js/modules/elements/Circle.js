@@ -6,10 +6,11 @@ const type = "Circle";
 const position = { x: 250, y: 250 };
 
 export function Circle() {
-  function _create() {
+  function _create(_rootSelector = null) {
     const _id = uuid();
+    const rootSelector =
+      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
 
-    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
     const styleSheet = document.styleSheets[0];
     const cssRule = `.${rootSelector} { width: 100px; height: 100px; background-color: #ccc; top: ${position.x}px; left: ${position.y}px }`;
 

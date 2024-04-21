@@ -17,7 +17,8 @@ public partial class TblCanva
 
     public virtual TblUser IdUserNavigation { get; set; } = null!;
 
-    public virtual ICollection<TblCanvasConfig> TblCanvasConfigs { get; set; } = new List<TblCanvasConfig>();
 
     public virtual ICollection<TblShape> TblShapes { get; set; } = new List<TblShape>();
 }
+
+// public virtual ICollection<TblCanvasConfig> TblCanvasConfigs { get; set; } = new List<TblCanvasConfig>();

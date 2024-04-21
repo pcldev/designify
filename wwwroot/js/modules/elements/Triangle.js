@@ -6,10 +6,11 @@ const type = "Triangle";
 const position = { x: 300, y: 300 };
 
 export function Triangle() {
-  function _create() {
+  function _create(_rootSelector = null) {
     const _id = uuid();
+    const rootSelector =
+      _rootSelector || `ds_${hexToBase64(_id.split("-")[0])}`;
 
-    const rootSelector = `ds_${hexToBase64(_id.split("-")[0])}`;
     const DEFAULT_CLASS = defaultClass();
 
     const styleSheet = document.styleSheets[0];

@@ -67,10 +67,10 @@ public partial class DesignifyContext : DbContext
                 .HasColumnName("id_canvas");
             entity.Property(e => e.IdPublic).HasColumnName("id_public");
 
-            entity.HasOne(d => d.IdCanvasNavigation).WithMany(p => p.TblCanvasConfigs)
-                .HasForeignKey(d => d.IdCanvas)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__tbl_Canva__id_ca__3F466844");
+            // entity.HasOne(d => d.IdCanvasNavigation).WithMany(p => p.TblCanvasConfigs)
+            // .HasForeignKey(d => d.IdCanvas)
+            // .OnDelete(DeleteBehavior.ClientSetNull)
+            // .HasConstraintName("FK__tbl_Canva__id_ca__3F466844");
         });
 
         modelBuilder.Entity<TblShape>(entity =>

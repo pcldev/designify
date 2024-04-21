@@ -75,6 +75,12 @@
                 </div>
             </div>
 
+            <br>
+            <div>
+                <label for="canva-title">Title</label>
+                <input type="text" id="canva_title-input" value="Untitled" />
+            </div>
+            <br>
             <button type="button" class="button" id="btn-save">Save</button>
 
         </div>
@@ -85,9 +91,43 @@
     <script>
         const buttonSave = document.getElementById('btn-save')
 
-        buttonSave.addEventListener('click', function () {
+        buttonSave.addEventListener('click', async function () {
+            const canvaFrame = document.querySelector('iframe')
 
-            alert("Lan Anh ngok nghech")
+
+            // Access the window object of the child frame
+            const childWindow = canvaFrame.contentWindow;
+
+            // Access a variable in the child window
+            const { elements, getElements } = childWindow.Elements();
+            const elementsSelector = getElements()
+
+            const titleCanva = document.getElementById('canva_title-input').value
+
+            const DEFAULT_PATHNAME = "/canva/"
+            const idCanva = window.location.pathname.split(DEFAULT_PATHNAME)[1]
+            const id_user = localStorage.getItem('id_user')
+
+
+            const body = {
+                id_canvas: idCanva,
+                title: titleCanva,
+                id_user: id_user,
+                tblShapes: elementsSelector
+            }
+
+            console.log("huuhuhuh")
+
+            const response = await fetch('/canva/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+
+            const result = await response.json()
+            console.log('result: ', result)
 
         })
     </script>

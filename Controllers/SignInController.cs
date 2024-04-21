@@ -34,7 +34,7 @@ public class SignInController : Controller
             {
                 // Authentication successful, redirect to a secure area or dashboard
                 // For now, let's redirect to a simple success page
-                return RedirectToAction("Canvas", "Home");
+                return RedirectToAction("Canvas", "Home", new { user = user.IdUser.ToString() });
             }
 
             // Authentication failed, add a model error

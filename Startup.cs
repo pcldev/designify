@@ -42,6 +42,12 @@ public class Startup
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=SignIn}/{action=Index}");
+            endpoints.MapControllerRoute(
+                name: "canva",
+                defaults: new { controller = "Canva", action = "Index" },
+                pattern: "Canva/{*id}");
+
+
         });
 
 
