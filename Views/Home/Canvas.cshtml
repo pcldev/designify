@@ -1,10 +1,107 @@
-@{
-    ViewData["Title"] = "Canvas";
-}
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewData["Title"]</title>
+    <style>
+        .canvas-item {
+            position: relative;
+            margin-bottom: 10px;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+            display: flex; /* Sử dụng flexbox */
+            flex-direction: column; /* Xếp các phần tử theo chiều dọc */
+            justify-content: center; /* Căn giữa theo chiều dọc */
+        }
 
-<div>
-    <h1>CANVAS</h1>
+        .canvas-item img {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Căn giữa theo chiều ngang */
+            margin-bottom: 5px;
+        }
 
+        .canvas-item span {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .canvas-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="container">
+        <button id="createcanvasbtn">Create new Canva</button>
+        <div id="canvasList" class="canvas-list"></div>
+    </div>
+
+    <script>
+        document.getElementById("createcanvasbtn").addEventListener("click", function () {
+            // Tạo một unique id
+            var uniqueId = Date.now().toString();
+
+            // Mở một tab mới với đường dẫn tương ứng
+            var url = "/canva/" + uniqueId;
+            window.open(url, "_blank");
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Load danh sách canvas khi trang được tải
+            loadCanvasList();
+        });
+
+        async function loadCanvasList() {
+            // Danh sách canvas đã được khai báo ở trên
+            const response = await fetch('/Home/GetAllCanvas')   
+            const data = await response.json()
+
+            console.log('data: ', data)
+            const canvasList = data.map(d => ({name: d.title, id: d.idCanvas}))
+            console.log('canvasList', canvasList)
+             displayCanvasList(canvasList);
+        }
+
+        function displayCanvasList(canvasList) {
+            var canvasListContainer = document.getElementById("canvasList");
+            canvasListContainer.innerHTML = ""; // Xóa nội dung cũ
+            canvasList.forEach(function (canvas) {
+                var canvasItem = document.createElement("div");
+                canvasItem.classList.add("canvas-item");
+
+                // Tạo ảnh xem trước
+                var canvasPreview = document.createElement("img");
+                canvasPreview.src = canvas.previewImageUrl;
+
+                // Tạo tên canvas
+                var canvasName = document.createElement("span");
+                canvasName.textContent = canvas.name;
+
+                // Đặt sự kiện click để chuyển hướng khi nhấp vào canvas
+                canvasItem.addEventListener("click", function () {
+                    var canvasName = canvas.name;
+                    window.location.href = "/canva/" + canvas.id;
+                });
+
+                // Thêm ảnh xem trước và tên canvas vào phần tử canvasItem
+                canvasItem.appendChild(canvasPreview);
+                canvasItem.appendChild(canvasName);
+
+                // Thêm phần tử canvasItem vào danh sách
+                canvasListContainer.appendChild(canvasItem);
+            });
+        }
+    </script>
     <script>
 
         const id_user = window.location.search.split("user=")[1]
@@ -12,4 +109,5 @@
         localStorage.setItem('id_user', id_user)
 
     </script>
-</div>
+</body>
+</html>

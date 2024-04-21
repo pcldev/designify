@@ -48,7 +48,7 @@ public class SignUpController : Controller
         _context.Add(user);
         _context.SaveChanges();
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Canvas", "Home", new { user = user.IdUser.ToString() });
 
     }
 
