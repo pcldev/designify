@@ -1,8 +1,53 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .menu {
+        margin-bottom: 10px;
+    }
 
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    .menu-item {
+        float: left;
+        border-right: 1px solid #bbb;
+    }
+
+        .menu-item:last-child {
+            border-right: none;
+        }
+
+        .menu-item a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            .menu-item a:hover:not(.active) {
+                background-color: #111;
+            }
+
+    .menu-active {
+        background-color: #fb99f4;
+    }
+</style>
 <div>
+    <div class="menu">
+        <ul>
+            <li class="menu-item"><a class="menu-active" href="/">LogIn</a></li>
+            <li class="menu-item"><a href="/Home/Canvas">New Page</a></li>
+        </ul>
+
+    </div>
+
     <div class="flex">
         <div class="col-5 outline">
             <div>
@@ -28,7 +73,6 @@
                 <code>&lt;Outline&gt;</code>
 
                 <div id="outline">
-
                 </div>
             </div>
         </div>
@@ -80,6 +124,10 @@
                 <label for="canva-title">Title</label>
                 <input type="text" id="canva_title-input" value="Untitled" />
             </div>
+            <div>
+                <label for="canva-verifykey">Verify Key</label>
+                <input type="text" id="canva_verifykey-input" value="default key" />
+            </div>
             <br>
             <button type="button" class="button" id="btn-save">Save</button>
 
@@ -110,12 +158,14 @@
             const elementsSelector = getElements()
 
             const titleCanva = document.getElementById('canva_title-input').value
+            const verifykey = document.getElementById('canva_verifykey-input').value
 
             const id_user = localStorage.getItem('id_user')
 
 
             const body = {
                 id_canvas: idCanva,
+                verify_key: verifykey,
                 title: titleCanva,
                 id_user: id_user,
                 elements: JSON.stringify(elementsSelector)

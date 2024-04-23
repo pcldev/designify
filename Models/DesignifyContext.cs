@@ -38,6 +38,9 @@ public partial class DesignifyContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("id_canvas");
             entity.Property(e => e.CreateAt).HasColumnName("create_at");
+            entity.Property(e => e.VerifyKey)
+                    .HasMaxLength(50)
+                    .HasColumnName("verify_key");
             entity.Property(e => e.IdUser)
                 .HasMaxLength(50)
                 .HasColumnName("id_user");

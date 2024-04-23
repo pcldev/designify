@@ -11,10 +11,11 @@ public partial class TblCanva
 
     public string Elements { get; set; } = "";
 
-    public DateOnly? UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
-    public DateOnly? CreateAt { get; set; }
+    public DateTime? CreateAt { get; set; }
 
+    public string? VerifyKey { get; set; } = "";
     public string IdUser { get; set; } = null!;
 
     public virtual TblUser IdUserNavigation { get; set; } = null!;

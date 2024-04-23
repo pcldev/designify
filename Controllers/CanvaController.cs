@@ -52,6 +52,8 @@ public class CanvaController : Controller
         string title = (string)canvaData["title"];
         string elements = (string)canvaData["elements"];
         string id_user = (string)canvaData["id_user"];
+        string verify_key = (string)canvaData["verify_key"];
+
 
         TblCanva existingCanva = await _context.TblCanvas.FindAsync(canvaId);
 
@@ -60,6 +62,7 @@ public class CanvaController : Controller
             // Update the existing canva
             existingCanva.Title = title;
             existingCanva.Elements = elements;
+            existingCanva.VerifyKey = verify_key;
 
             // existingCanva.UpdatedAt = DateTime.UtcNow.Date; // Update the updated date
             // Update other properties as needed
@@ -80,7 +83,8 @@ public class CanvaController : Controller
                 IdCanvas = canvaId,
                 Title = title,
                 Elements = elements,
-                IdUser = id_user
+                IdUser = id_user,
+                VerifyKey = verify_key
             };
 
             _context.TblCanvas.Add(canva);

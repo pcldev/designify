@@ -1,26 +1,37 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>@ViewData["Title"]</title>
     <style>
-        .canvas-item {
-            position: relative;
-            margin-bottom: 10px;
-            cursor: pointer;
-            width: 200px;
-            text-align: center;
-            display: flex; /* Sử dụng flexbox */
-            flex-direction: column; /* Xếp các phần tử theo chiều dọc */
-            justify-content: center; /* Căn giữa theo chiều dọc */
+        .wrapper {
+            padding: 10px;
         }
 
-        .canvas-item img {
-            width: 100px;
-            height: auto;
-            display: block;
-            margin: 0 auto; /* Căn giữa theo chiều ngang */
-            margin-bottom: 5px;
+        #canvasList {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding-left: 0;
+            gap: 10px;
         }
+
+        .canvas-item {
+            width: 30%;
+            margin: 0 auto;
+            outline: 1px solid;
+            overflow-x: scroll;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+        }
+
+        @@media only screen and (max-width: 600px) {
+            .canvas-item {
+                width: 100%;
+            }
+        }
+
 
         .canvas-item span {
             display: block;
@@ -40,8 +51,14 @@
 
 
 </head>
+
 <body>
-    <div class="container">
+    @* menu here *@
+@*     <div>
+        <label for="canva-timkiem">Tìm kiếm</label>
+        <input type="text" id="canva_timkiem-input" value="default key" />
+    </div> *@
+    <div class="wrapper">
         <button id="createcanvasbtn">Create new Canva</button>
         <div id="canvasList" class="canvas-list"></div>
     </div>
@@ -63,13 +80,10 @@
 
         async function loadCanvasList() {
             // Danh sách canvas đã được khai báo ở trên
-            const response = await fetch('/Home/GetAllCanvas')   
+            const response = await fetch('/Home/GetAllCanvas')
             const data = await response.json()
 
-            console.log('data: ', data)
-            const canvasList = data.map(d => ({name: d.title, id: d.idCanvas}))
-            console.log('canvasList', canvasList)
-             displayCanvasList(canvasList);
+            displayCanvasList(data);
         }
 
         function displayCanvasList(canvasList) {
@@ -79,26 +93,24 @@
                 var canvasItem = document.createElement("div");
                 canvasItem.classList.add("canvas-item");
 
-                // Tạo ảnh xem trước
-                var canvasPreview = document.createElement("img");
-                canvasPreview.src = canvas.previewImageUrl;
+                Object.keys(canvas).forEach(canvasKey => {
+                    const li = document.createElement('li')
+                    li.textContent = `${canvasKey}: ${canvas[canvasKey]}`
 
-                // Tạo tên canvas
-                var canvasName = document.createElement("span");
-                canvasName.textContent = canvas.name;
+                    canvasItem.appendChild(li)
+                })
 
                 // Đặt sự kiện click để chuyển hướng khi nhấp vào canvas
                 canvasItem.addEventListener("click", function () {
-                    var canvasName = canvas.name;
-                    window.location.href = "/canva/" + canvas.id;
+                    window.location.href = "/canva/" + canvas.idCanvas;
                 });
 
                 // Thêm ảnh xem trước và tên canvas vào phần tử canvasItem
-                canvasItem.appendChild(canvasPreview);
-                canvasItem.appendChild(canvasName);
+        @* canvasItem.appendChild(canvasName); *@
+        @* canvasItem.appendChild(canvasUpdated); *@
 
-                // Thêm phần tử canvasItem vào danh sách
-                canvasListContainer.appendChild(canvasItem);
+                    // Thêm phần tử canvasItem vào danh sách
+                    canvasListContainer.appendChild(canvasItem);
             });
         }
     </script>
@@ -106,8 +118,9 @@
 
         const id_user = window.location.search.split("user=")[1]
 
-        localStorage.setItem('id_user', id_user)
+        id_user && localStorage.setItem('id_user', id_user)
 
     </script>
 </body>
+
 </html>
