@@ -59,6 +59,8 @@
                 <button class="button" id="triangle-btn">Triangle</button>
                 <button class="button" id="circle-btn">Circle</button>
                 <button class="button" id="heart-btn">Heart</button>
+                <button class="button" id="heart-btn">Heart</button>
+
             </div>
         </div>
 
@@ -66,6 +68,16 @@
             <button class="collapsible">Context</button>
             <div class="content">
                 <button class="button" id="text-btn">Normal text</button>
+            </div>
+        </div>
+
+        <div>
+            <button class="collapsible">CRUD</button>
+            <div class="content">
+                <button class="button" id="save-canvas_btn">Save canvas</button>
+                <button class="button" id="read-canvas_btn" >Read (Get elements from db and fill into canvas)</button>
+                <button class="button" id="update-canvas_btn" >Update canvas</button>
+                <button class="button" id="delete-canvas_btn" >Delete all elements on canvas</button>
             </div>
         </div>
 
@@ -131,7 +143,7 @@
             <input type="text" id="canva_verifykey-input" value="default key" />
         </div>
         <br>
-        <button type="button" class="button" id="btn-save">Save</button>
+        @* <button type="button" class="button" id="btn-save">Save</button> *@
 
     </div>
 </div>
@@ -151,11 +163,12 @@
 <script>
 
 
-    const buttonSave = document.getElementById('btn-save')
+    @* const buttonSave = document.getElementById('btn-save'); *@
+    const saveCanvasBtn = document.getElementById('save-canvas_btn');
 
-    buttonSave.addEventListener('click', async function () {
+    saveCanvasBtn.addEventListener('click', async function () {
 
-        const DEFAULT_PATHNAME = "/canva/"
+        const DEFAULT_PATHNAME = "/layout/"
 
         const idCanva = window.location.pathname.split(DEFAULT_PATHNAME)[1];
 
@@ -183,9 +196,7 @@
             elements: JSON.stringify(elementsSelector)
         }
 
-        console.log("huuhuhuh")
-
-        const response = await fetch('/canva/save', {
+        const response = await fetch('/layout/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -196,6 +207,11 @@
         const result = await response.json()
         console.log('result: ', result)
 
+        if(result.success) {
+            alert(result.message)
+        }
+
     })
+    
 </script>
 </div>

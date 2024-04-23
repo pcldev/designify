@@ -17,6 +17,11 @@ const inputfsColor = document.querySelector("#fs-input");
 // OUTLINE
 const outline = document.querySelector("#outline");
 
+// CRUD
+const readCanvasBtn = document.getElementById("read-canvas_btn");
+const updateCanvasBtn = document.getElementById("update-canvas_btn");
+const deleteCanvasBtn = document.getElementById("delete-canvas_btn");
+
 window.inspector = inspector;
 window.inputWidth = inputWidth;
 window.inputHeight = inputHeight;
@@ -32,6 +37,12 @@ window.textBtn = textBtn;
 window.heartBtn = heartBtn;
 
 window.outline = outline;
+
+// CRUD
+
+window.readCanvasBtn = readCanvasBtn;
+window.updateCanvasBtn = updateCanvasBtn;
+window.deleteCanvasBtn = deleteCanvasBtn;
 
 function renderIframe() {
   iframe.srcdoc = srcDoc();

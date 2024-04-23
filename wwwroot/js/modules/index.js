@@ -21,6 +21,11 @@ export function Elements() {
     updateOutline();
   }
 
+  function removeAllElements() {
+    document.getElementById("ds-editor").innerHTML = "";
+    elements = [];
+  }
+
   function deleteElement(element) {
     const id = element.dataset.dsId;
     elements = elements.filter((element) => element._id !== id);
@@ -64,6 +69,7 @@ export function Elements() {
 
   return {
     addElement,
+    removeAllElements,
     deleteElement,
     deleteElementById,
     getElements,
@@ -71,8 +77,8 @@ export function Elements() {
   };
 }
 
-async function getCanvaData() {
-  const DEFAULT_PATHNAME = "/canva/";
+export async function getCanvaData() {
+  const DEFAULT_PATHNAME = "/layout/";
 
   const idCanva = window.parent.location.pathname.split(DEFAULT_PATHNAME)[1];
 
@@ -96,7 +102,11 @@ async function getCanvaData() {
 
   const _elements = JSON.parse(elements);
 
-  const { addElement } = Elements();
+  const { addElement, removeAllElements } = Elements();
+
+  // Clean up elements
+
+  removeAllElements();
 
   _elements.forEach((element) => {
     const type = element.type;

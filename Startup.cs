@@ -46,7 +46,10 @@ public class Startup
                 name: "canva",
                 defaults: new { controller = "Canva", action = "Index" },
                 pattern: "Canva/{*id}");
-
+            endpoints.MapControllerRoute(
+                name: "layout",
+                defaults: new { controller = "Layout", action = "Index" },
+                pattern: "layout/{*id}");
 
         });
 
