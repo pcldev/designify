@@ -1,0 +1,29 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "9f9edba36734fe63f60d4b3f3eb5e826"
+name = "Designify Page Builder"
+handle = "designify-page-builder"
+application_url = "https://describe-chips-oil-net.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "longpc-designify.myshopify.com"
+include_config_on_deploy = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_content,read_files,read_orders,read_products,read_themes,write_content,write_files,write_products,write_themes"
+
+[auth]
+redirect_urls = [
+  "https://describe-chips-oil-net.trycloudflare.com/auth/callback",
+  "https://describe-chips-oil-net.trycloudflare.com/auth/shopify/callback",
+  "https://describe-chips-oil-net.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-10"
+
+[pos]
+embedded = false
