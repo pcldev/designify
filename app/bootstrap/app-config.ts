@@ -5,7 +5,7 @@ export const publicPages = ["/", "/auth/login"];
 export const enabledNavMenuItems: string[] = [
   "/dashboard",
   "/pages",
-  "/preferences",
+  "/settings",
 ];
 export const disabledNavMenuItems: string[] = [""];
 export const rootPage = enabledNavMenuItems[0];
