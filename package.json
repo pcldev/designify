@@ -7,6 +7,7 @@
     "config:link": "shopify app config link",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",
+    "deploy-main": "shopify app deploy -f -c shopify.app.main.toml",
     "config:use": "shopify app config use",
     "env": "shopify app env",
     "start": "remix-serve ./build/server/index.js",

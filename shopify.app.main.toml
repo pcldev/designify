@@ -1,9 +1,9 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "9f9edba36734fe63f60d4b3f3eb5e826"
-name = "Designify Page Builder Local"
-handle = "designify-page-builder-local"
-application_url = "https://describe-chips-oil-net.trycloudflare.com"
+client_id = "229c75a02f30fd7e95e8768f3db73e87"
+name = "Designify Page Builder"
+handle = "designify-page-builder"
+application_url = "https://designify-page-builder.fly.dev"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_content,read_files,read_orders,read_products,read_themes,write_co
 
 [auth]
 redirect_urls = [
-  "https://describe-chips-oil-net.trycloudflare.com/auth/callback",
-  "https://describe-chips-oil-net.trycloudflare.com/auth/shopify/callback",
-  "https://describe-chips-oil-net.trycloudflare.com/api/auth/callback"
+  "https://designify-page-builder.fly.dev/auth/callback",
+  "https://designify-page-builder.fly.dev/auth/shopify/callback",
+  "https://designify-page-builder.fly.dev/api/auth/callback"
 ]
 
 [webhooks]
