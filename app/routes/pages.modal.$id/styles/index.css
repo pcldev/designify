@@ -1,0 +1,53 @@
+:root {
+  --left-sidebar-width: 59px;
+  --right-sidebar-width: 300px;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.page-editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.page-editor {
+  position: relative;
+  flex: 1 1 0%;
+}
+
+.page-editor-layout {
+  height: 100%;
+  display: grid;
+  grid-template-columns: var(--left-sidebar-width) auto var(
+      --right-sidebar-width
+    );
+}
+
+.page-outline-drawer {
+  position: relative;
+  width: 300px;
+}
+
+.editor {
+  flex: 1 1 0%;
+  width: 0px;
+  background: var(--p-color-bg);
+}
+
+.inspector {
+  flex: 1 1 0%;
+  width: 0px;
+  background: var(--p-color-bg);
+}

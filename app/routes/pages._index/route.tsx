@@ -1,5 +1,6 @@
 import { BlockStack, Page, Text } from "@shopify/polaris";
 import withNavMenu from "~/bootstrap/hoc/withNavMenu";
+import EmptyPage from "./components/EmptyPage";
 
 export default withNavMenu(function Index(props: any) {
   return (
@@ -8,7 +9,7 @@ export default withNavMenu(function Index(props: any) {
 
       <BlockStack gap={"400"}>
         <Text as="p" variant="bodyMd">
-          Content will be filled soon...
+          <EmptyPage />
         </Text>
       </BlockStack>
     </Page>

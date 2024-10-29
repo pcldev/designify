@@ -33,6 +33,7 @@
     "@shopify/polaris-icons": "^9.3.0",
     "@shopify/shopify-app-remix": "^3.3.2",
     "@shopify/shopify-app-session-storage-mongodb": "^4.0.3",
+    "cors": "^2.8.5",
     "date-fns": "^3.1.0",
     "dotenv": "^16.3.1",
     "isbot": "^5.1.0",
