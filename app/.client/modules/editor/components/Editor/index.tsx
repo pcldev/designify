@@ -1,4 +1,4 @@
-import EmptyElements from "./EmptyElements";
+import EditorSandbox from "../../";
 
 function Editor() {
   return (
@@ -19,7 +19,7 @@ function Editor() {
           }}
         >
           <div className="center-div">
-            <EmptyElements />
+            <EditorSandbox />
           </div>
         </div>
       </div>
