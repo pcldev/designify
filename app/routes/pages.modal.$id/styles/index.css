@@ -51,3 +51,11 @@
   width: 0px;
   background: var(--p-color-bg);
 }
+
+.element-catalog {
+  cursor: pointer;
+}
+
+.element-catalog:hover {
+  background-color: var(--p-color-bg);
+}
