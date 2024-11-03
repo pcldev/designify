@@ -19,3 +19,18 @@ body {
 [data-ds-type="Column"] {
   padding: 15px;
 }
+
+.ds-editor-body {
+  position: relative;
+}
+
+.ds-high_light-box {
+  visibility: visible;
+  position: absolute;
+  pointer-events: none;
+
+  border: 2px dashed black;
+
+  width: 0px;
+  height: 0px;
+}

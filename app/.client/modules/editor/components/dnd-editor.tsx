@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 const globalDragData = {};
 
-function useDragDrop() {
+function useDragDrop(editorDndRef, highlightBoxRef) {
   const [draggedElement, setDraggedElement] = useState(null);
 
   const handleDragStart = useCallback((event) => {
@@ -44,10 +44,23 @@ function useDragDrop() {
     console.log("Drag entered");
   }, []);
 
-  const handleDragOver = useCallback((event) => {
+  const handleDragOver = useCallback((event: DragEvent) => {
     event.preventDefault();
 
-    globalDragData.dropTarget = event.target;
+    const target = event.target as HTMLElement;
+
+    console.log("target: --------", target);
+
+    globalDragData.dropTarget = target;
+
+    const box = target.getBoundingClientRect();
+
+    const highLightBox = highlightBoxRef.current;
+
+    highLightBox.style.width = box.width;
+    highLightBox.style.height = box.height;
+    highLightBox.style.top = box.top;
+    highLightBox.style.left = box.left;
     // console.log("Drag over");
 
     // console.log("event: ", event.target);

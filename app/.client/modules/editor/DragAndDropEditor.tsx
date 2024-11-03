@@ -4,6 +4,7 @@ import useDragDrop from "./components/dnd-editor";
 function DragAndDropEditor(props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const editorDndRef = useRef<HTMLDivElement>(null);
+  const highlightBoxRef = useRef<HTMLDivElement>(null);
 
   const {
     handleDragStart,
@@ -15,10 +16,10 @@ function DragAndDropEditor(props) {
     handleMouseUp,
     handleDragLeave,
     handleDragOverCapture,
-  } = useDragDrop(editorDndRef);
+  } = useDragDrop(editorDndRef, highlightBoxRef);
 
   return (
-    <div className={"pf-editor-body"}>
+    <div className={"ds-editor-body"}>
       <div
         onDragStartCapture={handleDragStart}
         onDragEnterCapture={handleDragEnter}
@@ -34,8 +35,15 @@ function DragAndDropEditor(props) {
       >
         {props.children}
       </div>
+      <HighLightBox highlightBoxRef={highlightBoxRef} />
     </div>
   );
 }
 
 export default DragAndDropEditor;
+
+function HighLightBox(props: {
+  highlightBoxRef: React.RefObject<HTMLDivElement>;
+}) {
+  return <div className="ds-high_light-box" ref={props.highlightBoxRef}></div>;
+}
