@@ -1,6 +1,6 @@
 import { useNavigate } from "@remix-run/react";
 import { Card, EmptyState } from "@shopify/polaris";
-import { uuid } from "~/utils/uuid";
+import { uuid } from "~/.client/utils/uuid";
 
 function EmptyPage() {
   const navigate = useNavigate();

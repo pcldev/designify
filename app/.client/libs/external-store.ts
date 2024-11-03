@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
-import { cleanStackTrace } from "~/utils/cleanStackTrace";
-import { differencesObject } from "~/utils/differencesObject";
+import { cleanStackTrace } from "../utils/cleanStackTrace";
+import { differencesObject } from "../utils/differencesObject";
 
 type State = {};
 

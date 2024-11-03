@@ -11,3 +11,11 @@ body {
   overflow-y: auto;
   position: relative;
 }
+
+[data-ds-type="Row"] {
+  display: flex;
+}
+
+[data-ds-type="Column"] {
+  padding: 15px;
+}
