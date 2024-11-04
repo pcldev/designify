@@ -15,6 +15,7 @@ import { getElementStoreById } from "../../stores/element-store";
 import { useStore } from "~/.client/libs/external-store";
 import { IDSElementProps } from "~/.client/types";
 import { ROOT_TYPE } from "~/.client/constants/element-configs";
+import { pageStore } from "~/.client/stores/page-store";
 
 function NullElement({ store }: IDSElementProps) {
   return <div>{store?.state.type || null}</div>;

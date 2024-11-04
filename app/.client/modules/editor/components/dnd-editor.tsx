@@ -1,11 +1,45 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { CONTAINER_ELEMENTS } from "~/.client/constants/element-configs";
+import { getElementStoreById } from "~/.client/stores/element-store";
+import { pageStore } from "~/.client/stores/page-store";
+import { IElement } from "~/.client/types";
 
-const globalDragData = {};
+const globalDragData: { [key: string]: any } = {};
 
-function useDragDrop(editorDndRef, highlightBoxRef) {
+function useDragDrop(containerRef, highlightBoxRef) {
   const [draggedElement, setDraggedElement] = useState(null);
+  const [droppedElementId, setDroppedElementId] = useState<string>("");
 
-  const handleDragStart = useCallback((event) => {
+  const updateHighLightBox = useCallback((droppedElement: HTMLElement) => {
+    const box = droppedElement.getBoundingClientRect();
+
+    const highLightBox = highlightBoxRef.current;
+
+    highLightBox.style.width = box.width;
+    highLightBox.style.height = box.height;
+    highLightBox.style.top = box.top;
+    highLightBox.style.left = box.left;
+  }, []);
+
+  useEffect(() => {
+    if (!droppedElementId) return;
+
+    setTimeout(() => {
+      if (!containerRef.current) return;
+
+      const droppedElement = containerRef.current.querySelector(
+        `[data-ds-id="${droppedElementId}"]`,
+      );
+
+      if (!droppedElement) return;
+
+      updateHighLightBox(droppedElement);
+
+      setDroppedElementId("");
+    }, 200);
+  }, [droppedElementId, updateHighLightBox]);
+
+  const handleDragStart = useCallback((event: any) => {
     const target = event.target;
 
     const elementId = target.getAttribute("data-ds-id");
@@ -39,52 +73,122 @@ function useDragDrop(editorDndRef, highlightBoxRef) {
     return "inside"; // Default to dropping inside the target
   };
 
-  const handleDragEnter = useCallback((event) => {
+  const handleDragEnter = useCallback((event: any) => {
     event.preventDefault();
     console.log("Drag entered");
   }, []);
 
-  const handleDragOver = useCallback((event: DragEvent) => {
-    event.preventDefault();
+  const handleDragOver = useCallback(
+    (event: DragEvent) => {
+      event.preventDefault();
 
-    const target = event.target as HTMLElement;
+      const target = event.target as HTMLElement;
 
-    console.log("target: --------", target);
+      globalDragData.dropTarget = target;
 
-    globalDragData.dropTarget = target;
-
-    const box = target.getBoundingClientRect();
-
-    const highLightBox = highlightBoxRef.current;
-
-    highLightBox.style.width = box.width;
-    highLightBox.style.height = box.height;
-    highLightBox.style.top = box.top;
-    highLightBox.style.left = box.left;
-    // console.log("Drag over");
-
-    // console.log("event: ", event.target);
-  }, []);
+      updateHighLightBox(target);
+    },
+    [handleDragStart],
+  );
 
   const handleDrop = useCallback(
-    (event) => {
+    (event: any) => {
       event.preventDefault();
-      const dropTargetId = event.target.getAttribute("data-ds-id");
 
-      console.log("globalDragData: ", globalDragData);
-      console.log('dropTargetId": ', dropTargetId);
+      const dropTarget = event.target;
+      const dropTargetId = dropTarget.getAttribute("data-ds-id");
+      const dropTargetType = dropTarget.getAttribute("data-ds-type");
+
+      // Prevent drop element inside element
+      if (dropTarget === draggedElement) {
+        return;
+      }
+
       if (draggedElement && dropTargetId) {
-        const dropPosition = getDropPosition(event, event.target);
-        console.log(
-          "Dropped:",
-          draggedElement,
-          "on:",
-          dropTargetId,
-          "at position:",
-          dropPosition,
-        );
+        const dropPosition = getDropPosition(event, dropTarget);
 
-        // Implement logic to rearrange the element structure based on dropPosition
+        const currentItems = pageStore.getState().items || [];
+
+        // Delete item at current position
+        let _items = currentItems.map((item) => {
+          if (!CONTAINER_ELEMENTS.includes(dropTargetType)) return item;
+
+          if (item.children.includes(draggedElement)) {
+            const elementStore = getElementStoreById(item._id);
+
+            const _children = item.children.filter(
+              (child) => child !== draggedElement,
+            );
+
+            // Update element store
+            elementStore.dispatch({
+              type: "SET_STATE",
+              payload: {
+                state: {
+                  children: _children,
+                },
+              },
+            });
+
+            return {
+              ...item,
+              // Delete item
+              children: item.children.filter(
+                (child) => child !== draggedElement,
+              ),
+            };
+          }
+
+          return item;
+        });
+
+        // Insert item into new place
+        _items = _items.map((item) => {
+          if (item._id === dropTargetId) {
+            if (CONTAINER_ELEMENTS.includes(dropTargetType)) {
+              const elementStore = getElementStoreById(item._id);
+
+              const _children = [...item.children, draggedElement];
+
+              // Update element store
+              elementStore.dispatch({
+                type: "SET_STATE",
+                payload: {
+                  state: {
+                    children: _children,
+                  },
+                },
+              });
+
+              return {
+                ...item,
+                children: _children,
+              };
+            }
+
+            return item;
+          }
+
+          return item;
+        });
+
+        pageStore.dispatch({
+          type: "SET_STATE",
+          payload: {
+            state: { items: _items },
+          },
+        });
+
+        setDroppedElementId(dropTargetId);
+
+        // console.log(
+        //   "Dropped:",
+        //   draggedElement,
+        //   "on:",
+        //   dropTargetId,
+        //   "at position:",
+        //   dropPosition,
+        // );
       }
       setDraggedElement(null);
     },
@@ -127,3 +231,7 @@ function useDragDrop(editorDndRef, highlightBoxRef) {
 }
 
 export default useDragDrop;
+
+function findParentElementIdById(_id: string, items: IElement[]) {
+  return items.find((item) => item.children.includes(_id));
+}

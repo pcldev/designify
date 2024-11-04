@@ -1,4 +1,5 @@
 import { createStore, Store } from "../libs/external-store";
+import { IElement } from "../types";
 
 export type PageStoreAction = {
   [key: string]: any;
@@ -8,21 +9,26 @@ type Action =
   | { type: "SET_STATE"; payload: { state: any } }
   | { type: "RESET_STATE" };
 
-export type PageDocument = any;
+export type PageDocument = { items: IElement[] };
 
-export const DEFAULT_PAGE_STATE: any = {};
+export const DEFAULT_PAGE_STATE: PageDocument = {
+  items: [],
+};
 
 export type TPageStore = Store<PageDocument, Action>;
 
 export const pageStore = createStore(pageReducer, DEFAULT_PAGE_STATE);
 
-function pageReducer(state: any, action: Action) {
+function pageReducer(state: PageDocument, action: Action) {
   switch (action.type) {
     case "SET_STATE": {
-      return {
+      const updatedState = {
         ...state,
         ...action.payload.state,
       };
+
+      console.log("updatedState: ", updatedState);
+      return updatedState;
     }
 
     case "RESET_STATE":

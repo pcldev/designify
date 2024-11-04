@@ -13,8 +13,9 @@ export const findRootTypeFromItems = (items: any[]) => {
 const DUMMY_PAGE: any = [
   { _id: "1", type: "Body", children: ["2"] },
   { _id: "2", type: "Layout", children: ["3"] },
-  { _id: "3", type: "Section", children: ["4"] },
+  { _id: "3", type: "Section", children: ["4", "9"] },
   { _id: "4", type: "Row", children: ["5", "7"] },
+  { _id: "9", type: "Row", children: ["10"] },
   { _id: "5", type: "Column", children: ["6"] },
   {
     _id: "6",
@@ -29,6 +30,7 @@ const DUMMY_PAGE: any = [
     children: [],
     data: { content: "Button" },
   },
+  { _id: "10", type: "Image", children: [] },
 ];
 
 export function initPageStore() {

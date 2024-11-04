@@ -16,10 +16,10 @@ function DragAndDropEditor(props) {
     handleMouseUp,
     handleDragLeave,
     handleDragOverCapture,
-  } = useDragDrop(editorDndRef, highlightBoxRef);
+  } = useDragDrop(containerRef, highlightBoxRef);
 
   return (
-    <div className={"ds-editor-body"}>
+    <div className={"ds-editor-body"} ref={containerRef}>
       <div
         onDragStartCapture={handleDragStart}
         onDragEnterCapture={handleDragEnter}

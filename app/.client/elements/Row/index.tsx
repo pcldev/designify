@@ -5,7 +5,9 @@ import { useStore } from "~/.client/libs/external-store";
 
 function renderPlaceholder(store) {
   const { type } = store;
-  return <div>Layout placeholder</div>;
+  return (
+    <div style={{ minHeight: "50px", minWidth: "50px" }}>Row placeholder</div>
+  );
 }
 
 function Row(props: any) {

@@ -6,3 +6,10 @@ export interface IDSElementProps {
 
   [key: string]: any;
 }
+
+export interface IElement {
+  _id: string;
+  type: string;
+  children: string[];
+  data: any;
+}

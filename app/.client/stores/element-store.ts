@@ -1,6 +1,7 @@
 import { createRef } from "react";
 import { createStore, Store } from "../libs/external-store";
 import { ROOT_TYPE } from "../constants/element-configs";
+import { IElement } from "../types";
 
 export type ElementStoreAction = {
   [key: string]: any;
@@ -10,7 +11,7 @@ type Action =
   | { type: "SET_STATE"; payload: { state: any } }
   | { type: "RESET_STATE" };
 
-export type ElementDocument = any;
+export type ElementDocument = IElement;
 
 export const DEFAULT_ELEMENT_STATE: any = {};
 
@@ -37,7 +38,7 @@ function elementReducer(state: any, action: Action) {
   }
 }
 
-export function getElementStoreById(_id: string) {
+export function getElementStoreById(_id: string): TElementStore {
   return ElementStores.get(_id);
 }
 
