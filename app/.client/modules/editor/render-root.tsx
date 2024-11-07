@@ -32,7 +32,7 @@ export function enhanceComponent(c: FunctionComponent<any> = NullElement) {
 
     const elementState = store.getState();
 
-    const { type, _id, ref, className } = elementState;
+    const { type, _id, id, ref, className } = elementState;
 
     const style = {
       color: "red",
@@ -43,7 +43,7 @@ export function enhanceComponent(c: FunctionComponent<any> = NullElement) {
       // store,
       ref: ref,
       "data-ds-type": type,
-      "data-ds-id": _id,
+      "data-ds-id": _id || id,
       draggable: type !== ROOT_TYPE,
       className,
       // ...restProps,

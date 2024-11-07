@@ -8,7 +8,7 @@ export const Layout = {
       items: [
         {
           type: "Row",
-          id: 0,
+          _id: 0,
           children: [1],
           data: {
             gutter: {
@@ -21,7 +21,8 @@ export const Layout = {
         },
         {
           type: "Column",
-          id: 1,
+          _id: 1,
+          children: [],
           data: {
             size: 12,
             laptop: 12,
@@ -38,7 +39,7 @@ export const Layout = {
       items: [
         {
           type: "Row",
-          id: 0,
+          _id: 0,
           children: [1, 2],
           data: {
             equals: false,
@@ -54,7 +55,8 @@ export const Layout = {
         },
         {
           type: "Column",
-          id: 1,
+          _id: 1,
+          children: [],
           data: {
             size: 6,
             laptop: 6,
@@ -64,7 +66,8 @@ export const Layout = {
         },
         {
           type: "Column",
-          id: 2,
+          _id: 2,
+          children: [],
           data: {
             size: 6,
             laptop: 6,

@@ -8,13 +8,13 @@ export const Heading = {
       items: [
         {
           type: "Heading",
-          children: [1],
-          id: 0,
+          children: [],
+          _id: 0,
           data: {
             showIcon: false,
             editable: true,
             placeholder: "Enter text...",
-            value: "This is your heading text.",
+            content: "This is your heading text.",
           },
           styleData: {
             all: {

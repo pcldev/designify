@@ -43,7 +43,7 @@ export function getElementStoreById(_id: string): TElementStore {
 }
 
 export function createElementStore(element: any): TElementStore {
-  const elementId = element._id;
+  const elementId = element._id || element.id;
 
   const _elementStore = getElementStoreById(elementId);
 

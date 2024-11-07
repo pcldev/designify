@@ -8,13 +8,13 @@ export const Button = {
       items: [
         {
           type: "Button",
-          id: 0,
-          children: [1],
+          _id: 0,
+          children: [],
           data: {
             btnStyle: "plain",
             buttonType: "text",
             showIcon: false,
-            value: "Button Text",
+            content: "Button Text",
             placeholder: "Enter text here...",
           },
           styleData: {

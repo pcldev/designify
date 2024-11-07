@@ -8,7 +8,7 @@ export const HTMLVideo = {
       items: [
         {
           type: "Video",
-          id: 0,
+          _id: 0,
           styleData: {
             all: {
               "&": "width: 100%;",

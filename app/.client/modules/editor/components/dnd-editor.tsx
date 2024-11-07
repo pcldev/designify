@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { CONTAINER_ELEMENTS } from "~/.client/constants/element-configs";
-import { getElementStoreById } from "~/.client/stores/element-store";
+import {
+  createElementStore,
+  getElementStoreById,
+} from "~/.client/stores/element-store";
 import { pageStore } from "~/.client/stores/page-store";
 import { IElement } from "~/.client/types";
+import { uuid } from "~/.client/utils/uuid";
+import { replaceIdsOfCatalogElement } from "~/.client/utils/replace-ids-of-catalog-element";
 
-const globalDragData: { [key: string]: any } = {};
+export const globalDragData: { [key: string]: any } = {};
 
 function useDragDrop(containerRef, highlightBoxRef) {
   const [draggedElement, setDraggedElement] = useState(null);
@@ -181,16 +186,73 @@ function useDragDrop(containerRef, highlightBoxRef) {
 
         setDroppedElementId(dropTargetId);
 
-        // console.log(
-        //   "Dropped:",
-        //   draggedElement,
-        //   "on:",
-        //   dropTargetId,
-        //   "at position:",
-        //   dropPosition,
-        // );
+        setDraggedElement(null);
+      } else if (globalDragData.catalogData && globalDragData.elementData) {
+        // Create new element
+        const { elementData, catalogData } = globalDragData;
+
+        const newElementId = uuid();
+
+        console.log("elementData: ", elementData);
+        console.log("catalogData: ", catalogData);
+        // const _elementData = replaceIdsOfCatalogElement({
+        //   ...elementData,
+        //   _id: newElementId,
+        // });
+
+        const _catalogData = replaceIdsOfCatalogElement({
+          ...catalogData,
+          _id: newElementId,
+        });
+
+        const items = _catalogData.items;
+
+        items.map((item) => createElementStore(item));
+
+        const currentItems = pageStore.getState().items || [];
+
+        const _items = currentItems.map((item) => {
+          console.log("dropTargetId: ", dropTargetId);
+          if (item._id === dropTargetId) {
+            if (CONTAINER_ELEMENTS.includes(dropTargetType)) {
+              console.log("Update --------------");
+              const elementStore = getElementStoreById(item._id);
+
+              const _children = [...item.children, items[0]._id];
+
+              console.log("_children: ", _children);
+              // Update element store
+              elementStore.dispatch({
+                type: "SET_STATE",
+                payload: {
+                  state: {
+                    children: _children,
+                  },
+                },
+              });
+
+              return {
+                ...item,
+                children: _children,
+              };
+            }
+
+            return item;
+          }
+
+          return item;
+        });
+
+        pageStore.dispatch({
+          type: "SET_STATE",
+          payload: {
+            state: { items: [..._items, ...items] },
+          },
+        });
+
+        globalDragData.elementData = null;
+        globalDragData.catalogData = null;
       }
-      setDraggedElement(null);
     },
     [draggedElement],
   );

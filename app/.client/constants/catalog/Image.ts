@@ -8,7 +8,8 @@ export const Image = {
       items: [
         {
           type: "Image",
-          id: 0,
+          _id: 0,
+          children: [],
           data: {
             fullWidth: {
               all: true,

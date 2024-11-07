@@ -9,9 +9,16 @@ import {
 import { useMemo } from "react";
 import { groupedCatalogData } from "~/.client/constants/catalog";
 import { AccordionList } from "~/components/Accordion";
+import { globalDragData } from "../dnd-editor";
 
 function ElementsCatalog() {
   const elementGroups = useMemo(() => groupedCatalogData.Elements, []);
+
+  const handleDragStart = (el: any, index: number) => {
+    const dragItem = el.items.find((item) => item._id === 0);
+    globalDragData.catalogData = el;
+    globalDragData.elementData = dragItem;
+  };
 
   return (
     <Box>
@@ -32,7 +39,12 @@ function ElementsCatalog() {
                       ] as any[];
 
                       return elements.map((element, index) => (
-                        <div className="element-catalog" key={index}>
+                        <div
+                          className="element-catalog"
+                          key={index}
+                          draggable
+                          onDragStart={() => handleDragStart(element, index)}
+                        >
                           <Box padding={"200"}>
                             <BlockStack
                               gap={"200"}
