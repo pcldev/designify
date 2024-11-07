@@ -2,6 +2,11 @@ import { createRef } from "react";
 import { createStore, Store } from "../libs/external-store";
 import { ROOT_TYPE } from "../constants/element-configs";
 import { IElement } from "../types";
+import {
+  addCssRule,
+  addCssRuleToStore,
+  styleInstanceStore,
+} from "../modules/editor/styleInstanceStore";
 
 export type ElementStoreAction = {
   [key: string]: any;
@@ -52,9 +57,20 @@ export function createElementStore(element: any): TElementStore {
     return _elementStore;
   }
 
+  const cName = `ds-${elementId.split("-")[0]}`;
+  const styleData = element.styleData?.all || "";
+
   // Create ref and className for element
   element.ref = createRef<HTMLElement>();
-  element.className = `ds-${elementId.split("-")[0]}`;
+  element.className = cName;
+
+  setTimeout(() => {
+    addCssRule(
+      document.querySelector("iframe")?.contentDocument!,
+      `.${cName}`,
+      styleData,
+    );
+  }, 0);
 
   const elementStore = createStore(elementReducer, element);
 

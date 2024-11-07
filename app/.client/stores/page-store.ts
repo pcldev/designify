@@ -27,7 +27,6 @@ function pageReducer(state: PageDocument, action: Action) {
         ...action.payload.state,
       };
 
-      console.log("updatedState: ", updatedState);
       return updatedState;
     }
 
