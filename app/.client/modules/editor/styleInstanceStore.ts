@@ -79,8 +79,10 @@ export const addCssRule = (
 
   // Insert the rule into the style sheet
   try {
-    sheet.insertRule(cssRule, sheet.cssRules.length);
-    console.log("Inserted CSS rule:", cssRule);
+    if (cssRule) {
+      sheet.insertRule(cssRule, sheet.cssRules.length);
+      console.log("Inserted CSS rule:", cssRule);
+    }
   } catch (error) {
     console.error("Failed to insert rule:", error);
   }

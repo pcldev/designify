@@ -47,9 +47,6 @@
 }
 
 .inspector {
-  flex: 1 1 0%;
-  width: 0px;
-  background: var(--p-color-bg);
 }
 
 .element-catalog {
@@ -58,4 +55,10 @@
 
 .element-catalog:hover {
   background-color: var(--p-color-bg);
+}
+
+.Polaris-Icon-Custom .Polaris-Icon {
+  margin: 0 0 !important;
+  width: 40px;
+  height: 40px;
 }

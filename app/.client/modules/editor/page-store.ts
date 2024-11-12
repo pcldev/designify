@@ -11,26 +11,92 @@ export const findRootTypeFromItems = (items: any[]) => {
 };
 
 const DUMMY_PAGE: any = [
-  { _id: "1", type: "Body", children: ["2"] },
-  { _id: "2", type: "Layout", children: ["3"] },
-  { _id: "3", type: "Section", children: ["4", "9"] },
-  { _id: "4", type: "Row", children: ["5", "7"] },
-  { _id: "9", type: "Row", children: ["10"] },
-  { _id: "5", type: "Column", children: ["6"] },
+  {
+    _id: "1",
+    type: "Body",
+    children: ["2"],
+    styleData: {
+      all: {},
+    },
+  },
+  {
+    _id: "2",
+    type: "Layout",
+    children: ["3"],
+    styleData: {
+      all: {},
+    },
+  },
+  {
+    _id: "3",
+    type: "Section",
+    children: ["4", "9"],
+    styleData: {
+      all: {},
+    },
+  },
+  {
+    _id: "4",
+    type: "Row",
+    children: ["5", "7"],
+    styleData: {
+      all: {},
+    },
+  },
+  {
+    _id: "9",
+    type: "Row",
+    children: ["10"],
+    styleData: {
+      all: {},
+    },
+  },
+  {
+    _id: "5",
+    type: "Column",
+    children: ["6"],
+    styleData: {
+      all: {},
+    },
+  },
   {
     _id: "6",
     type: "Heading",
     children: [],
     data: { content: "This is heading text" },
+    styleData: {
+      all: {
+        "&": "color: rgb(236, 85, 188)",
+      },
+    },
   },
-  { _id: "7", type: "Column", children: ["8"] },
+  {
+    _id: "7",
+    type: "Column",
+    children: ["8"],
+    styleData: {
+      all: {},
+    },
+  },
   {
     _id: "8",
     type: "Button",
     children: [],
     data: { content: "Button" },
+    styleData: {
+      all: {
+        "&": "background-color: #000;color: #fff;border: none;padding: 10px 20px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px; margin: 4px 2px;cursor: pointer;",
+      },
+    },
   },
-  { _id: "10", type: "Image", children: [] },
+  {
+    _id: "10",
+    type: "Image",
+    children: [],
+    styleData: {
+      all: {},
+    },
+  },
 ];
 
 export function initPageStore() {

@@ -8,6 +8,7 @@ import { pageStore } from "~/.client/stores/page-store";
 import { IElement } from "~/.client/types";
 import { uuid } from "~/.client/utils/uuid";
 import { replaceIdsOfCatalogElement } from "~/.client/utils/replace-ids-of-catalog-element";
+import { ElementSelectedStore } from "~/.client/stores/element-selected-store";
 
 export const globalDragData: { [key: string]: any } = {};
 
@@ -261,8 +262,19 @@ function useDragDrop(containerRef, highlightBoxRef) {
     // console.log("Drag left");
   }, []);
 
-  const handleMouseDown = useCallback(() => {
-    // console.log("Mouse down");
+  const handleMouseDown = useCallback((event: any) => {
+    event.preventDefault();
+
+    const target = event.target as HTMLElement;
+
+    const elementId = target.getAttribute("data-ds-id") || "";
+
+    ElementSelectedStore.dispatch({
+      type: "SET_STATE",
+      payload: {
+        store: getElementStoreById(elementId),
+      },
+    });
   }, []);
 
   const handleMouseOver = useCallback(() => {

@@ -4,18 +4,13 @@ import {
   FunctionComponent,
   memo,
   ReactElement,
-  useEffect,
-  useRef,
 } from "react";
-import elementComponents from "../../elements";
-import React from "react";
 import ErrorBoundary from "../../components/ErrorBoundary";
-
-import { getElementStoreById } from "../../stores/element-store";
+import elementComponents from "../../elements";
+import { ROOT_TYPE } from "~/.client/constants/element-configs";
 import { useStore } from "~/.client/libs/external-store";
 import { IDSElementProps } from "~/.client/types";
-import { ROOT_TYPE } from "~/.client/constants/element-configs";
-import { pageStore } from "~/.client/stores/page-store";
+import { getElementStoreById } from "../../stores/element-store";
 
 function NullElement({ store }: IDSElementProps) {
   return <div>{store?.state.type || null}</div>;
@@ -33,10 +28,6 @@ export function enhanceComponent(c: FunctionComponent<any> = NullElement) {
     const elementState = store.getState();
 
     const { type, _id, id, ref, className } = elementState;
-
-    const style = {
-      color: "red",
-    };
 
     const enhancedProps = {
       ...realComponent?.props,

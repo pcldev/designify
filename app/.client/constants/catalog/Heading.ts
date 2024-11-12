@@ -18,7 +18,7 @@ export const Heading = {
           },
           styleData: {
             all: {
-              "&": "color: red",
+              "&": "color: rgb(236, 85, 188)",
             },
           },
         },
