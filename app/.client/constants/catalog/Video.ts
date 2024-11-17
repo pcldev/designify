@@ -1,14 +1,18 @@
-export const HTMLVideo = {
+export const Video = {
   type: "Elements",
   group: "Media",
-  element: "HTML Video",
+  element: "Video",
   variants: [
     {
-      name: "HTML Video",
+      name: "Video",
       items: [
         {
           type: "Video",
           _id: 0,
+          data: {
+            src: "",
+          },
+          children: [],
           styleData: {
             all: {
               "&": "width: 100%;",
@@ -25,6 +29,7 @@ export const HTMLVideo = {
           },
         },
       ],
+
       icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/video-icon.svg?v=1730389822",
       order: 1,
     },

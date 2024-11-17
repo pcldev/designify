@@ -50,7 +50,10 @@ function Inspector() {
           </Box>
 
           {selected === 0 ? (
-            <GeneralInspector />
+            <GeneralInspector
+              key={elementSelectedStore.getState()._id}
+              elementStore={elementSelectedStore}
+            />
           ) : (
             <StylingInspector
               key={elementSelectedStore.getState()._id}

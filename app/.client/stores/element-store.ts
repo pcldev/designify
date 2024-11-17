@@ -10,6 +10,7 @@ export type ElementStoreAction = {
 
 type Action =
   | { type: "SET_STATE"; payload: { state: any } }
+  | { type: "UPDATE_DATA"; payload: { data: any } }
   | { type: "RESET_STATE" };
 
 export type ElementDocument = IElement;
@@ -27,6 +28,16 @@ function elementReducer(state: any, action: Action) {
       return {
         ...state,
         ...action.payload.state,
+      };
+    }
+
+    case "UPDATE_DATA": {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          ...action.payload.data,
+        },
       };
     }
 
@@ -126,8 +137,6 @@ export function useElementStyle(elementStore: Store<any, Action>) {
             break;
           }
         }
-
-        console.log("ruleIndex: ", ruleIndex);
 
         if (ruleIndex !== -1) {
           // Update the existing rule

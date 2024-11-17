@@ -27,7 +27,7 @@ export function Accordion(props: AccordionProps) {
 
   return (
     <Box borderBlockEndWidth="025" borderColor={borderColor}>
-      <div className="emtlkit-collapsible">
+      <div className="ds-collapsible">
         <Box
           paddingBlock={"300"}
           paddingInline={"400"}

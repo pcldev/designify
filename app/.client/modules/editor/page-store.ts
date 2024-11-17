@@ -1,6 +1,7 @@
 import { uuid } from "../../utils/uuid";
 import { pageStore } from "../../stores/page-store";
 import { initElementStore } from "~/.client/stores/element-store";
+import { image_placeholder } from "~/.client/elements/Image";
 
 export const findRootTypeFromItems = (items: any[]) => {
   for (const item of items) {
@@ -63,7 +64,7 @@ const DUMMY_PAGE: any = [
     _id: "6",
     type: "Heading",
     children: [],
-    data: { content: "This is heading text" },
+    data: { content: "This is heading text", tag: "h3" },
     styleData: {
       all: {
         "&": "color: rgb(236, 85, 188)",
@@ -93,6 +94,9 @@ const DUMMY_PAGE: any = [
     _id: "10",
     type: "Image",
     children: [],
+    data: {
+      src: image_placeholder,
+    },
     styleData: {
       all: {},
     },

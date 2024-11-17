@@ -23,6 +23,7 @@ export const Image = {
               tablet: "unset",
               mobile: "unset",
             },
+            src: "",
           },
           styleData: {
             all: {

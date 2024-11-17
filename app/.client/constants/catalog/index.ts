@@ -2,9 +2,9 @@ import { Button } from "./Button";
 import { Heading } from "./Heading";
 import { Image } from "./Image";
 import { Layout } from "./Layout";
-import { HTMLVideo } from "./Video";
+import { Video } from "./Video";
 
-const catalogData = [Layout, Heading, Button, Image, HTMLVideo];
+const catalogData = [Layout, Heading, Button, Image, Video];
 
 export const groupedCatalogData: any = catalogData.reduce((acc, cur) => {
   const { type, group, element, variants } = cur;

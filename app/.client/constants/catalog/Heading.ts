@@ -15,6 +15,7 @@ export const Heading = {
             editable: true,
             placeholder: "Enter text...",
             content: "This is your heading text.",
+            tag: "h3",
           },
           styleData: {
             all: {
