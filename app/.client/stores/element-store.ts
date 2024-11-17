@@ -74,6 +74,7 @@ export function createElementStore(element: any): TElementStore {
 }
 
 export function useElementStore(store: Store<any, Action>) {}
+
 export function useElementStyle(elementStore: Store<any, Action>) {
   const [_, setForceUpdate] = useState({});
 
@@ -114,7 +115,6 @@ export function useElementStyle(elementStore: Store<any, Action>) {
     setStyleState(getStyle());
   }, [getStyle]);
 
-  // Function to set new styles for the selector
   const setStyle = useCallback(
     (newStyles: { [key: string]: string }) => {
       if (sheet) {
@@ -127,15 +127,19 @@ export function useElementStyle(elementStore: Store<any, Action>) {
           }
         }
 
+        console.log("ruleIndex: ", ruleIndex);
+
         if (ruleIndex !== -1) {
-          // Update existing rule
+          // Update the existing rule
           const rule = sheet.cssRules[ruleIndex] as CSSStyleRule;
           for (const [property, value] of Object.entries(newStyles)) {
-            rule.style.setProperty(property, value);
+            console.log({ [property]: value });
+
+            rule.style.setProperty(property, value); // Add or update the property
           }
           setStyleState(rule.style); // Update local style state
         } else {
-          // Add new rule if it doesn't exist
+          // Add a new rule if it doesn't exist
           let newRule = `${selector} { `;
           for (const [property, value] of Object.entries(newStyles)) {
             newRule += `${property}: ${value}; `;

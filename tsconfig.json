@@ -17,7 +17,8 @@
     "target": "ES2022",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "~/.client/*": ["./app/.client/*"]
     },
     "types": ["node", "@testing-library/jest-dom"]
   }

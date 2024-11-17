@@ -52,7 +52,10 @@ function Inspector() {
           {selected === 0 ? (
             <GeneralInspector />
           ) : (
-            <StylingInspector elementStore={elementSelectedStore} />
+            <StylingInspector
+              key={elementSelectedStore.getState()._id}
+              elementStore={elementSelectedStore}
+            />
           )}
         </>
       ) : (

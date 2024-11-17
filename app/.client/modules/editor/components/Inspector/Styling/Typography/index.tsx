@@ -1,8 +1,11 @@
 import { useElementStyle } from "~/.client/stores/element-store";
 import { IStylingInspectorProps } from "..";
 import ColorInspector from "./Color";
+import FontSizeInspector from "./FontSize";
+import TextAlignmentInspector from "./TextAlignment";
+import TextStyleInspector from "./TextStyle";
 import { AccordionList } from "~/components/Accordion";
-import { Box } from "@shopify/polaris";
+import { BlockStack, Box } from "@shopify/polaris";
 
 interface ITypographyStylingProps {}
 
@@ -25,7 +28,15 @@ function TypographyStyling(
             id: "typography",
             content: (
               <Box paddingBlockStart={"400"}>
-                <ColorInspector {...props} />
+                <BlockStack gap={"200"}>
+                  <ColorInspector {...props} />
+
+                  <FontSizeInspector {...props} />
+
+                  <TextAlignmentInspector {...props} />
+
+                  <TextStyleInspector {...props} />
+                </BlockStack>
               </Box>
             ),
           },
