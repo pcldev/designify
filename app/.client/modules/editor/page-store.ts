@@ -103,12 +103,52 @@ const DUMMY_PAGE: any = [
   },
 ];
 
-export function initPageStore() {
+export function initPageStore(page: any) {
   // TODO: Init page after saving page
   ///////////////////////////////////
   // Init page store when starting
+  let items = generateDefaultItemData("regular");
 
-  const items = generateDefaultItemData("regular");
+  if (page) {
+    // Get items
+    items = page.elements;
+
+    const cssText = page.css;
+
+    const iframeDocument = document.querySelector("iframe")?.contentDocument;
+
+    if (!iframeDocument) return;
+
+    // Insert styles
+    let styleElement = iframeDocument?.getElementById(
+      "dynamic-styles",
+    ) as HTMLStyleElement;
+
+    if (!styleElement) {
+      styleElement = iframeDocument.createElement("style");
+      styleElement.id = "dynamic-styles";
+      iframeDocument.head.appendChild(styleElement);
+    }
+
+    // Ensure the style element exists
+    if (styleElement && styleElement.sheet) {
+      // Split the CSS into individual rules
+      const rules = cssText.split("}");
+      rules.forEach((rule) => {
+        const trimmedRule = rule.trim();
+        if (trimmedRule) {
+          // Add each rule using insertRule
+          styleElement.sheet?.insertRule(
+            `${trimmedRule}}`,
+            styleElement.sheet.cssRules.length,
+          );
+        }
+      });
+      console.log("CSS rules added successfully.");
+    } else {
+      console.log("Style element or sheet not found.");
+    }
+  }
 
   pageStore.dispatch({
     type: "SET_STATE",
@@ -125,9 +165,6 @@ type PageType = "regular";
 const generateDefaultItemData = (type: PageType) => {
   switch (type) {
     default:
-      const bodyId = uuid();
-      const layoutId = uuid();
-
       return DUMMY_PAGE;
   }
 };

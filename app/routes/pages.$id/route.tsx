@@ -62,7 +62,7 @@ function Index() {
             ) as HTMLIFrameElement;
             const editorWindow = editorFrame.contentWindow as Window;
             const saveBtn = editorWindow.document.getElementById(
-              "btn--save-template",
+              "btn--save-page",
             ) as HTMLButtonElement;
 
             saveBtn?.click();

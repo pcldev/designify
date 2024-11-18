@@ -60,9 +60,9 @@ export async function authenticatedFetch(url: string, opts?: any) {
     if (result && message) {
       result.message =
         typeof message === "string"
-          ? t(message)
+          ? message
           : message.text
-            ? t(message.text, message.params)
+            ? `${message.text} ${message.params}`
             : message;
     }
 

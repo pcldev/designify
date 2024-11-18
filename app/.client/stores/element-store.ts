@@ -52,6 +52,11 @@ export function getElementStoreById(_id: string): TElementStore {
   return ElementStores.get(_id);
 }
 
+export function getAllElementStore(): TElementStore[] {
+  // Convert the Map values to an array and return it
+  return Array.from(ElementStores.values());
+}
+
 export function createElementStore(element: any): TElementStore {
   const elementId = element._id || element.id;
 
@@ -76,6 +81,9 @@ export function createElementStore(element: any): TElementStore {
       styleData,
     );
   }, 0);
+
+  // Clean up element style data
+  delete element.styleData;
 
   const elementStore = createStore(elementReducer, element);
 
