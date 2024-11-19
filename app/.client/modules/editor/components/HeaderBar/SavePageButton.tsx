@@ -9,12 +9,16 @@ import {
 import { authenticatedFetch } from "~/shopify/fns.client";
 import { PAGE_ACTIONS } from "~/routes/api.page/constants";
 import { useLocation, useParams, useSearchParams } from "@remix-run/react";
+import { showToast } from "~/utils/showToast";
+import { sleep } from "~/utils/sleep";
 
 function SavePageButton() {
   const location = useLocation();
   const params = useParams();
 
-  const onSavePageHandler = useCallback(() => {
+  const onSavePageHandler = useCallback(async () => {
+    showToast("Saving page");
+
     const bodyStore = getRootElementStore();
 
     if (!bodyStore) return null;
@@ -50,7 +54,7 @@ function SavePageButton() {
     });
 
     // Save page
-    authenticatedFetch("/api/page", {
+    const response = await authenticatedFetch("/api/page", {
       method: "POST",
       body: JSON.stringify({
         action: PAGE_ACTIONS["save-page"],
@@ -62,6 +66,18 @@ function SavePageButton() {
         },
       }),
     });
+
+    // Sleep 1 second to show enough toast
+    await sleep(1000);
+
+    if (response.success) {
+      showToast("Saved page successfully");
+    }
+
+    if (!response.success) {
+      console.error(response.message);
+      showToast("Something went wrong");
+    }
   }, []);
 
   return (

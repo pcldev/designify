@@ -24,3 +24,4 @@ database.sqlite
 .shopify.lock
 shopify.app.toml
 package-lock.json
+yarn.lock
