@@ -11,6 +11,7 @@ import { PAGE_ACTIONS } from "~/routes/api.page/constants";
 import { useLocation, useParams, useSearchParams } from "@remix-run/react";
 import { showToast } from "~/utils/showToast";
 import { sleep } from "~/utils/sleep";
+import { pageStore } from "~/.client/stores/page-store";
 
 function SavePageButton() {
   const location = useLocation();
@@ -60,6 +61,7 @@ function SavePageButton() {
         action: PAGE_ACTIONS["save-page"],
         pageData: {
           _id: params.id,
+          title: pageStore.getState().title,
           elements,
           html,
           css: cssText,

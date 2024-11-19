@@ -1,11 +1,13 @@
 import { Icon, InlineStack, Link, Text } from "@shopify/polaris";
 import { ProductIcon } from "@shopify/polaris-icons";
 import { useState } from "react";
+import { useStore } from "~/.client/libs/external-store";
+import { pageStore } from "~/.client/stores/page-store";
 import TextFieldPopover from "~/components/TextFieldPopover";
 import { MAX_PAGE_TITLE_SIZE } from "~/constants/page";
 
 export default function PageTitle() {
-  const [title, setTitle] = useState("Untitled");
+  const title = useStore(pageStore, (state) => state.title);
 
   function setName(value: string) {
     // Validate title length
@@ -13,7 +15,14 @@ export default function PageTitle() {
       value = value.substring(0, 60);
     }
 
-    setTitle(value);
+    pageStore.dispatch({
+      type: "SET_STATE",
+      payload: {
+        state: {
+          title: value,
+        },
+      },
+    });
   }
 
   const activator = (
