@@ -1,16 +1,13 @@
 import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import { ShopifyApiClient } from "~/shopify/graphql/api.server";
 import { authenticate } from "~/shopify.server";
 import { PAGE_ACTIONS } from "./constants";
-import { upsertPage } from "~/models/Page.server";
+import { upsertPage } from "~/models/ShopifyPage.server";
 
 export const action = async ({ request }: LoaderFunctionArgs) => {
   try {
     const {
-      admin,
       session: { shop: shopDomain },
     } = await authenticate.admin(request);
-    const api = new ShopifyApiClient(admin);
 
     // Get action from search params
 
@@ -23,7 +20,7 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
         // Get shopify image list
         const pageData = payload.pageData;
 
-        const page = await upsertPage(pageData);
+        const page = await upsertPage({ ...pageData, shopDomain });
 
         return json({ success: true, page });
       }

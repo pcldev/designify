@@ -5,7 +5,7 @@ import imageSelectorStyles from "./styles/image-selector.css?url";
 import { ClientOnly } from "remix-utils/client-only";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { getPageByID } from "~/models/Page.server";
+import { getPageByID } from "~/models/ShopifyPage.server";
 
 export const links = () => [
   { rel: "stylesheet", href: pageEditorStyles },

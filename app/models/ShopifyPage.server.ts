@@ -4,7 +4,7 @@ import { updateElement } from "./Element.server";
 const pageSchema = new mongoose.Schema(
   {
     _id: String,
-    title: String,
+    title: { type: String, default: "Untitled" },
     elements: [
       {
         type: String,
@@ -13,16 +13,17 @@ const pageSchema = new mongoose.Schema(
     ],
     html: String,
     css: String,
-    publishedAt: Date,
+    publishedAt: { type: Date, default: null },
+    shopDomain: String,
   },
   { _id: false, timestamps: true, strict: false },
 );
 
-const Page =
+export const ShopifyPage =
   mongoose.models.Page || mongoose.model("Page", pageSchema, "pages");
 
 export async function getPageByID(id: string): Promise<any> {
-  const page = await Page.findOne({ _id: id }).populate("elements");
+  const page = await ShopifyPage.findOne({ _id: id }).populate("elements");
   return page;
   // .populate('styles')
   // .populate('shopifyPage')
@@ -36,7 +37,7 @@ export async function upsertPage(page: any) {
 
   await Promise.all(elements.map((element) => updateElement(element)));
 
-  await Page.findOneAndUpdate(
+  await ShopifyPage.findOneAndUpdate(
     {
       _id: page._id,
     },
