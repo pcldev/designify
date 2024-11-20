@@ -92,6 +92,10 @@ export function createElementStore(element: any): TElementStore {
   return elementStore;
 }
 
+export function deleteElementStoreById(id: string) {
+  ElementStores.delete(id);
+}
+
 export function useElementStore(store: Store<any, Action>) {}
 
 export function useElementStyle(elementStore: Store<any, Action>) {

@@ -31,15 +31,11 @@ export function enhanceComponent(c: FunctionComponent<any> = NullElement) {
 
     const enhancedProps = {
       ...realComponent?.props,
-      // store,
       ref: ref,
       "data-ds-type": type,
       "data-ds-id": _id || id,
       draggable: type !== ROOT_TYPE,
       className,
-      // ...restProps,
-      // style,
-      // id: id || undefined,
     };
 
     // Remove attribute 'href' of elements contain <a></a> to prevent action default in editor
