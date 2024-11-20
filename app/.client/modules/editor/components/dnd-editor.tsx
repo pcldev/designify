@@ -16,15 +16,23 @@ function useDragDrop(containerRef, highlightBoxRef) {
   const [draggedElement, setDraggedElement] = useState(null);
   const [droppedElementId, setDroppedElementId] = useState<string>("");
 
-  const updateHighLightBox = useCallback((droppedElement: HTMLElement) => {
+  const updateHighLightBox = useCallback((droppedElement?: HTMLElement) => {
+    const highLightBox = highlightBoxRef.current;
+    if (!droppedElement) {
+      highLightBox.style.padding = 0;
+      highLightBox.style.width = 0;
+      highLightBox.style.height = 0;
+
+      return;
+    }
+
     const box = droppedElement.getBoundingClientRect();
 
-    const highLightBox = highlightBoxRef.current;
-
-    highLightBox.style.width = box.width;
-    highLightBox.style.height = box.height;
-    highLightBox.style.top = box.top;
-    highLightBox.style.left = box.left;
+    const gap = 0;
+    highLightBox.style.width = box.width + gap;
+    highLightBox.style.height = box.height + gap;
+    highLightBox.style.top = box.top - gap;
+    highLightBox.style.left = box.left - gap;
   }, []);
 
   useEffect(() => {
@@ -254,6 +262,8 @@ function useDragDrop(containerRef, highlightBoxRef) {
         globalDragData.elementData = null;
         globalDragData.catalogData = null;
       }
+
+      updateHighLightBox();
     },
     [draggedElement],
   );
@@ -262,23 +272,27 @@ function useDragDrop(containerRef, highlightBoxRef) {
     // console.log("Drag left");
   }, []);
 
+  // This is double click, should update accordingly
   const handleMouseDown = useCallback((event: any) => {
     event.preventDefault();
-
     const target = event.target as HTMLElement;
-
     const elementId = target.getAttribute("data-ds-id") || "";
-
     ElementSelectedStore.dispatch({
       type: "SET_STATE",
       payload: {
         store: getElementStoreById(elementId),
       },
     });
+
+    updateHighLightBox(target);
   }, []);
 
-  const handleMouseOver = useCallback(() => {
-    // console.log("Mouse over");
+  const handleMouseOver = useCallback((event) => {
+    if (draggedElement) return;
+
+    const target = event.target as HTMLElement;
+
+    updateHighLightBox(target);
   }, []);
 
   const handleMouseUp = useCallback(() => {

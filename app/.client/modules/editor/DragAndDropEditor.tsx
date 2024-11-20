@@ -26,9 +26,10 @@ function DragAndDropEditor(props) {
         onDragLeaveCapture={handleDragLeave}
         onDragOverCapture={handleDragOverCapture}
         onDropCapture={handleDrop}
-        onMouseDownCapture={handleMouseDown}
+        // onMouseDownCapture={handleMouseDown}
         onMouseOverCapture={handleMouseOver}
         onMouseUpCapture={handleMouseUp}
+        onDoubleClick={handleMouseDown}
         ref={editorDndRef}
         id="editor-dnd-wrapper"
         style={{ width: "100%" }}
