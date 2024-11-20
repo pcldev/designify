@@ -1,6 +1,8 @@
+import _ from "lodash";
 import { uuid } from "./uuid";
 
-export function replaceIdsOfCatalogElement(variant: any) {
+export function replaceIdsOfCatalogElement(_variant: any) {
+  const variant = _.cloneDeep(_variant);
   const idMap = new Map(); // Track original ids to new UUIDs
 
   // First, replace `id` with a UUID for each item and store in the map
