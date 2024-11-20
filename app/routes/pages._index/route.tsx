@@ -1,4 +1,5 @@
-import type { IndexFiltersProps } from "@shopify/polaris";
+import { useNavigate } from "@remix-run/react";
+import type { IndexFiltersProps, ModalProps } from "@shopify/polaris";
 import {
   Badge,
   BlockStack,
@@ -6,21 +7,29 @@ import {
   IndexTable,
   InlineStack,
   Link,
+  Modal,
   Page,
   Text,
   useBreakpoints,
 } from "@shopify/polaris";
-import { useCallback, useMemo, useState } from "react";
-import withNavMenu from "~/bootstrap/hoc/withNavMenu";
-import ListTable from "~/components/Listable";
-import EmptyPage from "./components/EmptyPage";
-import { useNavigate } from "@remix-run/react";
-import { getDistanceToNow } from "~/bootstrap/fns/time";
-import { uuid } from "~/utils/uuid";
 import _ from "lodash";
+import { useCallback, useMemo, useState } from "react";
+import { getDistanceToNow } from "~/bootstrap/fns/time";
+import withNavMenu from "~/bootstrap/hoc/withNavMenu";
+import type { ListTableComponent } from "~/components/Listable";
+import ListTable from "~/components/Listable";
+import { uuid } from "~/utils/uuid";
+import EmptyPage from "./components/EmptyPage";
+import { authenticatedFetch } from "~/shopify/fns.client";
+import { EActionType } from "~/constants/fetcher-keys";
+import { showToast } from "~/utils/showToast";
+
+// Define a variable to hold a reference to the list table instance
+let tableRef: ListTableComponent<any, any>;
 
 export default withNavMenu(function Index(props: any) {
-  const [refresh] = useState<any>();
+  const [refresh, setRefresh] = useState<any>();
+  const [modalDeleteAction, setModalDeleteAction] = useState(false);
 
   // Define options for filtering pages
   const filters = useMemo(
@@ -91,7 +100,7 @@ export default withNavMenu(function Index(props: any) {
   const renderRowMarkup = useCallback(
     (page: any, index: number, selectedResources?: string[], ref?: any) => {
       // Save a reference to the list table instance
-      // tableRef = ref;
+      tableRef = ref;
 
       // Extract template data
       const { _id, title, status, updatedAt } = page;
@@ -138,7 +147,39 @@ export default withNavMenu(function Index(props: any) {
 
   const duplicateTemplates = useCallback(() => {}, []);
 
-  const toggleModalDelete = useCallback(() => {}, []);
+  const toggleModalDelete = useCallback(() => {
+    setModalDeleteAction((pre) => !pre);
+  }, []);
+
+  const onDeletePages = useCallback(async () => {
+    // Verify the selected templates
+    const selectedResources = tableRef?.getSelectedResources();
+
+    if (!selectedResources?.length) {
+      return;
+    }
+
+    const response = await authenticatedFetch("/api/pages", {
+      method: "POST",
+      body: JSON.stringify({
+        action: EActionType.DELETE_PAGES,
+        pages: selectedResources,
+      }),
+    });
+
+    if (response.success) {
+      showToast("Delete pages successfully");
+
+      setRefresh({});
+
+      tableRef?.clearAllSelection();
+    } else {
+      showToast("Delete pages unsuccessfully");
+    }
+
+    // Toggle modal again
+    toggleModalDelete();
+  }, [toggleModalDelete]);
 
   // Define promoted bulk actions
   const promotedBulkActions = useMemo(
@@ -185,6 +226,39 @@ export default withNavMenu(function Index(props: any) {
           />
         </Text>
       </BlockStack>
+
+      <ModalDeletePages
+        open={modalDeleteAction}
+        onClose={toggleModalDelete}
+        toggleModalDelete={toggleModalDelete}
+        onDelete={onDeletePages}
+      />
     </Page>
   );
 });
+
+function ModalDeletePages(
+  props: Omit<ModalProps, "title"> & { toggleModalDelete: any; onDelete: any },
+) {
+  return (
+    <Modal
+      {...props}
+      title="Delete pages"
+      primaryAction={{
+        content: "Delete",
+        destructive: true,
+        onAction: props.onDelete,
+      }}
+      secondaryActions={[
+        {
+          content: "Cancel",
+          onAction: props.toggleModalDelete,
+        },
+      ]}
+    >
+      <Modal.Section>
+        <p>This action can't restored, are you sure to process?</p>
+      </Modal.Section>
+    </Modal>
+  );
+}
