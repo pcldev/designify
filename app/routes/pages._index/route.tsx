@@ -81,6 +81,12 @@ export default withNavMenu(function Index(props: any) {
         value: "updatedAt asc",
         directionLabel: "Oldest first",
       },
+      { label: "Title", value: "name desc", directionLabel: "Z-A" },
+      {
+        label: "Last updated",
+        value: "updatedAt desc",
+        directionLabel: "Newest first",
+      },
     ],
     [],
   );

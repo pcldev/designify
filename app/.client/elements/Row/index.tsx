@@ -1,12 +1,21 @@
-import { useEffect, useState } from "react";
-
-import React from "react";
-import { useStore } from "~/.client/libs/external-store";
+import BackgroundImageInspector from "~/.client/modules/editor/components/Inspector/Styling/Background";
+import BackgroundColorInspector from "~/.client/modules/editor/components/Inspector/Styling/Background/BackgroundColor";
 
 function renderPlaceholder(store) {
   const { type } = store;
   return (
-    <div style={{ minHeight: "50px", minWidth: "50px" }}>Row placeholder</div>
+    <div
+      style={{
+        minHeight: "150px",
+        minWidth: "50px",
+        textAlign: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      Row placeholder
+    </div>
   );
 }
 
@@ -31,8 +40,6 @@ function Row(props: any) {
     padding: "15px 0",
   };
 
-  const state = useStore(props.store, (state) => state);
-
   const rowComponent = (
     <div className={className} style={style}>
       {children}
@@ -47,3 +54,5 @@ function Row(props: any) {
 }
 
 export default Row;
+
+export const RowStyling = [BackgroundColorInspector, BackgroundImageInspector];

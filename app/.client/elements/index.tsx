@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
 import { IDSElementProps } from "../types/index";
 import Button, { ButtonGeneral, ButtonStyling } from "./Button";
-import Column from "./Column";
+import Column, { ColumnStyling } from "./Column";
 import Heading, { HeadingGeneral, HeadingStyling } from "./Heading";
 import Image, { ImageGeneral, ImageStyling } from "./Image";
 import Layout from "./Layout";
-import Row from "./Row";
-import Section from "./Section";
+import Row, { RowStyling } from "./Row";
+import Section, { SectionStyling } from "./Section";
 import Video, { VideoGeneral, VideoStyling } from "./Video";
 import Body from "./Body";
 
@@ -34,6 +34,9 @@ export const elementGenerals = {
 };
 
 export const elementStylings = {
+  Section: SectionStyling,
+  Row: RowStyling,
+  Column: ColumnStyling,
   Heading: HeadingStyling,
   Button: ButtonStyling,
   Image: ImageStyling,

@@ -1,14 +1,12 @@
-import { BlockStack, Box, Button, Image, Text } from "@shopify/polaris";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
+import { BlockStack, Text, Button, Image, Box } from "@shopify/polaris";
+import { useElementStyle } from "~/.client/stores/element-store";
+import ImageSelector from "~/.client/components/ImageSelector";
 import { AccordionList } from "~/components/Accordion";
 
-import ImageSelector from "~/.client/components/ImageSelector";
-import { useStore } from "~/.client/libs/external-store";
-
-function ImageSource(props) {
-  const elementStore = props.elementStore;
-
-  const src = useStore(elementStore, (state) => state.data.src);
+function BackgroundImageInspector(props) {
+  const { elementStore } = props;
+  const { style, setStyle } = useElementStyle(elementStore);
 
   const [imageModalActive, setImageModalActive] = useState(false);
 
@@ -20,16 +18,10 @@ function ImageSource(props) {
     setImageModalActive((pre) => !pre);
   }, []);
 
+  const backgroundImage = style?.["background-image"].split('url("')[1] || "";
+
   const onSelectImageHandler = useCallback((media: any) => {
-    // Set source
-    elementStore.dispatch({
-      type: "UPDATE_DATA",
-      payload: {
-        data: {
-          src: media[0].image.originalSrc,
-        },
-      },
-    });
+    setStyle({ "background-image": `url(${media[0].image.originalSrc})` });
   }, []);
 
   return (
@@ -37,16 +29,15 @@ function ImageSource(props) {
       items={[
         {
           open: true,
-          label: "Content",
-          id: "content",
+          label: "Background",
+          id: "background",
           content: (
             <Box paddingBlockStart={"400"}>
               <BlockStack gap={"200"}>
-                <Text as="p" variant="bodyMd">
-                  Image source
+                <Text as="h4" variant="bodyMd">
+                  Content color
                 </Text>
-
-                {!src ? (
+                {!backgroundImage ? (
                   <Button onClick={() => toggleImageSelectModal()}>
                     Select source
                   </Button>
@@ -63,7 +54,7 @@ function ImageSource(props) {
                     }}
                   >
                     <Image
-                      source={src}
+                      source={backgroundImage}
                       alt=""
                       width={"100%"}
                       height={"200px"}
@@ -90,4 +81,4 @@ function ImageSource(props) {
   );
 }
 
-export default ImageSource;
+export default BackgroundImageInspector;

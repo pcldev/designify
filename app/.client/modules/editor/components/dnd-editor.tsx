@@ -597,6 +597,9 @@ function createColumElement() {
     _id: columnId,
     type: "Column",
     children: [],
+    data: {
+      size: 12,
+    },
     styleData: {
       all: {},
     },

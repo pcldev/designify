@@ -79,5 +79,128 @@ export const Layout = {
       icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-2.svg?v=1730389822",
       order: 2,
     },
+    {
+      name: "Layout 3 Column",
+      items: [
+        {
+          type: "Row",
+          _id: 0,
+          children: [1, 2, 3],
+          data: {
+            equals: false,
+            gutter: {
+              all: "30px",
+              laptop: "30px",
+              tablet: "30px",
+              mobile: "16px",
+            },
+            doubling: true,
+            stackable: false,
+          },
+        },
+        {
+          type: "Column",
+          _id: 1,
+          children: [],
+          data: {
+            size: 4,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+        {
+          type: "Column",
+          _id: 2,
+          children: [],
+          data: {
+            size: 4,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+        {
+          type: "Column",
+          _id: 3,
+          children: [],
+          data: {
+            size: 4,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+      ],
+      icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-2.svg?v=1730389822",
+      order: 3,
+    },
+    {
+      name: "Layout 4 Column",
+      items: [
+        {
+          type: "Row",
+          _id: 0,
+          children: [1, 2, 3, 4],
+          data: {
+            equals: false,
+            gutter: {
+              all: "30px",
+              laptop: "30px",
+              tablet: "30px",
+              mobile: "16px",
+            },
+            doubling: true,
+            stackable: false,
+          },
+        },
+        {
+          type: "Column",
+          _id: 1,
+          children: [],
+          data: {
+            size: 3,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+        {
+          type: "Column",
+          _id: 2,
+          children: [],
+          data: {
+            size: 3,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+        {
+          type: "Column",
+          _id: 3,
+          children: [],
+          data: {
+            size: 3,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+        {
+          type: "Column",
+          _id: 4,
+          children: [],
+          data: {
+            size: 3,
+            laptop: 6,
+            tablet: 6,
+            mobile: 12,
+          },
+        },
+      ],
+      icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-2.svg?v=1730389822",
+      order: 4,
+    },
   ],
 };

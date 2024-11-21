@@ -1,5 +1,4 @@
-import React from "react";
-import { useStore } from "~/.client/libs/external-store";
+import BackgroundColorInspector from "~/.client/modules/editor/components/Inspector/Styling/Background/BackgroundColor";
 
 function Column(props) {
   const children = props.children;
@@ -38,3 +37,5 @@ function Column(props) {
 }
 
 export default Column;
+
+export const ColumnStyling = [BackgroundColorInspector];
