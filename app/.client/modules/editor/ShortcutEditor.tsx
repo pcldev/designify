@@ -60,7 +60,7 @@ function ShortcutEditor(props) {
     };
   }, [handleDeleteElement]);
 
-  return <div>{props.children}</div>;
+  return <>{props.children}</>;
 }
 
 export default ShortcutEditor;

@@ -28,6 +28,7 @@ function Row(props: any) {
   const className = `ds-r${align}${stretchClass}`;
   const style = {
     // ...styleVariableByDevices(getItemSpacing(gutter), "s"),
+    padding: "15px 0",
   };
 
   const state = useStore(props.store, (state) => state);

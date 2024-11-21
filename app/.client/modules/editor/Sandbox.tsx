@@ -31,7 +31,6 @@ const Sandbox: React.FC<ISandboxProps> = ({ children }) => {
       // Retrieve the saved CSS rules from the styleInstanceStore
       const cssRules = styleInstanceStore.getStyle();
 
-      console.log(";cssRulesL ", cssRules);
       if (cssRules) {
         const styleTag = iframeDoc.createElement("style");
         let cssText = "";

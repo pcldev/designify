@@ -186,6 +186,14 @@ export function initElementStore({ items }, rootType = "Body") {
   });
 }
 
+export function clearAllElementStore() {
+  const allElementStores = getAllElementStore();
+
+  allElementStores.forEach((elementStore) => {
+    ElementStores.delete(elementStore.getState()._id);
+  });
+}
+
 export function getRootElementStore() {
   const rootElement = [...ElementStores.values()].find(
     (store) => store?.getState()?.type === ROOT_TYPE,

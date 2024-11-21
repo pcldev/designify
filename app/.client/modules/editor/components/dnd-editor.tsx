@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { CONTAINER_ELEMENTS } from "~/.client/constants/element-configs";
+import {
+  CONTAINER_ELEMENTS,
+  ROOT_TYPE,
+  ROW_TYPE,
+} from "~/.client/constants/element-configs";
 import {
   createElementStore,
+  getAllElementStore,
   getElementStoreById,
 } from "~/.client/stores/element-store";
 import { pageStore } from "~/.client/stores/page-store";
@@ -89,7 +94,6 @@ function useDragDrop(containerRef, highlightBoxRef) {
 
   const handleDragEnter = useCallback((event: any) => {
     event.preventDefault();
-    console.log("Drag entered");
   }, []);
 
   const handleDragOver = useCallback(
@@ -109,23 +113,30 @@ function useDragDrop(containerRef, highlightBoxRef) {
     (event: any) => {
       event.preventDefault();
 
-      const dropTarget = event.target;
+      // Check if page is empty
+      const isEmpty = insertElementWhenPageIsEmpty();
+
+      if (isEmpty) {
+        return;
+      }
+
+      const dropTarget = event.target as HTMLElement;
       const dropTargetId = dropTarget.getAttribute("data-ds-id");
-      const dropTargetType = dropTarget.getAttribute("data-ds-type");
+      const dropTargetType = dropTarget.getAttribute("data-ds-type")!;
 
       // Prevent drop element inside element
       if (dropTarget === draggedElement) {
         return;
       }
 
-      if (draggedElement && dropTargetId) {
-        const dropPosition = getDropPosition(event, dropTarget);
+      const dropPosition = getDropPosition(event, dropTarget);
 
+      if (draggedElement && dropTargetId) {
         const currentItems = pageStore.getState().items || [];
 
         // Delete item at current position
         let _items = currentItems.map((item) => {
-          if (!CONTAINER_ELEMENTS.includes(dropTargetType)) return item;
+          // if (!CONTAINER_ELEMENTS.includes(dropTargetType)) return item;
 
           if (item.children.includes(draggedElement)) {
             const elementStore = getElementStoreById(item._id);
@@ -178,6 +189,54 @@ function useDragDrop(containerRef, highlightBoxRef) {
                 ...item,
                 children: _children,
               };
+            } else {
+              // Is another element not container elements
+
+              // Insert element at index of
+              const parent =
+                findParentElementIdById(dropTargetId, _items) ||
+                getElementStoreById(
+                  getParentElementClosest(dropTarget)?.getAttribute(
+                    "data-ds-id",
+                  ) || "",
+                ).getState();
+
+              if (!parent) return item;
+
+              const elementStore = getElementStoreById(parent._id);
+
+              const children = parent.children;
+              const dropTargetIndexOf = children.indexOf(dropTargetId);
+
+              let _children = [...children];
+
+              // Reinsert delete child
+              // _children.splice(dropTargetIndexOf, 0, item._id);
+              if (dropPosition === "top") {
+                const insertAt = Math.max(dropTargetIndexOf, 0);
+
+                // Insert before
+                _children.splice(insertAt, 0, draggedElement);
+              } else {
+                // Insert after
+                _children.splice(
+                  Math.max(dropTargetIndexOf + 1, 0),
+                  0,
+                  draggedElement,
+                );
+              }
+
+              setTimeout(() => {
+                // Update element store
+                elementStore.dispatch({
+                  type: "SET_STATE",
+                  payload: {
+                    state: {
+                      children: _children,
+                    },
+                  },
+                });
+              }, 50);
             }
 
             return item;
@@ -202,8 +261,6 @@ function useDragDrop(containerRef, highlightBoxRef) {
 
         const newElementId = uuid();
 
-        console.log("elementData: ", elementData);
-        console.log("catalogData: ", catalogData);
         // const _elementData = replaceIdsOfCatalogElement({
         //   ...elementData,
         //   _id: newElementId,
@@ -221,15 +278,47 @@ function useDragDrop(containerRef, highlightBoxRef) {
         const currentItems = pageStore.getState().items || [];
 
         const _items = currentItems.map((item) => {
-          console.log("dropTargetId: ", dropTargetId);
           if (item._id === dropTargetId) {
-            if (CONTAINER_ELEMENTS.includes(dropTargetType)) {
-              console.log("Update --------------");
-              const elementStore = getElementStoreById(item._id);
+            let elementStore = getElementStoreById(item._id);
 
+            // Instead of inserting item inside row, we need to insert this item inside parent of row element
+            if (dropTargetType === ROW_TYPE) {
+              const parentElement = getParentElementClosest(dropTarget);
+
+              if (!parentElement) {
+                console.error("Not found parent of row element");
+
+                return item;
+              }
+
+              const parentElementId =
+                parentElement.getAttribute("data-ds-id") || "";
+
+              elementStore = getElementStoreById(parentElementId);
+
+              let _children = [...elementStore.getState().children];
+              // let _children = [...item.children];
+
+              if (dropPosition === "top") {
+                _children = [items[0]._id, ..._children];
+              } else if (dropPosition === "bottom") {
+                _children = [..._children, items[0]._id];
+              }
+
+              // Update element store
+              elementStore.dispatch({
+                type: "SET_STATE",
+                payload: {
+                  state: {
+                    children: _children,
+                  },
+                },
+              });
+
+              return item;
+            } else if (CONTAINER_ELEMENTS.includes(dropTargetType)) {
               const _children = [...item.children, items[0]._id];
 
-              console.log("_children: ", _children);
               // Update element store
               elementStore.dispatch({
                 type: "SET_STATE",
@@ -268,9 +357,7 @@ function useDragDrop(containerRef, highlightBoxRef) {
     [draggedElement],
   );
 
-  const handleDragLeave = useCallback((event) => {
-    // console.log("Drag left");
-  }, []);
+  const handleDragLeave = useCallback((event) => {}, []);
 
   // This is double click, should update accordingly
   const handleMouseDown = useCallback((event: any) => {
@@ -295,14 +382,10 @@ function useDragDrop(containerRef, highlightBoxRef) {
     updateHighLightBox(target);
   }, []);
 
-  const handleMouseUp = useCallback(() => {
-    // console.log("Mouse up");
-  }, []);
+  const handleMouseUp = useCallback(() => {}, []);
 
   const handleDragOverCapture = useCallback((event) => {
     handleDragOver(event);
-
-    // console.log("Drag over (capture phase)");
   }, []);
 
   return {
@@ -322,4 +405,212 @@ export default useDragDrop;
 
 function findParentElementIdById(_id: string, items: IElement[]) {
   return items.find((item) => item.children.includes(_id));
+}
+
+function insertElementWhenPageIsEmpty() {
+  const elementStores = getAllElementStore();
+
+  // If this page is empty
+  const isEmptyPage = elementStores.length === 2;
+
+  if (isEmptyPage) {
+    // Insert drop element in layout element
+    const layoutElementStore = elementStores.find(
+      (elementStore) => elementStore.getState().type === "Layout",
+    );
+
+    if (!layoutElementStore) return;
+
+    if (!globalDragData.catalogData || !globalDragData.elementData) return;
+
+    // Create new element
+    const { elementData, catalogData } = globalDragData;
+
+    const newElementId = uuid();
+
+    const _catalogData = replaceIdsOfCatalogElement({
+      ...catalogData,
+      _id: newElementId,
+    });
+
+    const items = _catalogData.items;
+
+    // Create element store
+    items.map((item: any) => createElementStore(item));
+
+    const layoutState = layoutElementStore.getState();
+
+    // Create section to store the drag element
+    const sectionElement = createBasicSection(
+      items[0]._id,
+      CONTAINER_ELEMENTS.includes(items[0].type),
+    );
+
+    layoutElementStore.dispatch({
+      type: "SET_STATE",
+      payload: {
+        state: {
+          ...(layoutState ?? {}),
+          // Insert main element
+          children: [sectionElement.getState()._id],
+        },
+      },
+    });
+
+    pageStore.dispatch({
+      type: "SET_STATE",
+      payload: {
+        state: {
+          ...pageStore.getState(),
+          items: [
+            ...pageStore.getState().items,
+            ...items.map((item) => getElementStoreById(item._id).getState()),
+          ],
+        },
+      },
+    });
+
+    return true;
+  }
+
+  return false;
+}
+
+function createBasicSection(elementId?: string, isLayoutElement?: boolean) {
+  const sectionElement = createSectionElement();
+
+  if (isLayoutElement) {
+    // Insert row into section
+    sectionElement.dispatch({
+      type: "SET_STATE",
+      payload: {
+        state: {
+          ...sectionElement.getState(),
+          children: [elementId],
+        },
+      },
+    });
+
+    pageStore.dispatch({
+      type: "SET_STATE",
+      payload: {
+        state: {
+          ...pageStore.getState(),
+          items: [...pageStore.getState().items, sectionElement.getState()],
+        },
+      },
+    });
+
+    return sectionElement;
+  }
+
+  const rowElement = createRowElement();
+  const columnElement = createColumElement();
+
+  // Insert row into section
+  sectionElement.dispatch({
+    type: "SET_STATE",
+    payload: {
+      state: {
+        ...sectionElement.getState(),
+        children: [rowElement.getState()._id],
+      },
+    },
+  });
+
+  // Insert column into row element
+  rowElement.dispatch({
+    type: "SET_STATE",
+    payload: {
+      state: {
+        ...rowElement.getState(),
+        children: [columnElement.getState()._id],
+      },
+    },
+  });
+
+  if (elementId) {
+    // Insert element into column element
+    columnElement.dispatch({
+      type: "SET_STATE",
+      payload: {
+        state: {
+          ...columnElement.getState(),
+          children: [elementId],
+        },
+      },
+    });
+  }
+
+  pageStore.dispatch({
+    type: "SET_STATE",
+    payload: {
+      state: {
+        ...pageStore.getState(),
+        items: [
+          ...pageStore.getState().items,
+          sectionElement.getState(),
+          rowElement.getState(),
+          columnElement.getState(),
+        ],
+      },
+    },
+  });
+
+  return sectionElement;
+}
+
+function createSectionElement() {
+  const sectionId = uuid();
+
+  const sectionCatalog = {
+    _id: sectionId,
+    type: "Section",
+    children: [],
+    styleData: {
+      all: {},
+    },
+  };
+
+  return createElementStore(sectionCatalog);
+}
+
+function createRowElement() {
+  const rowId = uuid();
+
+  const rowCatalog = {
+    _id: rowId,
+    type: "Row",
+    children: [],
+    styleData: {
+      all: {},
+    },
+  };
+
+  return createElementStore(rowCatalog);
+}
+
+function createColumElement() {
+  const columnId = uuid();
+
+  const columnCatalog = {
+    _id: columnId,
+    type: "Column",
+    children: [],
+    styleData: {
+      all: {},
+    },
+  };
+
+  return createElementStore(columnCatalog);
+}
+
+function getParentElementClosest(element: HTMLElement) {
+  let parentElement = element.parentElement;
+
+  while (parentElement && !parentElement.hasAttribute("data-ds-id")) {
+    parentElement = parentElement.parentElement;
+  }
+
+  return parentElement;
 }

@@ -1,3 +1,4 @@
+import { memo, useEffect } from "react";
 import EditorSandbox from "../../";
 
 function Editor() {
@@ -27,4 +28,4 @@ function Editor() {
   );
 }
 
-export default Editor;
+export default memo(Editor);
