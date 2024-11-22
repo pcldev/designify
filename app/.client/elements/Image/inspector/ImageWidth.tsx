@@ -9,7 +9,7 @@ import {
 
 import { useElementStyle } from "~/.client/stores/element-store";
 
-const MAXIMUM_RANGE_FONT_SIZE = 160;
+const MAXIMUM_RANGE_FONT_SIZE = 1000;
 const MINIMUM_RANGE_WIDTH = 100;
 
 const MAXIMUM_FONT_SIZE = 999;
