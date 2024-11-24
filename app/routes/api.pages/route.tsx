@@ -7,6 +7,7 @@ import { EActionType } from "~/constants/fetcher-keys";
 import { updateElement } from "~/models/Element.server";
 import { uuid } from "~/utils/uuid";
 import { updateStyle } from "~/models/Style.server";
+import { upsertShopifyPageConfig } from "~/models/ShopifyPageConfig.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   // Get templates
@@ -68,7 +69,11 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
         // Duplicate pages
         for (const pageId of pages) {
           const page = await getPageByID(pageId);
-          const { elements, styles, ...otherPageProps } = page;
+          const { elements, styles, pageConfig, ...otherPageProps } = page;
+          const newPageId = uuid();
+
+          // Duplicate page config
+          await upsertShopifyPageConfig({ ...pageConfig, _id: newPageId });
 
           // Step 1: Create a mapping of old IDs to new IDs
           const idMap = elements.reduce((map, el) => {
@@ -88,6 +93,7 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
               // Duplicate styles
               await updateStyle({ ...elementStyle, _id: newElementId });
 
+              // Duplicate elements
               await updateElement({
                 ...element,
                 children: element.children.map(
@@ -100,13 +106,13 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
             }),
           );
 
-          const newPageId = uuid();
           await ShopifyPage.findOneAndUpdate(
             {
               _id: newPageId,
             },
             {
               ...otherPageProps,
+
               _id: newPageId,
               title: `${page.title} Copy`,
               elements: newElementIds,

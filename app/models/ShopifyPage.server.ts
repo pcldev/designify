@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { updateElement } from "./Element.server";
 import { updateStyle } from "./Style.server";
+import { upsertShopifyPageConfig } from "./ShopifyPageConfig.server";
 
 const pageSchema = new mongoose.Schema(
   {
@@ -18,6 +19,10 @@ const pageSchema = new mongoose.Schema(
         ref: "Style",
       },
     ],
+    pageConfig: {
+      type: String,
+      ref: "PageConfig",
+    },
     html: String,
     css: String,
     publishedAt: { type: Date, default: null },
@@ -32,7 +37,8 @@ export const ShopifyPage =
 export async function getPageByID(id: string): Promise<any> {
   const page = await ShopifyPage.findOne({ _id: id })
     .populate("elements")
-    .populate("styles");
+    .populate("styles")
+    .populate("pageConfig");
 
   return page ? page.toObject() : null;
   // .populate('styles')
@@ -42,7 +48,7 @@ export async function getPageByID(id: string): Promise<any> {
 }
 
 export async function upsertPage(page: any) {
-  const { elements, ...otherProps } = page;
+  const { elements, pageConfig, ...otherProps } = page;
   const elementIds = elements.map((element: any) => element._id);
   const styles = elements.map((element: any) => element.styles);
   const styleIds = styles.map((style: any) => style._id);
@@ -63,11 +69,19 @@ export async function upsertPage(page: any) {
     }),
   );
 
+  // Upsert page config
+  await upsertShopifyPageConfig(pageConfig);
+
   await ShopifyPage.findOneAndUpdate(
     {
       _id: page._id,
     },
-    { elements: elementIds, styles: styleIds, ...otherProps },
+    {
+      elements: elementIds,
+      styles: styleIds,
+      pageConfig: pageConfig._id,
+      ...otherProps,
+    },
     { upsert: true },
   );
 

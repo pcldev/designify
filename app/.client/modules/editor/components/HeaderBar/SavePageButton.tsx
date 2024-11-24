@@ -72,6 +72,11 @@ function SavePageButton() {
         pageData: {
           _id: params.id,
           title: pageStore.getState().title,
+          // TODO: UPDATE PAGE CONFIG
+          pageConfig: {
+            shopDomain: shopify.config.shop,
+            _id: params._id,
+          },
           elements,
           html,
           css: cssText,

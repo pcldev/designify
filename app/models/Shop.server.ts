@@ -11,6 +11,7 @@ export const DEFAULT_SHOP_DATA = {
 
 const ShopSchema = new mongoose.Schema<ShopDocument>(
   {
+    _id: String,
     shopDomain: {
       type: String,
       index: true,
@@ -32,6 +33,7 @@ const ShopSchema = new mongoose.Schema<ShopDocument>(
     },
   },
   {
+    strict: false,
     timestamps: true,
   },
 );
