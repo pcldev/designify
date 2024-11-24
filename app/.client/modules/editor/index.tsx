@@ -15,6 +15,7 @@ import { EmptyPage } from "./EmptyPage";
 function EditorSandbox() {
   const { page } = useLoaderData<typeof loader>();
 
+  console.log("page: ", page);
   useEffect(() => {
     // Init page store
     initPageStore(page);
@@ -27,12 +28,8 @@ function EditorSandbox() {
 
   const elements = useStore(pageStore, (state) => state.items);
 
-  console.log("elements: ", elements);
-
   // Is empty page
   const isEmpty = elements.length === 2 || elements.length === 0;
-
-  console.log("isEmpty: ", isEmpty);
 
   const bodyStore = getRootElementStore();
 

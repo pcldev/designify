@@ -1,6 +1,6 @@
 import mongoose from "~/bootstrap/db/connect-db.server";
 
-const shopifyFileSchema = new mongoose.Schema(
+const fileSchema = new mongoose.Schema(
   {
     url: {
       type: String,
@@ -29,7 +29,6 @@ const shopifyFileSchema = new mongoose.Schema(
 );
 
 const ShopifyFile =
-  mongoose.models.ShopifyFile ||
-  mongoose.model("ShopifyFile", shopifyFileSchema, "shopify_files");
+  mongoose.models.File || mongoose.model("File", fileSchema, "files");
 
 export default ShopifyFile;

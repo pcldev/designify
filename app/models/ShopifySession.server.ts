@@ -1,6 +1,6 @@
 import mongoose from "~/bootstrap/db/connect-db.server";
 
-const ShopifySessionSchema = new mongoose.Schema(
+const sessionSchema = new mongoose.Schema(
   {
     id: String,
     expires: Date,
@@ -24,7 +24,7 @@ const ShopifySessionSchema = new mongoose.Schema(
 );
 
 const ShopifySession =
-  mongoose.models.ShopifySession ||
-  mongoose.model("ShopifySession", ShopifySessionSchema, "shopify_sessions");
+  mongoose.models.Session ||
+  mongoose.model("Session", sessionSchema, "sessions");
 
 export default ShopifySession;

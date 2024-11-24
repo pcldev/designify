@@ -87,3 +87,23 @@ export const addCssRule = (
     console.error("Failed to insert rule:", error);
   }
 };
+
+// Get the CSS text for a specific class name
+export function getCssTextByClassName(
+  styleElement: HTMLStyleElement,
+  className: string,
+): string | null {
+  if (styleElement?.sheet?.cssRules) {
+    const cssText = Array.from(styleElement.sheet.cssRules)
+      .filter((rule): rule is CSSStyleRule => {
+        return rule.selectorText.includes(`.${className}`);
+      })
+      .map((rule) => rule.cssText)
+      .join("\n");
+
+    return cssText || "";
+  } else {
+    console.warn("No CSS rules found in the style element.");
+    return null;
+  }
+}

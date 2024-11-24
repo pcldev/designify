@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { updateElement } from "./Element.server";
+import { updateStyle } from "./Style.server";
 
 const pageSchema = new mongoose.Schema(
   {
@@ -9,6 +10,12 @@ const pageSchema = new mongoose.Schema(
       {
         type: String,
         ref: "Element",
+      },
+    ],
+    styles: [
+      {
+        type: String,
+        ref: "Style",
       },
     ],
     html: String,
@@ -23,7 +30,10 @@ export const ShopifyPage =
   mongoose.models.Page || mongoose.model("Page", pageSchema, "pages");
 
 export async function getPageByID(id: string): Promise<any> {
-  const page = await ShopifyPage.findOne({ _id: id }).populate("elements");
+  const page = await ShopifyPage.findOne({ _id: id })
+    .populate("elements")
+    .populate("styles");
+
   return page;
   // .populate('styles')
   // .populate('shopifyPage')
@@ -33,15 +43,31 @@ export async function getPageByID(id: string): Promise<any> {
 
 export async function upsertPage(page: any) {
   const { elements, ...otherProps } = page;
-  const elementIds = elements.map((element) => element._id);
+  const elementIds = elements.map((element: any) => element._id);
+  const styles = elements.map((element: any) => element.styles);
+  const styleIds = styles.map((style: any) => style._id);
 
-  await Promise.all(elements.map((element) => updateElement(element)));
+  // Upsert element
+  await Promise.all(
+    elements.map((element: any) => {
+      const { styles, ...otherElementProps } = element;
+
+      return updateElement(otherElementProps);
+    }),
+  );
+
+  // Upsert styles
+  await Promise.all(
+    styles.map((style: any) => {
+      return updateStyle(style);
+    }),
+  );
 
   await ShopifyPage.findOneAndUpdate(
     {
       _id: page._id,
     },
-    { elements: elementIds, ...otherProps },
+    { elements: elementIds, styles: styleIds, ...otherProps },
     { upsert: true },
   );
 

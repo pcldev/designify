@@ -3,6 +3,7 @@ import { ROOT_TYPE } from "../constants/element-configs";
 import { createStore, Store } from "../libs/external-store";
 import { addCssRule } from "../modules/editor/styleInstanceStore";
 import { IElement } from "../types";
+import { getElementSelector } from "../modules/editor/configs";
 
 export type ElementStoreAction = {
   [key: string]: any;
@@ -67,7 +68,7 @@ export function createElementStore(element: any): TElementStore {
     return _elementStore;
   }
 
-  const cName = `ds-${elementId.split("-")[0]}`;
+  const cName = getElementSelector(elementId);
   const styleData = element.styleData?.all || "";
 
   // Create ref and className for element
@@ -154,7 +155,7 @@ export function useElementStyle(elementStore: Store<any, Action>) {
           // Update the existing rule
           const rule = sheet.cssRules[ruleIndex] as CSSStyleRule;
           for (const [property, value] of Object.entries(newStyles)) {
-            console.log({ [property]: value });
+            // console.log({ [property]: value });
 
             rule.style.setProperty(property, value); // Add or update the property
           }

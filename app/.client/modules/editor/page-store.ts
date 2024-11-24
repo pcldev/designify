@@ -1,10 +1,11 @@
 import { uuid } from "../../utils/uuid";
-import { pageStore } from "../../stores/page-store";
+import { DEFAULT_PAGE_STATE, pageStore } from "../../stores/page-store";
 import {
   clearAllElementStore,
   initElementStore,
 } from "~/.client/stores/element-store";
 import { image_placeholder } from "~/.client/elements/Image";
+import { getElementSelector } from "./configs";
 
 export const findRootTypeFromItems = (items: any[]) => {
   for (const item of items) {
@@ -114,11 +115,13 @@ export function initPageStore(page: any) {
   // Init page store when starting
   let items = generateDefaultItemData("regular");
 
+  let title = DEFAULT_PAGE_STATE.title;
+
   if (page) {
     // Get items
+    title = page.title;
     items = page.elements;
-
-    const cssText = page.css;
+    const styles = page.styles;
 
     const iframeDocument = document.querySelector("iframe")?.contentDocument;
 
@@ -138,17 +141,14 @@ export function initPageStore(page: any) {
     // Ensure the style element exists
     if (styleElement && styleElement.sheet) {
       // Split the CSS into individual rules
-      const rules = cssText.split("}");
-      rules.forEach((rule) => {
-        const trimmedRule = rule.trim();
-        if (trimmedRule) {
-          // Add each rule using insertRule
-          styleElement.sheet?.insertRule(
-            `${trimmedRule}}`,
-            styleElement.sheet.cssRules.length,
-          );
-        }
+
+      styles.map((style) => {
+        styleElement.sheet?.insertRule(
+          `.${getElementSelector(style._id)} ${style.styles || "{}"}`.trim(),
+          styleElement.sheet.cssRules.length,
+        );
       });
+
       console.log("CSS rules added successfully.");
     } else {
       console.log("Style element or sheet not found.");
@@ -158,7 +158,7 @@ export function initPageStore(page: any) {
   pageStore.dispatch({
     type: "SET_STATE",
     payload: {
-      state: { items },
+      state: { items, title },
     },
   });
 

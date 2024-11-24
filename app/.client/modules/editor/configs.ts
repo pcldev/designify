@@ -1,3 +1,7 @@
+export const getElementSelector = (_id: string) => {
+  return `ds-${_id.split("-")[0]}`;
+};
+
 export const pageCSS: { [k: string]: { url: string; frontend?: boolean } } = {
   editorStyle: {
     url: `/static/css/editor-iframe.css`,

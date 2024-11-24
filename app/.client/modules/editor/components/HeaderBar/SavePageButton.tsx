@@ -12,6 +12,8 @@ import { useLocation, useParams, useSearchParams } from "@remix-run/react";
 import { showToast } from "~/utils/showToast";
 import { sleep } from "~/utils/sleep";
 import { pageStore } from "~/.client/stores/page-store";
+import { getCssTextByClassName } from "../../styleInstanceStore";
+import { getElementSelector } from "../../configs";
 
 function SavePageButton() {
   const location = useLocation();
@@ -49,8 +51,16 @@ function SavePageButton() {
     const elements = elementStores.map((elementStore) => {
       const { ref, ...elementState } = elementStore.getState();
 
+      const _id = elementState._id;
+      const elementSelector = getElementSelector(_id);
       return {
         ...elementState,
+        styles: {
+          _id: _id,
+          styles: getCssTextByClassName(styleElement, elementSelector)
+            ?.trim()
+            .split(elementSelector)[1],
+        },
       };
     });
 
@@ -68,9 +78,6 @@ function SavePageButton() {
         },
       }),
     });
-
-    // Sleep 1 second to show enough toast
-    await sleep(1000);
 
     if (response.success) {
       showToast("Saved page successfully");
