@@ -2,6 +2,7 @@ import type { ShopDocument } from "./Shop";
 import type { Session } from "@shopify/shopify-api";
 import type { AdminApiContext } from "node_modules/@shopify/shopify-app-remix/dist/ts/server/clients";
 import mongoose from "~/bootstrap/db/connect-db.server";
+import ShopConfig from "./ShopConfig.server";
 
 export const DEFAULT_SHOP_DATA = {
   shopConfig: null,
@@ -63,6 +64,17 @@ export async function createOrUpdateShop(
   if (!shopConfig) {
     return null;
   }
+
+  // Create shop config
+  await ShopConfig.updateOne(
+    {
+      shopDomain,
+    },
+    shopConfig,
+    {
+      upsert: true,
+    },
+  );
 
   await Shop.updateOne(
     { shopDomain },
