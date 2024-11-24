@@ -15,7 +15,6 @@ import { EmptyPage } from "./EmptyPage";
 function EditorSandbox() {
   const { page } = useLoaderData<typeof loader>();
 
-  console.log("page: ", page);
   useEffect(() => {
     // Init page store
     initPageStore(page);

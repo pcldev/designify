@@ -151,7 +151,34 @@ export default withNavMenu(function Index(props: any) {
     [navigate],
   );
 
-  const duplicateTemplates = useCallback(() => {}, []);
+  const duplicateTemplates = useCallback(async () => {
+    // Verify the selected templates
+    const selectedResources = tableRef?.getSelectedResources();
+
+    if (!selectedResources?.length) {
+      return;
+    }
+
+    showToast("Duplicating pages");
+
+    const response = await authenticatedFetch("/api/pages", {
+      method: "POST",
+      body: JSON.stringify({
+        action: EActionType.DUPLICATE_PAGES,
+        pages: selectedResources,
+      }),
+    });
+
+    if (response.success) {
+      showToast("Duplicate pages successfully");
+
+      setRefresh({});
+
+      tableRef?.clearAllSelection();
+    } else {
+      showToast("Duplicate pages unsuccessfully");
+    }
+  }, []);
 
   const toggleModalDelete = useCallback(() => {
     setModalDeleteAction((pre) => !pre);

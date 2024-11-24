@@ -110,8 +110,6 @@ const DEFAULT_PAGE_ELEMENTS = [{}];
 // ];
 
 export function initPageStore(page: any) {
-  // TODO: Init page after saving page
-  ///////////////////////////////////
   // Init page store when starting
   let items = generateDefaultItemData("regular");
 

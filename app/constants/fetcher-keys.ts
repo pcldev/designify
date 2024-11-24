@@ -14,6 +14,7 @@ export enum EQueryProducts {
 
 export enum EActionType {
   "DELETE_PAGES" = "delete-pages",
+  "DUPLICATE_PAGES" = "duplicate-pages",
 }
 
 export enum EQueryMediaList {

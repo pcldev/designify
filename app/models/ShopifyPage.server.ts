@@ -34,7 +34,7 @@ export async function getPageByID(id: string): Promise<any> {
     .populate("elements")
     .populate("styles");
 
-  return page;
+  return page ? page.toObject() : null;
   // .populate('styles')
   // .populate('shopifyPage')
   // .populate('configs')
