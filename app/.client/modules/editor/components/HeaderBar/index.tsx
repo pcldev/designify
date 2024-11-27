@@ -1,6 +1,7 @@
 import { Box, InlineStack } from "@shopify/polaris";
 import PageTitle from "./PageTitle";
 import SavePageButton from "./SavePageButton";
+import PublishPageButton from "./PublishPageButton";
 
 function HeaderBar() {
   return (
@@ -17,6 +18,7 @@ function HeaderBar() {
 
         <InlineStack gap={"200"}>
           <SavePageButton />
+          <PublishPageButton />
         </InlineStack>
       </InlineStack>
     </Box>

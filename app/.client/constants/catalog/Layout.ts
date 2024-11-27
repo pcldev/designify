@@ -10,6 +10,11 @@ export const Layout = {
           type: "Row",
           _id: 0,
           children: [1],
+          styleData: {
+            all: {
+              "&": "display: flex; flex-wrap: wrap",
+            },
+          },
           data: {
             gutter: {
               all: "30px",
@@ -41,6 +46,11 @@ export const Layout = {
           type: "Row",
           _id: 0,
           children: [1, 2],
+          styleData: {
+            all: {
+              "&": "display: flex; flex-wrap: wrap",
+            },
+          },
           data: {
             equals: false,
             gutter: {
@@ -86,6 +96,11 @@ export const Layout = {
           type: "Row",
           _id: 0,
           children: [1, 2, 3],
+          styleData: {
+            all: {
+              "&": "display: flex; flex-wrap: wrap",
+            },
+          },
           data: {
             equals: false,
             gutter: {
@@ -142,6 +157,11 @@ export const Layout = {
           type: "Row",
           _id: 0,
           children: [1, 2, 3, 4],
+          styleData: {
+            all: {
+              "&": "display: flex; flex-wrap: wrap",
+            },
+          },
           data: {
             equals: false,
             gutter: {

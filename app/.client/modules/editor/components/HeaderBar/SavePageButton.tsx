@@ -1,22 +1,20 @@
+import { useParams } from "@remix-run/react";
 import { Button } from "@shopify/polaris";
 import { useCallback } from "react";
 import ReactDOMServer from "react-dom/server";
-import { RenderElement } from "../../render-root";
 import {
   getAllElementStore,
   getRootElementStore,
 } from "~/.client/stores/element-store";
-import { authenticatedFetch } from "~/shopify/fns.client";
-import { PAGE_ACTIONS } from "~/routes/api.page/constants";
-import { useLocation, useParams, useSearchParams } from "@remix-run/react";
-import { showToast } from "~/utils/showToast";
-import { sleep } from "~/utils/sleep";
 import { pageStore } from "~/.client/stores/page-store";
-import { getCssTextByClassName } from "../../styleInstanceStore";
+import { PAGE_ACTIONS } from "~/routes/api.page/constants";
+import { authenticatedFetch } from "~/shopify/fns.client";
+import { showToast } from "~/utils/showToast";
 import { getElementSelector } from "../../configs";
+import { RenderElement } from "../../render-root";
+import { getCssTextByClassName } from "../../styleInstanceStore";
 
 function SavePageButton() {
-  const location = useLocation();
   const params = useParams();
 
   const onSavePageHandler = useCallback(async () => {
@@ -72,11 +70,6 @@ function SavePageButton() {
         pageData: {
           _id: params.id,
           title: pageStore.getState().title,
-          // TODO: UPDATE PAGE CONFIG
-          pageConfig: {
-            shopDomain: shopify.config.shop,
-            _id: params._id,
-          },
           elements,
           html,
           css: cssText,

@@ -12,14 +12,6 @@ body {
   position: relative;
 }
 
-[data-ds-type="Row"] {
-  display: flex;
-}
-
-[data-ds-type="Column"] {
-  padding: 15px;
-}
-
 .ds-editor-body {
   position: relative;
 }

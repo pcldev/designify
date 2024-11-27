@@ -9,10 +9,17 @@ type Action =
   | { type: "SET_STATE"; payload: { state: any } }
   | { type: "RESET_STATE" };
 
-export type PageDocument = { title: string; items: IElement[] };
+export type PageDocument = {
+  title: string;
+  publishedAt: Date | null;
+  handle: string;
+  items: IElement[];
+};
 
 export const DEFAULT_PAGE_STATE: PageDocument = {
   title: "Untitled",
+  publishedAt: null,
+  handle: "",
   items: [],
 };
 

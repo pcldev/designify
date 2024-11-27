@@ -4,22 +4,36 @@ import type {
   ProductMediaInputSchema,
   VariantInputSchema,
   ProductVariantQuerySchema,
-} from './types'
-import type { AdminApiContext } from 'node_modules/@shopify/shopify-app-remix/dist/ts/server/clients'
-import type { GraphQLResponse } from 'node_modules/@shopify/shopify-app-remix/dist/ts/server/clients/types'
-import { flattenGraphQLConnectionResults } from '../fns'
-import { queryForWebhooks } from './webhooks/query.server'
-import { getObjectValueByKeyPath } from '~/bootstrap/fns/misc'
-import { deleteWebhookMutation } from './webhooks/mutation.server'
-import { queryForMediaImagesByIds, queryForMediaImages } from './files/query.server'
-import { mutationFileCreate, mutationStagedUploadsCreate } from './files/mutation.server'
-import { queryForAppId, queryForAppMetafield, queryForAppInfo } from './app/query.server'
-import { mutationMetafieldDelete, mutationCreateAppDataMetafield } from './app/mutation.server'
+  Page,
+} from "./types";
+import type { AdminApiContext } from "node_modules/@shopify/shopify-app-remix/dist/ts/server/clients";
+import type { GraphQLResponse } from "node_modules/@shopify/shopify-app-remix/dist/ts/server/clients/types";
+import { flattenGraphQLConnectionResults } from "../fns";
+import { queryForWebhooks } from "./webhooks/query.server";
+import { getObjectValueByKeyPath } from "~/bootstrap/fns/misc";
+import { deleteWebhookMutation } from "./webhooks/mutation.server";
+import {
+  queryForMediaImagesByIds,
+  queryForMediaImages,
+} from "./files/query.server";
+import {
+  mutationFileCreate,
+  mutationStagedUploadsCreate,
+} from "./files/mutation.server";
+import {
+  queryForAppId,
+  queryForAppMetafield,
+  queryForAppInfo,
+} from "./app/query.server";
+import {
+  mutationMetafieldDelete,
+  mutationCreateAppDataMetafield,
+} from "./app/mutation.server";
 import {
   queryForProductMedia,
   queryForProducts,
   queryForProductVariants,
-} from '~/shopify/graphql/products/query.server'
+} from "~/shopify/graphql/products/query.server";
 import {
   deleteMediaMutation,
   productCreateMediaMutation,
@@ -29,89 +43,123 @@ import {
   productUpdateMediaMutation,
   productVariantsBulkCreateMutation,
   productVariantUpdateMutation,
-} from './products/mutation.server'
-import { publishablePublishMutation } from './store-properties/mutation.server'
-import { getStorePublicationsQuery } from './store-properties/query.server'
+} from "./products/mutation.server";
+import { publishablePublishMutation } from "./store-properties/mutation.server";
+import { getStorePublicationsQuery } from "./store-properties/query.server";
+import {
+  PageCreate,
+  PageDelete,
+  PageUpdate,
+} from "./online-stores/mutation.server";
 
 export class ShopifyApiClient {
-  admin: AdminApiContext
+  admin: AdminApiContext;
 
   constructor(admin: AdminApiContext) {
-    this.admin = admin
+    this.admin = admin;
   }
 
   async getAppId() {
-    return verifyResponse(await this.admin.graphql(queryForAppId), 'currentAppInstallation.id')
+    return verifyResponse(
+      await this.admin.graphql(queryForAppId),
+      "currentAppInstallation.id",
+    );
   }
 
   async getAppTitle() {
-    return verifyResponse(await this.admin.graphql(queryForAppInfo), 'app.title')
+    return verifyResponse(
+      await this.admin.graphql(queryForAppInfo),
+      "app.title",
+    );
   }
 
   async getAppHandle() {
-    return verifyResponse(await this.admin.graphql(queryForAppInfo), 'app.handle')
+    return verifyResponse(
+      await this.admin.graphql(queryForAppInfo),
+      "app.handle",
+    );
   }
 
   async getProducts(params: ConnectionArguments = {}) {
-    return verifyResponse(await this.admin.graphql(queryForProducts(params)), 'products')
+    return verifyResponse(
+      await this.admin.graphql(queryForProducts(params)),
+      "products",
+    );
   }
 
   async getProductsByIds(productIds: string[]): Promise<any[]> {
     if (!productIds.length) {
-      return []
+      return [];
     }
 
     return flattenGraphQLConnectionResults(
       await verifyResponse(
-        await this.admin.graphql(queryForProducts({ query: convertIdsToQuery(productIds) })),
-        'products.nodes'
+        await this.admin.graphql(
+          queryForProducts({ query: convertIdsToQuery(productIds) }),
+        ),
+        "products.nodes",
       ),
-      ['variants']
-    )
+      ["variants"],
+    );
   }
 
   async getProductMedia(productId: string): Promise<any[]> {
     if (!productId) {
-      return []
+      return [];
     }
 
     return verifyResponse(
-      await this.admin.graphql(queryForProductMedia, { variables: { productId } }),
-      'product.media.edges'
-    )
+      await this.admin.graphql(queryForProductMedia, {
+        variables: { productId },
+      }),
+      "product.media.edges",
+    );
   }
 
   // @deprecated This function is deprecated and will be removed later
-  async getProductVariantsLegacy(productId: string): Promise<ProductVariantQuerySchema[]> {
+  async getProductVariantsLegacy(
+    productId: string,
+  ): Promise<ProductVariantQuerySchema[]> {
     if (!productId) {
-      return []
+      return [];
     }
 
     return verifyResponse(
-      await this.admin.graphql(queryForProductMedia, { variables: { productId } }),
-      'product.variants.edges'
-    )
+      await this.admin.graphql(queryForProductMedia, {
+        variables: { productId },
+      }),
+      "product.variants.edges",
+    );
   }
 
   async getProductVariants(params: ConnectionArguments = {}): Promise<any> {
-    return verifyResponse(await this.admin.graphql(queryForProductVariants(params)), 'productVariants')
+    return verifyResponse(
+      await this.admin.graphql(queryForProductVariants(params)),
+      "productVariants",
+    );
   }
 
   async getMediaFilesByIds(ids: string[]): Promise<any[]> {
     if (!ids.length) {
-      return []
+      return [];
     }
 
-    return verifyResponse(await this.admin.graphql(queryForMediaImagesByIds(ids)), 'nodes')
+    return verifyResponse(
+      await this.admin.graphql(queryForMediaImagesByIds(ids)),
+      "nodes",
+    );
   }
 
   async getMediaFiles(params: ConnectionArguments = {}): Promise<any> {
-    return verifyResponse(await this.admin.graphql(queryForMediaImages(params)), 'files')
+    return verifyResponse(
+      await this.admin.graphql(queryForMediaImages(params)),
+      "files",
+    );
   }
 
   async removeMediaFiles(ids: string[], productId: string) {
     if (!ids.length) {
-      return []
+      return [];
     }
 
     return verifyResponse(
@@ -120,13 +168,13 @@ export class ShopifyApiClient {
           mediaIds: ids,
           productId,
         },
-      })
-    )
+      }),
+    );
   }
 
   async createProductMedia(
     media: { alt: string; mediaContentType: string; originalSource: string },
-    productId: string
+    productId: string,
   ) {
     return verifyResponse(
       await this.admin.graphql(productCreateMediaMutation, {
@@ -134,11 +182,11 @@ export class ShopifyApiClient {
           media,
           productId,
         },
-      })
-    )
+      }),
+    );
   }
 
-  async updateProductStatus(id: string, status: 'DRAFT' | 'ACTIVE') {
+  async updateProductStatus(id: string, status: "DRAFT" | "ACTIVE") {
     return verifyResponse(
       await this.admin.graphql(productStatusMutation, {
         variables: {
@@ -147,52 +195,64 @@ export class ShopifyApiClient {
             status,
           },
         },
-      })
-    )
+      }),
+    );
   }
 
-  async createProduct(productData: ProductInputMutationSchema, media: ProductMediaInputSchema[]) {
+  async createProduct(
+    productData: ProductInputMutationSchema,
+    media: ProductMediaInputSchema[],
+  ) {
     return verifyResponse(
       await this.admin.graphql(productCreateMutation, {
         variables: {
           product: productData,
           media,
         },
-      })
-    )
+      }),
+    );
   }
 
-  async createBulkProductVariants(productId: string, variants: VariantInputSchema[]) {
+  async createBulkProductVariants(
+    productId: string,
+    variants: VariantInputSchema[],
+  ) {
     return verifyResponse(
       await this.admin.graphql(productVariantsBulkCreateMutation, {
         variables: {
           productId,
           variants,
         },
-      })
-    )
+      }),
+    );
   }
 
-  async productUpdateMedia(productId: string, media: { id: string; previewImageSource: string }[]) {
+  async productUpdateMedia(
+    productId: string,
+    media: { id: string; previewImageSource: string }[],
+  ) {
     return verifyResponse(
       await this.admin.graphql(productUpdateMediaMutation, {
         variables: {
           media,
           productId,
         },
-      })
-    )
+      }),
+    );
   }
 
-  async productReorderMedia(productId: string, moves: { id: string; newPosition: number }[]) {
+  async productReorderMedia(
+    productId: string,
+    moves: { id: string; newPosition: number }[],
+  ) {
     return verifyResponse(
       await this.admin.graphql(productReorderMediaMutation, {
         variables: {
           moves,
           id: productId,
         },
-      })
-    )
+      }),
+    );
   }
 
   async productVariantUpdate(variantId: string, mediaId: string) {
@@ -204,85 +264,101 @@ export class ShopifyApiClient {
             id: variantId,
           },
         },
-      })
-    )
+      }),
+    );
   }
 
   async createStagedUploads(
     input: {
-      filename: string
-      fileSize: string
-      mimeType: string
-      resource: string
-      httpMethod: string
-    }[]
+      filename: string;
+      fileSize: string;
+      mimeType: string;
+      resource: string;
+      httpMethod: string;
+    }[],
   ): Promise<any> {
     return verifyResponse(
-      await this.admin.graphql(mutationStagedUploadsCreate, { variables: { input } }),
-      'stagedUploadsCreate'
-    )
+      await this.admin.graphql(mutationStagedUploadsCreate, {
+        variables: { input },
+      }),
+      "stagedUploadsCreate",
+    );
   }
 
   async createFile(
     files: [
       {
-        alt: string
-        filename: string
-        originalSource: string
-        contentType: 'IMAGE' | 'FILE'
+        alt: string;
+        filename: string;
+        originalSource: string;
+        contentType: "IMAGE" | "FILE";
       },
-    ]
+    ],
   ): Promise<any[]> {
-    return verifyResponse(await this.admin.graphql(mutationFileCreate, { variables: { files } }), 'fileCreate')
+    return verifyResponse(
+      await this.admin.graphql(mutationFileCreate, { variables: { files } }),
+      "fileCreate",
+    );
   }
 
   async getAppMetafields(ownerId?: string) {
-    const appId = await this.getAppId()
+    const appId = await this.getAppId();
 
     if (!ownerId) {
-      ownerId = appId
+      ownerId = appId;
     }
 
-    return verifyResponse(await this.admin.graphql(queryForAppMetafield, { variables: { ownerId: ownerId } }))
+    return verifyResponse(
+      await this.admin.graphql(queryForAppMetafield, {
+        variables: { ownerId: ownerId },
+      }),
+    );
   }
 
   async upsertAppMetafields(
     metafieldsSetInput: {
-      key: string
-      type: string
-      value: string
-      ownerId?: string
-      namespace: string
-    }[]
+      key: string;
+      type: string;
+      value: string;
+      ownerId?: string;
+      namespace: string;
+    }[],
   ) {
     // Prepare input objects
-    let appId
+    let appId;
 
     for (let i = 0; i < metafieldsSetInput.length; i++) {
       if (!metafieldsSetInput[i].ownerId) {
-        appId = appId || (await this.getAppId())
-        metafieldsSetInput[i].ownerId = appId
+        appId = appId || (await this.getAppId());
+        metafieldsSetInput[i].ownerId = appId;
       }
     }
 
     return verifyResponse(
-      await this.admin.graphql(mutationCreateAppDataMetafield, { variables: { metafieldsSetInput } }),
-      'metafieldsSet'
-    )
+      await this.admin.graphql(mutationCreateAppDataMetafield, {
+        variables: { metafieldsSetInput },
+      }),
+      "metafieldsSet",
+    );
   }
 
   async deleteAppMetafield(input: { id: string }) {
     return verifyResponse(
-      await this.admin.graphql(mutationMetafieldDelete, { variables: { input } }),
-      'metafieldDelete'
-    )
+      await this.admin.graphql(mutationMetafieldDelete, {
+        variables: { input },
+      }),
+      "metafieldDelete",
+    );
   }
 
   /** Store properties */
 
   /** Get store's publication */
   async getStorePublications() {
-    return verifyResponse(await this.admin.graphql(getStorePublicationsQuery), 'publications.edges')
+    return verifyResponse(
+      await this.admin.graphql(getStorePublicationsQuery),
+      "publications.edges",
+    );
   }
 
   /** Publishes a resource to a channel */
@@ -295,19 +371,56 @@ export class ShopifyApiClient {
             publicationId,
           },
         },
-      })
-    )
+      }),
+    );
+  }
+
+  /** Online Stores */
+  async createPage(page: Page) {
+    return verifyResponse(
+      await this.admin.graphql(PageCreate, {
+        variables: {
+          page,
+        },
+      }),
+      "pageCreate",
+    );
+  }
+
+  async updatePage(shopifyPageId: string, page: Page) {
+    return verifyResponse(
+      await this.admin.graphql(PageUpdate, {
+        variables: {
+          id: shopifyPageId,
+          page,
+        },
+      }),
+      "pageUpdate",
+    );
+  }
+
+  async deletePage(shopifyPageId: string) {
+    return verifyResponse(
+      await this.admin.graphql(PageDelete, {
+        variables: {
+          id: shopifyPageId,
+        },
+      }),
+      "pageDelete",
+    );
   }
 
   /** WEBHOOKS */
   async getWebhooks() {
-    return verifyResponse(await this.admin.graphql(queryForWebhooks))
+    return verifyResponse(await this.admin.graphql(queryForWebhooks));
   }
 
   async deleteWebhook(webhookId: string) {
-    const response = await this.admin.graphql(deleteWebhookMutation, { variables: { id: webhookId } })
+    const response = await this.admin.graphql(deleteWebhookMutation, {
+      variables: { id: webhookId },
+    });
 
-    return response
+    return response;
   }
 }
 
@@ -315,23 +428,29 @@ export function convertIdsToQuery(ids: string[]): string {
   try {
     // Extract the numeric ID from each GID and format them into the desired query format
     return (ids || [])
-      .filter(i => !!i)
-      .map(id => `(id:${id.toString().split('/').pop()})`)
-      .join(' OR ')
+      .filter((i) => !!i)
+      .map((id) => `(id:${id.toString().split("/").pop()})`)
+      .join(" OR ");
   } catch (e) {
-    console.error(e)
-    return ''
+    console.error(e);
+    return "";
   }
 }
 
-export async function verifyResponse(result: GraphQLResponse<any, any>, dataKeyPath?: string) {
-  const _result = typeof result.json === 'function' ? await result.json() : result
+export async function verifyResponse(
+  result: GraphQLResponse<any, any>,
+  dataKeyPath?: string,
+) {
+  const _result =
+    typeof result.json === "function" ? await result.json() : result;
 
-  const data = dataKeyPath ? getObjectValueByKeyPath(_result, `data.${dataKeyPath}`) : _result.data
+  const data = dataKeyPath
+    ? getObjectValueByKeyPath(_result, `data.${dataKeyPath}`)
+    : _result.data;
 
   if (!data || data?.userErrors?.length) {
-    throw new Error(data?.userErrors?.[0]?.message || 'UNKNOWN')
+    throw new Error(data?.userErrors?.[0]?.message || "UNKNOWN");
   }
 
-  return data
+  return data;
 }

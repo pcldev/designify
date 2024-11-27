@@ -48,7 +48,7 @@ export async function getPageByID(id: string): Promise<any> {
 }
 
 export async function upsertPage(page: any) {
-  const { elements, pageConfig, ...otherProps } = page;
+  const { elements, ...otherProps } = page;
   const elementIds = elements.map((element: any) => element._id);
   const styles = elements.map((element: any) => element.styles);
   const styleIds = styles.map((style: any) => style._id);
@@ -69,18 +69,22 @@ export async function upsertPage(page: any) {
     }),
   );
 
+  const pageId = page._id;
   // Upsert page config
-  await upsertShopifyPageConfig(pageConfig);
+  await upsertShopifyPageConfig({
+    _id: pageId,
+    shopDomain: otherProps.shopDomain,
+  });
 
   await ShopifyPage.findOneAndUpdate(
     {
-      _id: page._id,
+      _id: pageId,
     },
     {
+      ...otherProps,
       elements: elementIds,
       styles: styleIds,
-      pageConfig: pageConfig._id,
-      ...otherProps,
+      pageConfig: pageId,
     },
     { upsert: true },
   );

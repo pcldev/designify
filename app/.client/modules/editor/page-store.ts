@@ -115,10 +115,17 @@ export function initPageStore(page: any) {
 
   let title = DEFAULT_PAGE_STATE.title;
 
+  let publishedAt = null;
+  let handle = "";
+
   if (page) {
     // Get items
     title = page.title;
     items = page.elements;
+
+    publishedAt = page.pageConfig.publishedAt;
+    handle = page.pageConfig.handle;
+
     const styles = page.styles;
 
     const iframeDocument = document.querySelector("iframe")?.contentDocument;
@@ -156,7 +163,7 @@ export function initPageStore(page: any) {
   pageStore.dispatch({
     type: "SET_STATE",
     payload: {
-      state: { items, title },
+      state: { items, title, handle, publishedAt },
     },
   });
 

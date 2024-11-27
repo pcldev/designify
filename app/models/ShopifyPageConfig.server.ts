@@ -2,14 +2,16 @@ import mongoose from "~/bootstrap/db/connect-db.server";
 
 const shopifyPageConfigSchema = new mongoose.Schema(
   {
-    _id: String,
-    shopDomain: String,
+    _id: { type: String, index: true },
+    shopifyPageId: String,
+    handle: String,
     publishedAt: { type: Date, default: null },
     deletedAt: String,
   },
   {
-    strict: false,
+    _id: false,
     timestamps: true,
+    strict: false,
   },
 );
 
@@ -20,12 +22,16 @@ const ShopifyPageConfig =
 export default ShopifyPageConfig;
 
 export async function upsertShopifyPageConfig(shopifyPageConfig: any) {
-  const { _id } = shopifyPageConfig;
+  const { _id, shopDomain, ...otherProps } = shopifyPageConfig;
 
+  delete shopifyPageConfig.shopDomain;
+
+  console.log("otherProps: ", otherProps);
   await ShopifyPageConfig.updateOne(
     { _id },
     {
-      ...shopifyPageConfig,
+      _id,
+      ...otherProps,
     },
     { upsert: true },
   );

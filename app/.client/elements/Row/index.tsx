@@ -35,9 +35,11 @@ function Row(props: any) {
   align = align !== "lt" ? ` ds-c-${align}` : "";
   const stretchClass = stretch ? " ds-r-eh" : "";
   const className = `ds-r${align}${stretchClass}`;
-  const style = {
+  const style: React.CSSProperties = {
     // ...styleVariableByDevices(getItemSpacing(gutter), "s"),
     padding: "15px 0",
+    display: "flex",
+    flexWrap: "wrap",
   };
 
   const rowComponent = (
