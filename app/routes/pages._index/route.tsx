@@ -132,7 +132,7 @@ export default withNavMenu(function Index(props: any) {
           </IndexTable.Cell>
           <IndexTable.Cell>
             <Link monochrome removeUnderline onClick={openPage}>
-              <Badge tone={status === "active" ? "success" : undefined}>
+              <Badge tone={status === "published" ? "success" : undefined}>
                 {_.capitalize(status)}
               </Badge>
             </Link>

@@ -71,10 +71,11 @@ type VariantMetafieldInputSchema = {
 };
 
 export type Page = {
-  title: string;
+  title?: string;
   templateSuffix?: string;
   publishDate?: Date;
   isPublished: boolean;
   handle?: string;
-  body: string;
+  body?: string;
+  publishDate?: Date;
 };

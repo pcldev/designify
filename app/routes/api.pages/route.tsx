@@ -10,29 +10,41 @@ import { updateStyle } from "~/models/Style.server";
 import { upsertShopifyPageConfig } from "~/models/ShopifyPageConfig.server";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  // Get templates
+  // Get templates with population of pageConfig
   const { page, items, total } = await fetchList(request, ShopifyPage, [
+    {
+      $lookup: {
+        from: "pageconfigs", // Ensure this matches the name of your PageConfig collection
+        localField: "pageConfig", // The field in the page schema that references PageConfig
+        foreignField: "_id", // The _id field in the PageConfig collection
+        as: "pageConfigDetails", // The alias to hold the populated result
+      },
+    },
+    {
+      $unwind: { path: "$pageConfigDetails", preserveNullAndEmptyArrays: true }, // Unwind to directly access the fields from PageConfig
+    },
     {
       $addFields: {
         status: {
           $cond: {
-            if: { $ne: ["$publishedAt", null] },
+            if: { $ne: ["$pageConfigDetails.publishedAt", null] },
             then: "published",
             else: "unpublished",
           },
         },
+        publishedAt: "$pageConfigDetails.publishedAt", // Add the populated 'publishedAt' to the result
       },
     },
     {
       $project: {
         title: 1,
         status: 1,
-        publishedAt: 1,
         createdAt: 1,
         updatedAt: 1,
         previewUrl: 1,
         shopDomain: 1,
         type: 1,
+        publishedAt: 1, // Include the 'publishedAt' field in the final projection
       },
     },
   ]);

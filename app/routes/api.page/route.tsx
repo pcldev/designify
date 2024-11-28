@@ -73,8 +73,33 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
         } catch (e) {
           return json({ success: false, message: e });
         }
+      }
 
-        // return json({ success: true, pageMutation });
+      case PAGE_ACTIONS["unpublish-page"]: {
+        const api = new ShopifyApiClient(admin);
+
+        const pageId = payload._id;
+
+        const page = await getPageByID(pageId);
+
+        if (!page) {
+          return json({ success: false, message: "Page not found" });
+        }
+
+        const { pageConfig } = page;
+
+        if (pageConfig.shopifyPageId) {
+          // Update page
+          const pageMutation = await api.deletePage(pageConfig.shopifyPageId);
+
+          // Update PageConfig
+          await ShopifyPageConfig.updateOne(
+            { _id: pageId },
+            { publishedAt: null, shopifyPageId: "" },
+          );
+
+          return json({ success: true, pageMutation });
+        }
       }
     }
   } catch (e: any) {
