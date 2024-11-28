@@ -55,6 +55,7 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
               title,
               body: `<style>${css}</style>${html}`,
               isPublished: true,
+              templateSuffix: `ds-${pageId.split("-")[0]}`,
             });
 
             const {

@@ -26,7 +26,6 @@ export async function upsertShopifyPageConfig(shopifyPageConfig: any) {
 
   delete shopifyPageConfig.shopDomain;
 
-  console.log("otherProps: ", otherProps);
   await ShopifyPageConfig.updateOne(
     { _id },
     {
