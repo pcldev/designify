@@ -1,6 +1,19 @@
-import { Card, Text, Box } from "@shopify/polaris";
+import { useNavigate } from "@remix-run/react";
+import {
+  Card,
+  Text,
+  Box,
+  Divider,
+  InlineStack,
+  Button,
+} from "@shopify/polaris";
+import { getDistanceToNow } from "~/bootstrap/fns/time";
 
-function RecentPages() {
+function RecentPages(props: { pages: { items: any[] } }) {
+  const items = props.pages.items;
+
+  const navigate = useNavigate();
+
   return (
     <Card roundedAbove="sm">
       <Text as="h2" variant="headingSm">
@@ -13,10 +26,36 @@ function RecentPages() {
           finished work.
         </Text>
       </Box>
-      <Box paddingBlockStart="200">
-        <Text as="p" variant="bodyMd">
-          Content will be filled soon...
-        </Text>
+      <Box>
+        <Divider />
+
+        {items.map((item) => {
+          return (
+            <Box key={item._id}>
+              <Box paddingBlock={"400"}>
+                <InlineStack align="space-between" blockAlign="center">
+                  <Text as="p" variant="bodyMd">
+                    {item.title}
+                  </Text>
+
+                  <InlineStack blockAlign="center" gap={"200"}>
+                    <Text as="p" variant="bodySm">
+                      {getDistanceToNow(item.updatedAt)}
+                    </Text>
+                    <Button
+                      onClick={() => {
+                        navigate(`/pages/${item._id}`);
+                      }}
+                    >
+                      Edit
+                    </Button>
+                  </InlineStack>
+                </InlineStack>
+              </Box>
+              <Divider />
+            </Box>
+          );
+        })}
       </Box>
     </Card>
   );

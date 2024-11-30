@@ -8,11 +8,7 @@ const shopifyPageConfigSchema = new mongoose.Schema(
     publishedAt: { type: Date, default: null },
     deletedAt: String,
   },
-  {
-    _id: false,
-    timestamps: true,
-    strict: false,
-  },
+  { _id: false, timestamps: true, strict: false },
 );
 
 const ShopifyPageConfig =

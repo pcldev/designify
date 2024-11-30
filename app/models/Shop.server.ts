@@ -3,6 +3,8 @@ import type { Session } from "@shopify/shopify-api";
 import type { AdminApiContext } from "node_modules/@shopify/shopify-app-remix/dist/ts/server/clients";
 import mongoose from "~/bootstrap/db/connect-db.server";
 import ShopConfig from "./ShopConfig.server";
+import AppConfig from "./AppConfig.server";
+import { uuid } from "~/utils/uuid";
 
 export const DEFAULT_SHOP_DATA = {
   shopConfig: null,
@@ -61,6 +63,13 @@ export async function createOrUpdateShop(
   const shopResources = await admin.rest.resources.Shop.all({ session });
   const shopConfig = shopResources?.data?.[0];
 
+  const _appConfig = {
+    _id: uuid(),
+    shopDomain,
+    enabledThemeAppExtension: false,
+    ga4Code: "",
+  };
+
   if (!shopConfig) {
     return null;
   }
@@ -76,10 +85,26 @@ export async function createOrUpdateShop(
     },
   );
 
+  let appConfig = await AppConfig.findOne({ shopDomain });
+
+  if (!appConfig) {
+    // Create app config
+    appConfig = await AppConfig.updateOne(
+      {
+        shopDomain,
+      },
+      _appConfig,
+      {
+        upsert: true,
+      },
+    );
+  }
+
   await Shop.updateOne(
     { shopDomain },
     {
       shopConfig,
+      appConfig: appConfig._id,
       uninstalledAt: null,
     },
     { upsert: true },

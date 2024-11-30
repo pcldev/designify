@@ -14,7 +14,7 @@ export default function withNavMenu(
       () => ({
         "/dashboard": "Dashboard",
         "/pages": "Pages",
-        "/settings": "Settings",
+        "/preferences": "Preferences",
       }),
       [],
     );

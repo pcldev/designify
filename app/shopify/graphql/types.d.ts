@@ -79,3 +79,14 @@ export type Page = {
   body?: string;
   publishDate?: Date;
 };
+
+export type Theme = {
+  created_at: string;
+  id: number;
+  name: string;
+  previewable: boolean;
+  processing: boolean;
+  role: ThemeRole;
+  theme_store_id: number;
+  updated_at: string;
+};

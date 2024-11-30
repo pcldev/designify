@@ -5,6 +5,7 @@ import type {
   VariantInputSchema,
   ProductVariantQuerySchema,
   Page,
+  Theme,
 } from "./types";
 import type { AdminApiContext } from "node_modules/@shopify/shopify-app-remix/dist/ts/server/clients";
 import type { GraphQLResponse } from "node_modules/@shopify/shopify-app-remix/dist/ts/server/clients/types";

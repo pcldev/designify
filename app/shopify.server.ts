@@ -32,15 +32,11 @@ const shopify = shopifyApp({
     CUSTOMERS_REDACT: webhookHandler,
     SHOP_REDACT: webhookHandler,
     SHOP_UPDATE: webhookHandler,
-    ORDERS_CREATE: webhookHandler,
-    ORDERS_DELETE: webhookHandler,
-    ORDERS_UPDATED: webhookHandler,
-    ORDERS_CANCELLED: webhookHandler,
-    APP_SUBSCRIPTIONS_APPROACHING_CAPPED_AMOUNT: webhookHandler,
   },
   hooks: {
     afterAuth: async ({ session, admin }) => {
       shopify.registerWebhooks({ session });
+
       await createOrUpdateShop(admin, session);
     },
   },
