@@ -148,10 +148,14 @@ export function initPageStore(page: any) {
       // Split the CSS into individual rules
 
       styles.map((style) => {
-        styleElement.sheet?.insertRule(
-          `.${getElementSelector(style._id)} ${style.styles || "{}"}`.trim(),
-          styleElement.sheet.cssRules.length,
-        );
+        try {
+          styleElement.sheet?.insertRule(
+            `.${getElementSelector(style._id)} ${style.styles || "{}"}`.trim(),
+            styleElement.sheet.cssRules.length,
+          );
+        } catch (e) {
+          console.error(e);
+        }
       });
 
       console.log("CSS rules added successfully.");

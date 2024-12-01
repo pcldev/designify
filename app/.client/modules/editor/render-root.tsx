@@ -21,7 +21,7 @@ export function enhanceComponent(c: FunctionComponent<any> = NullElement) {
     const realComponent = c(props) as ReactElement;
 
     // PASS 'view' on live view
-    const mode = "edit";
+    const mode = props.mode || "edit";
 
     const { store, data: cusAttr } = props;
 
@@ -50,7 +50,7 @@ export function enhanceComponent(c: FunctionComponent<any> = NullElement) {
 }
 
 export const RenderElement = memo((props: any) => {
-  const { _id, data } = props;
+  const { _id, data, mode = "edit" } = props;
 
   const elementStore = getElementStoreById(_id);
 
@@ -63,13 +63,13 @@ export const RenderElement = memo((props: any) => {
   const store = getElementStoreById(_id);
 
   return (
-    <Element key={_id} _id={_id} {...data} store={store}>
-      {renderChildren(children)}
+    <Element key={_id} _id={_id} mode={mode} {...data} store={store}>
+      {renderChildren(children, mode)}
     </Element>
   );
 });
 
-function renderChildren(children: string[]) {
+function renderChildren(children: string[], mode = "edit") {
   if (Array.isArray(children)) {
     return children
       .map((childId) => {
@@ -81,6 +81,7 @@ function renderChildren(children: string[]) {
               <RenderElement
                 key={childId}
                 _id={childId}
+                mode={mode}
                 elementSubscriber={childElSub}
               />
             </ErrorBoundary>

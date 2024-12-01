@@ -361,9 +361,11 @@ function useDragDrop(containerRef, highlightBoxRef) {
 
   // This is double click, should update accordingly
   const handleMouseDown = useCallback((event: any) => {
+    console.log("event: ", event.target);
     event.preventDefault();
     const target = event.target as HTMLElement;
     const elementId = target.getAttribute("data-ds-id") || "";
+
     ElementSelectedStore.dispatch({
       type: "SET_STATE",
       payload: {

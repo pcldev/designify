@@ -147,7 +147,7 @@ export const Layout = {
           },
         },
       ],
-      icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-2.svg?v=1730389822",
+      icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-3_ea3fd6e8-5666-4f32-a364-9d024233513b.svg?v=1733017108",
       order: 3,
     },
     {
@@ -219,7 +219,7 @@ export const Layout = {
           },
         },
       ],
-      icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-2.svg?v=1730389822",
+      icon: "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/layout-4.svg?v=1733017141",
       order: 4,
     },
   ],

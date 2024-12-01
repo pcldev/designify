@@ -1,10 +1,9 @@
-import { BlockStack, Box, Text, useBreakpoints } from "@shopify/polaris";
-import withNavMenu from "~/bootstrap/hoc/withNavMenu";
-import ThemeAppExtensionEnablement from "./components/ThemeAppExtensionEnablement";
-import { authenticate } from "~/shopify.server";
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
-import AppConfig from "~/models/AppConfig.server";
+import { type LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { BlockStack, Box, Text, useBreakpoints } from "@shopify/polaris";
+import AppConfig from "~/models/AppConfig.server";
+import { authenticate } from "~/shopify.server";
+import ThemeAppExtensionEnablement from "./components/ThemeAppExtensionEnablement";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const {
@@ -51,4 +50,4 @@ function Index() {
   );
 }
 
-export default withNavMenu(Index);
+export default Index;

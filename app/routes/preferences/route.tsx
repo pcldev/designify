@@ -1,12 +1,8 @@
-import { Outlet, useLoaderData, useNavigation } from "@remix-run/react";
+import { Outlet, useNavigation } from "@remix-run/react";
 import { Grid, Page } from "@shopify/polaris";
 import withNavMenu from "~/bootstrap/hoc/withNavMenu";
-import NavigationSettings from "./components/NavigationSettings";
 import BlockLoading from "~/components/Loading";
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { authenticate } from "~/shopify.server";
-import AppConfig from "~/models/AppConfig.server";
+import NavigationSettings from "./components/NavigationSettings";
 
 function Index() {
   const navigation = useNavigation();

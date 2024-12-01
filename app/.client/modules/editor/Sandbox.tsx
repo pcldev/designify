@@ -22,7 +22,6 @@ const Sandbox: React.FC<ISandboxProps> = ({ children }) => {
         <html>
           <head>
             ${sandboxHeaders} 
-
           </head>          
         </html>
       `);

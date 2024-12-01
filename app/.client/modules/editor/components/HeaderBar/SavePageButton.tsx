@@ -27,7 +27,7 @@ function SavePageButton() {
     const _id = bodyStore.getState()._id;
 
     let html = ReactDOMServer.renderToStaticMarkup(
-      <RenderElement key={_id} _id={_id} />,
+      <RenderElement key={_id} _id={_id} mode="view" />,
     );
 
     let cssText = "";

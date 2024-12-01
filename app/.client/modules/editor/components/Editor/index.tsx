@@ -1,5 +1,6 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import EditorSandbox from "../../";
+import HeaderFooter from "./HeaderFooter";
 
 function Editor() {
   return (
@@ -11,9 +12,10 @@ function Editor() {
           background: "var(--p-color-bg)",
         }}
       >
+        <HeaderFooter />
         <div
           style={{
-            height: "100%",
+            height: "92%",
             padding: "var(--p-space-200)",
             background: "var(--p-color-bg-fill)",
             borderRadius: "4px",
@@ -23,6 +25,7 @@ function Editor() {
             <EditorSandbox />
           </div>
         </div>
+        <HeaderFooter />
       </div>
     </div>
   );
