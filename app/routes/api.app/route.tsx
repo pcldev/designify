@@ -3,8 +3,9 @@ import { json } from "@remix-run/node";
 import { EActionType } from "~/constants/fetcher-keys";
 import AppConfig from "~/models/AppConfig.server";
 import { authenticate } from "~/shopify.server";
+import { catchAsync } from "~/utils/catchAsync";
 
-export const action = async ({ request }: LoaderFunctionArgs) => {
+export const action = catchAsync(async ({ request }: LoaderFunctionArgs) => {
   try {
     const {
       session: { shop: shopDomain },
@@ -50,4 +51,4 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
   } catch (e: any) {
     return json({ success: false, message: e?.message || e });
   }
-};
+});

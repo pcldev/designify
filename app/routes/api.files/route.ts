@@ -3,8 +3,9 @@ import { ShopifyApiClient } from "~/shopify/graphql/api.server";
 import { FILE_ACTIONS } from "./constants";
 import { authenticate } from "~/shopify.server";
 import { uploadFiles } from "~/shopify/graphql/files/fns.server";
+import { catchAsync } from "~/utils/catchAsync";
 
-export const action = async ({ request }: LoaderFunctionArgs) => {
+export const action = catchAsync(async ({ request }: LoaderFunctionArgs) => {
   try {
     const {
       admin,
@@ -48,4 +49,4 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
   } catch (e: any) {
     return json({ success: false, message: e?.message || e });
   }
-};
+});

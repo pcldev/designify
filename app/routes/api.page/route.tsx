@@ -4,8 +4,9 @@ import { PAGE_ACTIONS } from "./constants";
 import { getPageByID, upsertPage } from "~/models/ShopifyPage.server";
 import { ShopifyApiClient } from "~/shopify/graphql/api.server";
 import ShopifyPageConfig from "~/models/ShopifyPageConfig.server";
+import { catchAsync } from "~/utils/catchAsync";
 
-export const action = async ({ request }: LoaderFunctionArgs) => {
+export const action = catchAsync(async ({ request }: LoaderFunctionArgs) => {
   try {
     const {
       session: { shop: shopDomain },
@@ -105,4 +106,4 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
   } catch (e: any) {
     return json({ success: false, message: e?.message || e });
   }
-};
+});

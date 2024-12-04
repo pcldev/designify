@@ -6,12 +6,11 @@ const errorLogSchema = new mongoose.Schema(
     shopDomain: {
       type: String,
       index: true,
-      unique: true,
-      required: true,
+      required: false,
     },
     name: String,
     description: String,
-    status: String,
+    status: Number,
   },
   {
     strict: false,

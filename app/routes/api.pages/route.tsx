@@ -8,8 +8,9 @@ import { updateElement } from "~/models/Element.server";
 import { uuid } from "~/utils/uuid";
 import { updateStyle } from "~/models/Style.server";
 import { upsertShopifyPageConfig } from "~/models/ShopifyPageConfig.server";
+import { catchAsync } from "~/utils/catchAsync";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = catchAsync(async ({ request }: LoaderFunctionArgs) => {
   // Get templates with population of pageConfig
   const { page, items, total } = await fetchList(request, ShopifyPage, [
     {
@@ -50,9 +51,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   ]);
 
   return json({ page, items, total });
-};
+});
 
-export const action = async ({ request }: LoaderFunctionArgs) => {
+export const action = catchAsync(async ({ request }: LoaderFunctionArgs) => {
   try {
     const {
       session: { shop: shopDomain },
@@ -140,4 +141,4 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
   } catch (e: any) {
     return json({ success: false, message: e?.message || e });
   }
-};
+});
