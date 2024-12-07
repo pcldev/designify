@@ -5,6 +5,8 @@ import BackgroundColorInspector from "~/.client/modules/editor/components/Inspec
 import BorderRadiusInspector from "~/.client/modules/editor/components/Inspector/Styling/Border/BorderRadius";
 import ButtonContentInspector from "./inspector/ButtonContent";
 import ButtonActionInspector from "./inspector/ButtonAction";
+import ButtonFullWidthInspector from "./inspector/ButtonFullWidth";
+import SpacingInspector from "~/.client/modules/editor/components/Inspector/Styling/Spacing";
 
 function Button(props) {
   const { mode } = props;
@@ -29,10 +31,15 @@ function Button(props) {
 
 export default Button;
 
-export const ButtonGeneral = [ButtonContentInspector, ButtonActionInspector];
+export const ButtonGeneral = [
+  ButtonContentInspector,
+  ButtonActionInspector,
+  ButtonFullWidthInspector,
+];
 
 export const ButtonStyling = [
   TypographyStyling,
   BackgroundColorInspector,
   BorderRadiusInspector,
+  SpacingInspector,
 ];

@@ -2,6 +2,7 @@ import React from "react";
 import { useStore } from "~/.client/libs/external-store";
 
 import BackgroundImageInspector from "../../modules/editor/components/Inspector/Styling/Background/";
+import SpacingInspector from "~/.client/modules/editor/components/Inspector/Styling/Spacing";
 
 function Section(props) {
   return (
@@ -29,4 +30,4 @@ function Section(props) {
 
 export default Section;
 
-export const SectionStyling = [BackgroundImageInspector];
+export const SectionStyling = [BackgroundImageInspector, SpacingInspector];

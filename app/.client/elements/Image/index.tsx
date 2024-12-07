@@ -4,6 +4,7 @@ import ImageSource from "./inspector/ImageSource";
 import ImageWidthInspector from "./inspector/ImageWidth";
 import ImageHeightInspector from "./inspector/ImageHeight";
 import BorderRadiusInspector from "~/.client/modules/editor/components/Inspector/Styling/Border/BorderRadius";
+import SpacingInspector from "~/.client/modules/editor/components/Inspector/Styling/Spacing";
 
 export const image_placeholder =
   "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/image-icon.svg?v=1730389821";
@@ -23,4 +24,4 @@ export const ImageGeneral = [
   ImageHeightInspector,
 ];
 
-export const ImageStyling = [BorderRadiusInspector];
+export const ImageStyling = [BorderRadiusInspector, SpacingInspector];

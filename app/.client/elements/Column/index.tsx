@@ -1,4 +1,5 @@
 import BackgroundColorInspector from "~/.client/modules/editor/components/Inspector/Styling/Background/BackgroundColor";
+import SpacingInspector from "~/.client/modules/editor/components/Inspector/Styling/Spacing";
 
 function Column(props) {
   const children = props.children;
@@ -39,4 +40,4 @@ function Column(props) {
 
 export default Column;
 
-export const ColumnStyling = [BackgroundColorInspector];
+export const ColumnStyling = [BackgroundColorInspector, SpacingInspector];

@@ -18,6 +18,7 @@ import { RemixQueryClientProvider } from "./libs/remix-query/context-provider";
 import BlockLoading from "./components/Loading";
 import { useMemo } from "react";
 import { RemixQueryClient } from "./libs/remix-query/query-client";
+import { ClientOnly } from "remix-utils/client-only";
 
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
@@ -72,7 +73,9 @@ export default function App() {
         <AppProvider isEmbeddedApp apiKey={apiKey as string}>
           <div style={{ display: isLoadingPage ? "none" : undefined }}>
             <RemixQueryClientProvider.Provider value={{ remixQueryClient }}>
-              <Outlet />
+              <ClientOnly fallback={<BlockLoading />}>
+                {() => <Outlet />}
+              </ClientOnly>
             </RemixQueryClientProvider.Provider>
             <ScrollRestoration />
             <Scripts />

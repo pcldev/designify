@@ -49,6 +49,9 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  ssr: {
+    noExternal: [/remix-utils/],
+  },
   build: {
     assetsInlineLimit: 0,
     minify: "esbuild",

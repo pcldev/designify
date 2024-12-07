@@ -2,6 +2,7 @@ import { useStore } from "~/.client/libs/external-store";
 import VideoSource from "./inspector/VideoSource";
 import VideoWidthInspector from "./inspector/VideoWidth";
 import VideoHeightInspector from "./inspector/VideoHeight";
+import SpacingInspector from "~/.client/modules/editor/components/Inspector/Styling/Spacing";
 
 const video_placeholder =
   "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/video-icon.svg?v=1730389822";
@@ -45,4 +46,4 @@ export const VideoGeneral = [
   VideoSource,
 ];
 
-export const VideoStyling = [];
+export const VideoStyling = [SpacingInspector];

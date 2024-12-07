@@ -1,5 +1,6 @@
 import BackgroundImageInspector from "~/.client/modules/editor/components/Inspector/Styling/Background";
 import BackgroundColorInspector from "~/.client/modules/editor/components/Inspector/Styling/Background/BackgroundColor";
+import SpacingInspector from "~/.client/modules/editor/components/Inspector/Styling/Spacing";
 
 function renderPlaceholder(store) {
   const { type } = store;
@@ -57,4 +58,8 @@ function Row(props: any) {
 
 export default Row;
 
-export const RowStyling = [BackgroundColorInspector, BackgroundImageInspector];
+export const RowStyling = [
+  BackgroundColorInspector,
+  BackgroundImageInspector,
+  SpacingInspector,
+];
