@@ -7,11 +7,24 @@ import ButtonContentInspector from "./inspector/ButtonContent";
 import ButtonActionInspector from "./inspector/ButtonAction";
 
 function Button(props) {
+  const { mode } = props;
   const state = useStore(props.store, (state) => state);
 
   const { data } = state;
 
-  return <button>{data?.content}</button>;
+  const url = data?.url;
+
+  return (
+    <a
+      {...(mode === "edit"
+        ? {}
+        : {
+            href: url ?? "/",
+          })}
+    >
+      {data?.content}
+    </a>
+  );
 }
 
 export default Button;

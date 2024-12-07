@@ -2,6 +2,7 @@ import React from "react";
 import { useStore } from "~/.client/libs/external-store";
 import ImageSource from "./inspector/ImageSource";
 import ImageWidthInspector from "./inspector/ImageWidth";
+import ImageHeightInspector from "./inspector/ImageHeight";
 import BorderRadiusInspector from "~/.client/modules/editor/components/Inspector/Styling/Border/BorderRadius";
 
 export const image_placeholder =
@@ -16,6 +17,10 @@ function Image(props) {
 
 export default Image;
 
-export const ImageGeneral = [ImageSource, ImageWidthInspector];
+export const ImageGeneral = [
+  ImageSource,
+  ImageWidthInspector,
+  ImageHeightInspector,
+];
 
 export const ImageStyling = [BorderRadiusInspector];

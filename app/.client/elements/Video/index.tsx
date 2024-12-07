@@ -1,5 +1,7 @@
 import { useStore } from "~/.client/libs/external-store";
 import VideoSource from "./inspector/VideoSource";
+import VideoWidthInspector from "./inspector/VideoWidth";
+import VideoHeightInspector from "./inspector/VideoHeight";
 
 const video_placeholder =
   "https://cdn.shopify.com/s/files/1/0718/2798/0510/files/video-icon.svg?v=1730389822";
@@ -18,6 +20,7 @@ function Video(props: { mode: string; data: any; store: any }) {
       <div style={{ width: "100%" }}>
         <iframe
           width={"100%"}
+          height={"100%"}
           src={data.src}
           title="YouTube video player"
           frameBorder="0"
@@ -36,6 +39,10 @@ function Video(props: { mode: string; data: any; store: any }) {
 
 export default Video;
 
-export const VideoGeneral = [VideoSource];
+export const VideoGeneral = [
+  VideoWidthInspector,
+  VideoHeightInspector,
+  VideoSource,
+];
 
 export const VideoStyling = [];
