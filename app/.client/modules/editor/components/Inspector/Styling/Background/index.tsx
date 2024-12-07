@@ -21,7 +21,13 @@ function BackgroundImageInspector(props) {
   const backgroundImage = style?.["background-image"].split('url("')[1] || "";
 
   const onSelectImageHandler = useCallback((media: any) => {
-    setStyle({ "background-image": `url(${media[0].image.originalSrc})` });
+    setStyle({
+      "background-image": `url(${media[0].image.originalSrc})`,
+      // Set hard code for background
+      // Need optimize in the future
+      "background-repeat": "no-repeat",
+      "background-size": "cover",
+    });
   }, []);
 
   return (
