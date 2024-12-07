@@ -1,9 +1,13 @@
 import { useLocation, useNavigate } from "@remix-run/react";
 import { ActionList, Box, Card, Icon, Text } from "@shopify/polaris";
-import { ChartVerticalFilledIcon, ThemeEditIcon } from "@shopify/polaris-icons";
+import {
+  ChartVerticalFilledIcon,
+  ProfileIcon,
+  ThemeEditIcon,
+} from "@shopify/polaris-icons";
 import { useEffect, useMemo } from "react";
 
-const path = "/preferences";
+const path = "/settings";
 
 function NavigationSettings() {
   const navigate = useNavigate();
@@ -12,6 +16,11 @@ function NavigationSettings() {
 
   const navigationItems = useMemo(
     () => [
+      {
+        content: "Account",
+        icon: ProfileIcon,
+        url: `${path}/account`,
+      },
       {
         content: "Analytics",
         icon: ChartVerticalFilledIcon,

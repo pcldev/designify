@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useNavigation,
+  useRouteLoaderData,
 } from "@remix-run/react";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { AppProvider } from "@shopify/shopify-app-remix/react";
@@ -47,6 +48,10 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     shopData,
   });
 };
+
+export function useRootLoaderData() {
+  return useRouteLoaderData<typeof loader>("root");
+}
 
 export default function App() {
   const { apiKey } = useLoaderData<typeof loader>();

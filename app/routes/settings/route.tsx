@@ -2,6 +2,7 @@ import { Outlet, useNavigation } from "@remix-run/react";
 import { Grid, Page } from "@shopify/polaris";
 import withNavMenu from "~/bootstrap/hoc/withNavMenu";
 import BlockLoading from "~/components/Loading";
+import GeneralAccount from "../settings.account/components/GeneralAccount";
 import NavigationSettings from "./components/NavigationSettings";
 
 function Index() {
