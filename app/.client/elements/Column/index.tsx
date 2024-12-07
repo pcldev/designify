@@ -2,6 +2,7 @@ import BackgroundColorInspector from "~/.client/modules/editor/components/Inspec
 
 function Column(props) {
   const children = props.children;
+  const { mode } = props;
 
   const columnSize = props.store.getState().data.size;
 
@@ -19,7 +20,7 @@ function Column(props) {
           alignItems: "center",
         }}
       >
-        Column placeholder
+        {mode === "edit" ? "Column placeholder" : ""}
       </div>
     );
 
