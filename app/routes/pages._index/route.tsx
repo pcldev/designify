@@ -13,21 +13,27 @@ import {
   useBreakpoints,
 } from "@shopify/polaris";
 import _ from "lodash";
-import { useCallback, useMemo, useState } from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 import { getDistanceToNow } from "~/bootstrap/fns/time";
 import withNavMenu from "~/bootstrap/hoc/withNavMenu";
 import type { ListTableComponent } from "~/components/Listable";
 import ListTable from "~/components/Listable";
-import { uuid } from "~/utils/uuid";
-import EmptyPage from "./components/EmptyPage";
-import { authenticatedFetch } from "~/shopify/fns.client";
 import { EActionType } from "~/constants/fetcher-keys";
+import { authenticatedFetch } from "~/shopify/fns.client";
 import { showToast } from "~/utils/showToast";
+import { uuid } from "~/utils/uuid";
+import CreatePageDrawer from "./components/CreatePageDrawer";
+import EmptyPage from "./components/EmptyPage";
 
 // Define a variable to hold a reference to the list table instance
 let tableRef: ListTableComponent<any, any>;
 
 export default withNavMenu(function Index(props: any) {
+  const [creatingPageFromTemplate, setCreatingPageFromTemplate] =
+    useState(false);
+
+  const { mdDown } = useBreakpoints();
+
   const [refresh, setRefresh] = useState<any>();
   const [modalDeleteAction, setModalDeleteAction] = useState(false);
 
@@ -235,37 +241,55 @@ export default withNavMenu(function Index(props: any) {
 
   return (
     <Page>
-      <ui-title-bar title={"Pages"}>
-        <button variant="primary" onClick={() => navigate(`/pages/${uuid()}`)}>
-          Create page
-        </button>
-      </ui-title-bar>
+      {!creatingPageFromTemplate ? (
+        <Fragment>
+          <ui-title-bar title={"Pages"}>
+            <button
+              variant="primary"
+              onClick={() => navigate(`/pages/${uuid()}`)}
+            >
+              Create page
+            </button>
+            <button
+              onClick={() => {
+                setCreatingPageFromTemplate(true);
+              }}
+            >
+              Create from template
+            </button>
+          </ui-title-bar>
 
-      <BlockStack gap={"400"}>
-        <Text as="p" variant="bodyMd">
-          <ListTable
-            queryKey="title"
-            refresh={refresh}
-            filters={filters}
-            headings={headings}
-            emptyState={<EmptyPage />}
-            sort={["updatedAt desc"]}
-            sortOptions={sortOptions}
-            dataSource="/api/pages"
-            resourceName={resourceName}
-            renderRowMarkup={renderRowMarkup}
-            condensed={useBreakpoints().smDown}
-            promotedBulkActions={promotedBulkActions}
+          <BlockStack gap={"400"}>
+            <Text as="p" variant="bodyMd">
+              <ListTable
+                queryKey="title"
+                refresh={refresh}
+                filters={filters}
+                headings={headings}
+                emptyState={<EmptyPage />}
+                sort={["updatedAt desc"]}
+                sortOptions={sortOptions}
+                dataSource="/api/pages"
+                resourceName={resourceName}
+                renderRowMarkup={renderRowMarkup}
+                condensed={mdDown}
+                promotedBulkActions={promotedBulkActions}
+              />
+            </Text>
+          </BlockStack>
+
+          <ModalDeletePages
+            open={modalDeleteAction}
+            onClose={toggleModalDelete}
+            toggleModalDelete={toggleModalDelete}
+            onDelete={onDeletePages}
           />
-        </Text>
-      </BlockStack>
-
-      <ModalDeletePages
-        open={modalDeleteAction}
-        onClose={toggleModalDelete}
-        toggleModalDelete={toggleModalDelete}
-        onDelete={onDeletePages}
-      />
+        </Fragment>
+      ) : (
+        <CreatePageDrawer
+          setCreatingPageFromTemplate={setCreatingPageFromTemplate}
+        />
+      )}
     </Page>
   );
 });

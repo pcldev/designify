@@ -7,12 +7,15 @@ import { MODAL_ID } from "~/constants/modals";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { id } = params;
+  const template = new URL(request.url).searchParams.get("template");
 
-  return json({ id });
+  return json({ id, template });
 }
 
 function Index() {
-  const { id } = useLoaderData<typeof loader>();
+  const { id, template } = useLoaderData<typeof loader>();
+
+  const pageTemplate = template ? `?template=${template}` : "";
 
   const navigate = useNavigate();
 
@@ -51,7 +54,7 @@ function Index() {
     <ui-modal
       id={MODAL_ID.PAGE_EDITOR_MODAL}
       variant="max"
-      src={`/pages/modal/${id}`}
+      src={`/pages/modal/${id}${pageTemplate}`}
     >
       <ui-title-bar title="Designify">
         <button

@@ -1,10 +1,11 @@
-import { uuid } from "../../utils/uuid";
-import { DEFAULT_PAGE_STATE, pageStore } from "../../stores/page-store";
 import {
   clearAllElementStore,
   initElementStore,
 } from "~/.client/stores/element-store";
-import { image_placeholder } from "~/.client/elements/Image";
+import { replaceIdsOfItemsAndStyles } from "~/.client/utils/replace-ids-of-catalog-element";
+import { PAGE_TEMPLATES } from "~/components/page-templates";
+import { DEFAULT_PAGE_STATE, pageStore } from "../../stores/page-store";
+import { uuid } from "../../utils/uuid";
 import { getElementSelector } from "./configs";
 
 export const findRootTypeFromItems = (items: any[]) => {
@@ -109,7 +110,7 @@ const DEFAULT_PAGE_ELEMENTS = [{}];
 //   },
 // ];
 
-export function initPageStore(page: any) {
+export function initPageStore(page: any, pageTemplateId: string | null) {
   // Init page store when starting
   let items = generateDefaultItemData("regular");
 
@@ -128,39 +129,27 @@ export function initPageStore(page: any) {
 
     const styles = page.styles;
 
-    const iframeDocument = document.querySelector("iframe")?.contentDocument;
+    initStyleData(styles);
+  } else if (pageTemplateId) {
+    const template = PAGE_TEMPLATES.find(
+      (template) => template.id === pageTemplateId,
+    );
 
-    if (!iframeDocument) return;
+    const templateItems = template?.items || [];
+    const templateStyles = template?.styles || [];
 
-    // Insert styles
-    let styleElement = iframeDocument?.getElementById(
-      "dynamic-styles",
-    ) as HTMLStyleElement;
+    const { items: _items, styles } = replaceIdsOfItemsAndStyles(
+      templateItems,
+      templateStyles,
+    );
 
-    if (!styleElement) {
-      styleElement = iframeDocument.createElement("style");
-      styleElement.id = "dynamic-styles";
-      iframeDocument.head.appendChild(styleElement);
-    }
+    // // Grant items to new items
+    items = _items;
 
-    // Ensure the style element exists
-    if (styleElement && styleElement.sheet) {
-      // Split the CSS into individual rules
-
-      styles.map((style) => {
-        try {
-          styleElement.sheet?.insertRule(
-            `.${getElementSelector(style._id)} ${style.styles || "{}"}`.trim(),
-            styleElement.sheet.cssRules.length,
-          );
-        } catch (e) {
-          console.error(e);
-        }
-      });
-
-      console.log("CSS rules added successfully.");
-    } else {
-      console.log("Style element or sheet not found.");
+    try {
+      initStyleData(styles);
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -212,3 +201,40 @@ const generateDefaultItemData = (type: PageType) => {
     },
   ];
 };
+
+function initStyleData(styles: any[]) {
+  const iframeDocument = document.querySelector("iframe")?.contentDocument;
+
+  if (!iframeDocument) return;
+
+  // Insert styles
+  let styleElement = iframeDocument?.getElementById(
+    "dynamic-styles",
+  ) as HTMLStyleElement;
+
+  if (!styleElement) {
+    styleElement = iframeDocument.createElement("style");
+    styleElement.id = "dynamic-styles";
+    iframeDocument.head.appendChild(styleElement);
+  }
+
+  // Ensure the style element exists
+  if (styleElement && styleElement.sheet) {
+    // Split the CSS into individual rules
+
+    styles.map((style) => {
+      try {
+        styleElement.sheet?.insertRule(
+          `.${getElementSelector(style._id)} ${style.styles || "{}"}`.trim(),
+          styleElement.sheet.cssRules.length,
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    console.log("CSS rules added successfully.");
+  } else {
+    console.log("Style element or sheet not found.");
+  }
+}

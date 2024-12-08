@@ -3,8 +3,7 @@ import { getRootElementStore } from "~/.client/stores/element-store";
 import Sandbox from "./Sandbox";
 import { clearPageStore, initPageStore } from "./page-store";
 import { RenderElement } from "./render-root";
-
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
 import { useStore } from "~/.client/libs/external-store";
 import { pageStore } from "~/.client/stores/page-store";
 import { loader } from "~/routes/pages.modal.$id/route";
@@ -15,9 +14,13 @@ import ShortcutEditor from "./ShortcutEditor";
 function EditorSandbox() {
   const { page } = useLoaderData<typeof loader>();
 
+  const [searchParams] = useSearchParams();
+
   useEffect(() => {
+    const pageTemplateId = searchParams.get("template");
+
     // Init page store
-    initPageStore(page);
+    initPageStore(page, pageTemplateId);
 
     return () => {
       // Clear page store when unmounting
